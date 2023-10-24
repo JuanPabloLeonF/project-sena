@@ -2,9 +2,13 @@ package com.karmelshoes.persistency.entity;
 
 import jakarta.persistence.*;
 
-@MappedSuperclass
-public class Product {
-
+@Entity
+@Table(name = "product")
+public class ProductEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
@@ -16,7 +20,7 @@ public class Product {
     @Column(name = "product_type")
     private String productType;
 
-    public Product() {
+    public ProductEntity() {
     }
 
     public String getProductType() {
@@ -57,6 +61,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

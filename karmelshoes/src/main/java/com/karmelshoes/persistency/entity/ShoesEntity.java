@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "shoes")
-public class ShoesEntity extends Product{
+public class ShoesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,19 @@ public class ShoesEntity extends Product{
     @Column(name = "color")
     private String color;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_entity_id")
+    private ProductEntity productEntity;
+
     public ShoesEntity() {
+    }
+
+    public ProductEntity getProductEntity() {
+        return productEntity;
+    }
+
+    public void setProductEntity(ProductEntity productEntity) {
+        this.productEntity = productEntity;
     }
 
     public Long getIdShoes() {
