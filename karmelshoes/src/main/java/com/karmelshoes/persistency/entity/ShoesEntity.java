@@ -23,15 +23,15 @@ public class ShoesEntity extends Product{
     @Column(name = "color")
     private String color;
 
+    public ShoesEntity() {
+    }
+
     public Long getIdShoes() {
         return idShoes;
     }
 
     public void setIdShoes(Long idShoes) {
         this.idShoes = idShoes;
-    }
-
-    public ShoesEntity() {
     }
 
     public String getColor() {

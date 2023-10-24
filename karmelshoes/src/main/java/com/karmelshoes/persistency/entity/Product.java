@@ -2,15 +2,8 @@ package com.karmelshoes.persistency.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "product")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -22,14 +15,6 @@ public class Product {
     private Integer quantity;
     @Column(name = "product_type")
     private String productType;
-
-    public Long getIdShoes() {
-        return id;
-    }
-
-    public void setIdShoes(Long idShoes) {
-        this.id = idShoes;
-    }
 
     public Product() {
     }
