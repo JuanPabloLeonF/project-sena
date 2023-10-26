@@ -20,7 +20,7 @@ public class ProductEntity {
     @Column(name = "product_type")
     private String productType;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "shopping_cart_id")
     private ShoppingCartEntity shoppingCartEntity;
 
@@ -34,9 +34,6 @@ public class ProductEntity {
 
     public void setShoesEntity(ShoesEntity shoesEntity) {
         this.shoesEntity = shoesEntity;
-    }
-
-    public ProductEntity() {
     }
 
     public ShoppingCartEntity getShoppingCart() {

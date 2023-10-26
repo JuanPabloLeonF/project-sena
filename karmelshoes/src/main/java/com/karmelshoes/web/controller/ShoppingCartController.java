@@ -21,13 +21,13 @@ public class ShoppingCartController {
         return iShoppingCartService.getAll();
     }
 
-    @PostMapping("/create")
-    public ShoppingCartEntity create(ShoppingCartEntity shoppingCartEntity) {
-        return iShoppingCartService.create(shoppingCartEntity);
+    @PostMapping("/create/{id}")
+    public ShoppingCartEntity create(@PathVariable("id") Long id) {
+        return iShoppingCartService.create(id);
     }
 
     @PostMapping("/addProduct/{shoppingCartId}/{productId}")
-    public void addProductToShoppingCart(@PathVariable("shoppingCartId") Long shoppingCartId, @PathVariable Long productId) {
+    public void addProductToShoppingCart(@PathVariable("shoppingCartId") Long shoppingCartId, @PathVariable("productId") Long productId) {
         iShoppingCartService.addProductToCart(shoppingCartId, productId);
     }
 }

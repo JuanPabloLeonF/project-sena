@@ -1,5 +1,6 @@
 package com.karmelshoes.persistency.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,18 +14,19 @@ public class ShoppingCartEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "shoppingCartEntity", orphanRemoval = false)
+    @OneToMany(mappedBy = "shoppingCartEntity", orphanRemoval = false, fetch = FetchType.LAZY)
     private List<ProductEntity> productEntities = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "client_id")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_entity_id")
+    @JsonIgnore
     private ClientEntity clientEntity;
 
-    public ClientEntity getClient() {
+    public ClientEntity getClientEntity() {
         return clientEntity;
     }
 
-    public void setClient(ClientEntity clientEntity) {
+    public void setClientEntity(ClientEntity clientEntity) {
         this.clientEntity = clientEntity;
     }
 

@@ -8,5 +8,5 @@ import java.util.List;
 public interface IShoppingCartService {
     List<ShoppingCartEntity> getAll();
     void addProductToCart(Long shoppingCartId, Long productId);
-    ShoppingCartEntity create(ShoppingCartEntity shoppingCartEntity);
+    ShoppingCartEntity create(Long id);
 }

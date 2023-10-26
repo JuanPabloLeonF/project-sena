@@ -23,6 +23,26 @@ public class ClientEntity {
     @Column(name = "address", length = 200)
     private String address;
 
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_entity_id")
+    private ShoppingCartEntity shoppingCartEntity;
+
+    public ShoppingCartEntity getShoppingCartEntity() {
+        return shoppingCartEntity;
+    }
+
+    public void setShoppingCartEntity(ShoppingCartEntity shoppingCartEntity) {
+        this.shoppingCartEntity = shoppingCartEntity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getAddress() {
         return address;
     }
