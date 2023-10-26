@@ -20,7 +20,19 @@ public class ProductEntity {
     @Column(name = "product_type")
     private String productType;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
+
     public ProductEntity() {
+    }
+    
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public String getProductType() {
