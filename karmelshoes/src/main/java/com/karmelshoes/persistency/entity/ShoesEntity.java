@@ -23,19 +23,7 @@ public class ShoesEntity {
     @Column(name = "color")
     private String color;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_entity_id")
-    private ProductEntity productEntity;
-
     public ShoesEntity() {
-    }
-
-    public ProductEntity getProductEntity() {
-        return productEntity;
-    }
-
-    public void setProductEntity(ProductEntity productEntity) {
-        this.productEntity = productEntity;
     }
 
     public Long getIdShoes() {

@@ -9,5 +9,4 @@ import java.util.List;
 public interface IShoesService {
 
     List<ShoesEntity> getAll();
-    ShoesEntity create(ShoesEntity shoes);
 }

@@ -20,9 +20,4 @@ public class ShoesServiceImpl implements IShoesService {
     public List<ShoesEntity> getAll() {
         return iShoesRepository.findAll();
     }
-
-    @Override
-    public ShoesEntity create(ShoesEntity shoes) {
-        return iShoesRepository.save(shoes);
-    }
 }

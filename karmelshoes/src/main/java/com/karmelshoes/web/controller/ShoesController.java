@@ -20,9 +20,4 @@ public class ShoesController {
     public List<ShoesEntity> getAll() {
         return iShoesService.getAll();
     }
-
-    @PostMapping("/create")
-    public ShoesEntity create(@RequestBody ShoesEntity shoes) {
-        return iShoesService.create(shoes);
-    }
 }

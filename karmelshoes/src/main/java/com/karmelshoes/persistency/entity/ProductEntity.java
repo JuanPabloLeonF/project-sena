@@ -2,8 +2,6 @@ package com.karmelshoes.persistency.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "product")
 public class ProductEntity {
@@ -26,13 +24,17 @@ public class ProductEntity {
     @JoinColumn(name = "shopping_cart_id")
     private ShoppingCartEntity shoppingCartEntity;
 
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
-    private List<ShoesEntity> shoes;
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shoes_entity_id")
+    private ShoesEntity shoesEntity;
 
-    public List<ShoesEntity> getShoes() {
-        return shoes;
+    public ShoesEntity getShoesEntity() {
+        return shoesEntity;
     }
 
+    public void setShoesEntity(ShoesEntity shoesEntity) {
+        this.shoesEntity = shoesEntity;
+    }
 
     public ProductEntity() {
     }

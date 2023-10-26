@@ -18,14 +18,14 @@ public class ShoppingCartEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id")
-    private Client client;
+    private ClientEntity clientEntity;
 
-    public Client getClient() {
-        return client;
+    public ClientEntity getClient() {
+        return clientEntity;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient(ClientEntity clientEntity) {
+        this.clientEntity = clientEntity;
     }
 
     public List<ProductEntity> getProductEntities() {
