@@ -14,22 +14,23 @@ public class ShoppingCartEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
-
     @ElementCollection
     @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
     @MapKeyJoinColumn(name = "product_id")
     @Column(name = "quantity")
     private Map<ProductEntity, Integer> cartItems = new HashMap<>();
 
+    @Column(name = "total_price")
+    private Double totalPrice;
+
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_entity_id")
     private ClientEntity clientEntity;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "shopping_cart_entity_id")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "shopping_cart_productEntities",
+            joinColumns = @JoinColumn(name = "shoppingCartEntity_id"),
+            inverseJoinColumns = @JoinColumn(name = "productEntities_id"))
     private List<ProductEntity> productEntities = new ArrayList<>();
 
     public List<ProductEntity> getProductEntities() {

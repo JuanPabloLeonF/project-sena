@@ -15,8 +15,8 @@ public class ProductEntity {
     private String description;
     @Column(name = "price")
     private Double price;
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "stock")
+    private Integer stock;
     @Column(name = "product_type")
     private String productType;
     @Column(name = "mark")
@@ -76,12 +76,12 @@ public class ProductEntity {
         this.productType = productType;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public String getDescription() {
