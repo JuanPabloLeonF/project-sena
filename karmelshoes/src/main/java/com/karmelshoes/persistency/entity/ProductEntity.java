@@ -28,6 +28,14 @@ public class ProductEntity {
     @Column(name = "color")
     private String color;
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public String getColor() {
         return color;
     }
@@ -76,14 +84,6 @@ public class ProductEntity {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -108,4 +108,8 @@ public class ProductEntity {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

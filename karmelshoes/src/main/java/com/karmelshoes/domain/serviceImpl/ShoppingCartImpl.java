@@ -9,8 +9,8 @@ import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -39,8 +39,16 @@ public class ShoppingCartImpl implements IShoppingCartService {
         if (shoppingCartOptional.isPresent() && productOptional.isPresent()) {
             ShoppingCartEntity shoppingCart = shoppingCartOptional.get();
             ProductEntity product = productOptional.get();
+
             List<ProductEntity> products = shoppingCart.getProductEntities();
             products.add(product);
+
+            Map<ProductEntity, Integer> cartItems = calculateQuantityCartItems(shoppingCart.getCartItems(), product);
+
+            Double totalPrice = calculateTotalPriceToShoppingCart(cartItems);
+
+            shoppingCart.setCartItems(cartItems);
+            shoppingCart.setTotalPrice(totalPrice);
             iShoppingCartRepository.save(shoppingCart);
         }
     }
@@ -53,9 +61,26 @@ public class ShoppingCartImpl implements IShoppingCartService {
         if (clientOptional.isPresent()) {
             ClientEntity client = clientOptional.orElseThrow();
             shoppingCartEntity.setClientEntity(client);
+            shoppingCartEntity.setTotalPrice(00.0);
             return iShoppingCartRepository.save(shoppingCartEntity);
         }
 
         return null;
+    }
+
+    private static Double calculateTotalPriceToShoppingCart(Map<ProductEntity, Integer> cartItems) {
+        Double totalPrice = 0.0;
+        for (Map.Entry<ProductEntity, Integer> entry : cartItems.entrySet()) {
+            ProductEntity product = entry.getKey();
+            Integer quantity = entry.getValue();
+            totalPrice += product.getPrice() * quantity;
+        }
+        return totalPrice;
+    }
+
+    private static Map<ProductEntity, Integer> calculateQuantityCartItems(Map<ProductEntity, Integer> productEntityIntegerMap, ProductEntity product) {
+        Integer quantity = productEntityIntegerMap.getOrDefault(product, 0);
+        productEntityIntegerMap.put(product, quantity + 1);
+        return productEntityIntegerMap;
     }
 }

@@ -21,8 +21,23 @@ public class ClientController {
         return iClientService.getAll();
     }
 
+    @GetMapping("/getById/{id}")
+    public ClientEntity getById(@PathVariable("id") Long id) {
+        return iClientService.getById(id);
+    }
+
     @PostMapping("/create")
     public ClientEntity create(@RequestBody ClientEntity client){
         return iClientService.create(client);
+    }
+
+    @PutMapping("/updateAll/{id}")
+    public ClientEntity updateAll(@PathVariable("id") Long id, @RequestBody ClientEntity client) {
+        return iClientService.updateAllField(id, client);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        iClientService.deleteById(id);
     }
 }

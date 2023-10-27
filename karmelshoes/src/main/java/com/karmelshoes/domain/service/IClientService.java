@@ -8,5 +8,8 @@ import java.util.List;
 @Service
 public interface IClientService {
     List<ClientEntity> getAll();
+    ClientEntity getById(Long id);
     ClientEntity create(ClientEntity clientEntity);
+    ClientEntity updateAllField(Long id, ClientEntity client);
+    void deleteById(Long id);
 }
