@@ -19,29 +19,45 @@ public class ProductEntity {
     private Integer quantity;
     @Column(name = "product_type")
     private String productType;
+    @Column(name = "mark")
+    private String mark;
+    @Column(name = "model")
+    private String model;
+    @Column(name = "size")
+    private Long size;
+    @Column(name = "color")
+    private String color;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_cart_id")
-    private ShoppingCartEntity shoppingCartEntity;
-
-    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "shoes_entity_id")
-    private ShoesEntity shoesEntity;
-
-    public ShoesEntity getShoesEntity() {
-        return shoesEntity;
+    public String getColor() {
+        return color;
     }
 
-    public void setShoesEntity(ShoesEntity shoesEntity) {
-        this.shoesEntity = shoesEntity;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public ShoppingCartEntity getShoppingCart() {
-        return shoppingCartEntity;
+    public Long getSize() {
+        return size;
     }
 
-    public void setShoppingCart(ShoppingCartEntity shoppingCartEntity) {
-        this.shoppingCartEntity = shoppingCartEntity;
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
     }
 
     public String getProductType() {

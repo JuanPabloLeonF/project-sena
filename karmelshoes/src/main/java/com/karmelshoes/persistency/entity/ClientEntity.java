@@ -2,9 +2,6 @@ package com.karmelshoes.persistency.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "client")
 public class ClientEntity {
@@ -25,17 +22,6 @@ public class ClientEntity {
 
     @Column(name = "address", length = 200)
     private String address;
-
-    @OneToMany(mappedBy = "clientEntity", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<ShoppingCartEntity> shoppingCartEntities = new ArrayList<>();
-
-    public List<ShoppingCartEntity> getShoppingCartEntities() {
-        return shoppingCartEntities;
-    }
-
-    public void setShoppingCartEntities(List<ShoppingCartEntity> shoppingCartEntities) {
-        this.shoppingCartEntities = shoppingCartEntities;
-    }
 
     public String getName() {
         return name;
