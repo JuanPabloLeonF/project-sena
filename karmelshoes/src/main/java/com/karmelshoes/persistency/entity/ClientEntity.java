@@ -23,6 +23,17 @@ public class ClientEntity {
     @Column(name = "address", length = 200)
     private String address;
 
+    @Column(name = "status", nullable = false)
+    private Boolean status;
+
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }

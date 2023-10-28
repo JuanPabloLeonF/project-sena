@@ -33,6 +33,7 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public ClientEntity create(ClientEntity clientEntity) {
+        clientEntity.setStatus(true);
         return iClientRepository.save(clientEntity);
     }
 
@@ -54,7 +55,9 @@ public class ClientServiceImpl implements IClientService {
     public void deleteById(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         if (clientOptional.isPresent()) {
-            iClientRepository.deleteById(clientOptional.get().getId());
+            ClientEntity client = clientOptional.get();
+            client.setStatus(false);
+            iClientRepository.save(client);
         }
     }
 }

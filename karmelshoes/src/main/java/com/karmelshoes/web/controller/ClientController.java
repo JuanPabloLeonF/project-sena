@@ -36,7 +36,7 @@ public class ClientController {
         return iClientService.updateAllField(id, client);
     }
 
-    @DeleteMapping("/deleteById/{id}")
+    @PatchMapping("/deleteById/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         iClientService.deleteById(id);
     }

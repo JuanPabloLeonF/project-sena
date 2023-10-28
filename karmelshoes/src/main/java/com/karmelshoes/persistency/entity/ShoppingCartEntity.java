@@ -24,7 +24,7 @@ public class ShoppingCartEntity {
     private Double totalPrice;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_entity_id")
+    @JoinColumn(name = "client_entity_id", nullable = false)
     private ClientEntity clientEntity;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
