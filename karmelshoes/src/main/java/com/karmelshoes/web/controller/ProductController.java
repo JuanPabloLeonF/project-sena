@@ -25,4 +25,14 @@ public class ProductController {
     public ProductEntity create(@RequestBody ProductEntity product) {
         return iProductService.create(product);
     }
+
+    @PutMapping("/update/{id}")
+    public ProductEntity updateAll(@PathVariable("id") Long id, @RequestBody ProductEntity product) {
+        return iProductService.updateAllFields(id, product);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        iProductService.deleteById(id);
+    }
 }

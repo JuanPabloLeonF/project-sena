@@ -9,4 +9,6 @@ import java.util.List;
 public interface IProductService {
     List<ProductEntity> getAll();
     ProductEntity create(ProductEntity product);
+    ProductEntity updateAllFields(Long id, ProductEntity product);
+    void deleteById(Long id);
 }
