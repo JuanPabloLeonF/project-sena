@@ -21,6 +21,11 @@ public class ShoppingCartController {
         return iShoppingCartService.getAll();
     }
 
+    @GetMapping("/getByIdClient/{id}")
+    public List<ShoppingCartEntity> getByIdClientOneShoppingCart(@PathVariable("id") Long id) {
+        return iShoppingCartService.getByIdClientOneShoppingCart(id);
+    }
+
     @PostMapping("/create/{id}")
     public ShoppingCartEntity create(@PathVariable("id") Long id) {
         return iShoppingCartService.create(id);

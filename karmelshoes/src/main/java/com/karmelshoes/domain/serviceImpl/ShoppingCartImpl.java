@@ -32,6 +32,11 @@ public class ShoppingCartImpl implements IShoppingCartService {
     }
 
     @Override
+    public List<ShoppingCartEntity> getByIdClientOneShoppingCart(Long id) {
+        return iShoppingCartRepository.findByClientEntity_Id(id);
+    }
+
+    @Override
     public ShoppingCartEntity create(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
