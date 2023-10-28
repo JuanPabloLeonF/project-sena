@@ -30,4 +30,9 @@ public class ShoppingCartController {
     public void addProductToShoppingCart(@PathVariable("shoppingCartId") Long shoppingCartId, @PathVariable("productId") Long productId) {
         iShoppingCartService.addProductToCart(shoppingCartId, productId);
     }
+
+    @PutMapping("/removeProduct/{shoppingCartId}/{productId}")
+    public void removeProductFromCart(@PathVariable("shoppingCartId") Long shoppingCartId, @PathVariable("productId") Long productId) {
+        iShoppingCartService.removeProductFromCart(shoppingCartId, productId);
+    }
 }

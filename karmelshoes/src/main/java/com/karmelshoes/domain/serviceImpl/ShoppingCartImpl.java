@@ -32,29 +32,6 @@ public class ShoppingCartImpl implements IShoppingCartService {
     }
 
     @Override
-    public void addProductToCart(Long shoppingCartId, Long productId) {
-        Optional<ShoppingCartEntity> shoppingCartOptional = iShoppingCartRepository.findById(shoppingCartId);
-        Optional<ProductEntity> productOptional = iProductEntityRepository.findById(productId);
-
-        if (shoppingCartOptional.isPresent() && productOptional.isPresent()) {
-            ShoppingCartEntity shoppingCart = shoppingCartOptional.get();
-            ProductEntity product = productOptional.get();
-
-            List<ProductEntity> products = shoppingCart.getProductEntities();
-            products.add(product);
-            Map<ProductEntity, Integer> cartItems = calculateTotalQuantityProductToShoppingCart(shoppingCart.getCartItems(), product);
-
-            Double totalPrice = calculateTotalPriceToShoppingCart(cartItems);
-
-            shoppingCart.setCartItems(cartItems);
-            shoppingCart.setTotalPrice(totalPrice);
-            shoppingCart.setProductEntities(products);
-            iShoppingCartRepository.save(shoppingCart);
-        }
-    }
-
-
-    @Override
     public ShoppingCartEntity create(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
@@ -68,9 +45,61 @@ public class ShoppingCartImpl implements IShoppingCartService {
         return null;
     }
 
-    private static Map<ProductEntity, Integer>  calculateTotalQuantityProductToShoppingCart(Map<ProductEntity, Integer> cartItems, ProductEntity product) {
+    @Override
+    public void addProductToCart(Long shoppingCartId, Long productId) {
+        Optional<ShoppingCartEntity> shoppingCartOptional = iShoppingCartRepository.findById(shoppingCartId);
+        Optional<ProductEntity> productOptional = iProductEntityRepository.findById(productId);
+
+        if (shoppingCartOptional.isPresent() && productOptional.isPresent()) {
+            ShoppingCartEntity shoppingCart = shoppingCartOptional.get();
+            ProductEntity product = productOptional.get();
+
+            List<ProductEntity> products = shoppingCart.getProductEntities();
+            products.add(product);
+
+            Map<ProductEntity, Integer> cartItems = calculateTotalQuantityProductToShoppingCart(shoppingCart.getCartItems(), product, 1);
+
+            Double totalPrice = calculateTotalPriceToShoppingCart(cartItems);
+
+            shoppingCart.setCartItems(cartItems);
+            shoppingCart.setTotalPrice(totalPrice);
+            shoppingCart.setProductEntities(products);
+            iShoppingCartRepository.save(shoppingCart);
+        }
+    }
+
+    @Override
+    public void removeProductFromCart(Long shoppingCartId, Long productId) {
+        Optional<ShoppingCartEntity> shoppingCartOptional = iShoppingCartRepository.findById(shoppingCartId);
+        Optional<ProductEntity> productOptional = iProductEntityRepository.findById(productId);
+
+        if (shoppingCartOptional.isPresent() && productOptional.isPresent()) {
+            ShoppingCartEntity shoppingCart = shoppingCartOptional.get();
+            ProductEntity product = productOptional.get();
+
+            List<ProductEntity> products = shoppingCart.getProductEntities();
+            Map<ProductEntity, Integer> cartItems = shoppingCart.getCartItems();
+
+            if (products.remove(product)) {
+                cartItems = calculateTotalQuantityProductToShoppingCart(cartItems, product, -1);
+                Double totalPrice = calculateTotalPriceToShoppingCart(cartItems);
+
+                shoppingCart.setCartItems(cartItems);
+                shoppingCart.setTotalPrice(totalPrice);
+                shoppingCart.setProductEntities(products);
+                iShoppingCartRepository.save(shoppingCart);
+            }
+        }
+    }
+
+    private static Map<ProductEntity, Integer> calculateTotalQuantityProductToShoppingCart(Map<ProductEntity, Integer> cartItems, ProductEntity product, Integer change) {
         Integer quantity = cartItems.getOrDefault(product, 0);
-        cartItems.put(product, quantity + 1);
+        quantity += change;
+        if (quantity <= 0) {
+            cartItems.remove(product);
+        } else {
+            cartItems.put(product, quantity);
+        }
         return cartItems;
     }
 
