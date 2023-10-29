@@ -39,8 +39,9 @@ public class ProductServiceImpl implements IProductService {
             productEntity.setColor(product.getColor());
             productEntity.setMark(product.getMark());
             productEntity.setModel(product.getModel());
-            productEntity.setSize(product.getSize());
+            productEntity.setSizes(product.getSizes());
             productEntity.setStock(product.getStock());
+            productEntity.setImg(product.getImg());
             return iProductEntityRepository.save(productEntity);
         }
         return null;
@@ -52,5 +53,15 @@ public class ProductServiceImpl implements IProductService {
         if (productEntityOptional.isPresent()) {
             iProductEntityRepository.deleteById(productEntityOptional.get().getId());
         }
+    }
+
+    @Override
+    public ProductEntity updateFieldImg(Long id, String img) {
+        Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
+        if (productEntityOptional.isPresent()) {
+             productEntityOptional.get().setImg(img);
+             return iProductEntityRepository.save(productEntityOptional.get());
+        }
+        return null;
     }
 }

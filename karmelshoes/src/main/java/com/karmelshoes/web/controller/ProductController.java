@@ -35,4 +35,9 @@ public class ProductController {
     public void deleteById(@PathVariable("id") Long id) {
         iProductService.deleteById(id);
     }
+
+    @PatchMapping("/updateImg/{id}")
+    public ProductEntity updateFieldImg(@PathVariable("id") Long id,  @RequestBody String img) {
+        return iProductService.updateFieldImg(id, img);
+    }
 }

@@ -11,4 +11,5 @@ public interface IProductService {
     ProductEntity create(ProductEntity product);
     ProductEntity updateAllFields(Long id, ProductEntity product);
     void deleteById(Long id);
+    ProductEntity updateFieldImg(Long id, String img);
 }
