@@ -23,6 +23,15 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public ProductEntity getById(Long id) {
+        Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
+        if (productEntityOptional.isPresent()) {
+            return productEntityOptional.get();
+        }
+        return null;
+    }
+
+    @Override
     public ProductEntity create(ProductEntity product) {
         return iProductEntityRepository.save(product);
     }
@@ -42,6 +51,7 @@ public class ProductServiceImpl implements IProductService {
             productEntity.setSizes(product.getSizes());
             productEntity.setStock(product.getStock());
             productEntity.setImg(product.getImg());
+            productEntity.setGender(product.getGender());
             return iProductEntityRepository.save(productEntity);
         }
         return null;
@@ -61,6 +71,16 @@ public class ProductServiceImpl implements IProductService {
         if (productEntityOptional.isPresent()) {
              productEntityOptional.get().setImg(img);
              return iProductEntityRepository.save(productEntityOptional.get());
+        }
+        return null;
+    }
+
+    @Override
+    public ProductEntity updateFieldSizes(Long id, List<Integer> sizes) {
+        Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
+        if (productEntityOptional.isPresent()) {
+            productEntityOptional.get().setSizes(sizes);
+            return iProductEntityRepository.save(productEntityOptional.get());
         }
         return null;
     }

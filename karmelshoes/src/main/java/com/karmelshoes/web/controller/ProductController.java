@@ -21,6 +21,11 @@ public class ProductController {
         return iProductService.getAll();
     }
 
+    @GetMapping("/getById/{id}")
+    public ProductEntity getById(@PathVariable("id") Long id) {
+        return iProductService.getById(id);
+    }
+
     @PostMapping("/create")
     public ProductEntity create(@RequestBody ProductEntity product) {
         return iProductService.create(product);
@@ -39,5 +44,10 @@ public class ProductController {
     @PatchMapping("/updateImg/{id}")
     public ProductEntity updateFieldImg(@PathVariable("id") Long id,  @RequestBody String img) {
         return iProductService.updateFieldImg(id, img);
+    }
+
+    @PatchMapping("/updateSize/{id}")
+    public ProductEntity updateFieldSizes(@PathVariable("id") Long id,  @RequestBody List<Integer> sizes) {
+        return iProductService.updateFieldSizes(id, sizes);
     }
 }

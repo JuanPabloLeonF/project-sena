@@ -28,7 +28,7 @@ public class ProductEntity {
     @ElementCollection
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "size")
-    private List<Long> sizes;
+    private List<Integer> sizes;
     @Column(name = "color")
     private String color;
     @Column(name = "gender", length = 2)
@@ -36,11 +36,11 @@ public class ProductEntity {
     @Column(name = "img")
     private String img;
 
-    public List<Long> getSizes() {
+    public List<Integer> getSizes() {
         return sizes;
     }
 
-    public void setSizes(List<Long> sizes) {
+    public void setSizes(List<Integer> sizes) {
         this.sizes = sizes;
     }
 

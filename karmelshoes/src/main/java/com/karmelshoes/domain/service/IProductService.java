@@ -8,8 +8,10 @@ import java.util.List;
 @Service
 public interface IProductService {
     List<ProductEntity> getAll();
+    ProductEntity getById(Long id);
     ProductEntity create(ProductEntity product);
     ProductEntity updateAllFields(Long id, ProductEntity product);
     void deleteById(Long id);
     ProductEntity updateFieldImg(Long id, String img);
+    ProductEntity updateFieldSizes(Long id, List<Integer> sizes);
 }
