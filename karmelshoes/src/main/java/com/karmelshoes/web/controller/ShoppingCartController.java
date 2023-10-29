@@ -21,6 +21,11 @@ public class ShoppingCartController {
         return iShoppingCartService.getAll();
     }
 
+    @GetMapping("/getById/{id}")
+    public ShoppingCartEntity getByIdShoppingCart(@PathVariable("id") Long id) {
+        return iShoppingCartService.getByIdShoppingCart(id);
+    }
+
     @GetMapping("/getByIdClient/{id}")
     public List<ShoppingCartEntity> getByIdClientOneShoppingCart(@PathVariable("id") Long id) {
         return iShoppingCartService.getByIdClientOneShoppingCart(id);
@@ -39,5 +44,10 @@ public class ShoppingCartController {
     @PutMapping("/removeProduct/{shoppingCartId}/{productId}")
     public void removeProductFromCart(@PathVariable("shoppingCartId") Long shoppingCartId, @PathVariable("productId") Long productId) {
         iShoppingCartService.removeProductFromCart(shoppingCartId, productId);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteByIdShoppingCart(@PathVariable("id") Long id) {
+        iShoppingCartService.deleteByIdShoppingCart(id);
     }
 }

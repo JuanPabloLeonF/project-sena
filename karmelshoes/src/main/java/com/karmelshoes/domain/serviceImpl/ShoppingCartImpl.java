@@ -32,6 +32,15 @@ public class ShoppingCartImpl implements IShoppingCartService {
     }
 
     @Override
+    public ShoppingCartEntity getByIdShoppingCart(Long id) {
+        Optional<ShoppingCartEntity> shoppingCartOptional = iShoppingCartRepository.findById(id);
+        if (shoppingCartOptional.isPresent()) {
+            return shoppingCartOptional.get();
+        }
+        return null;
+    }
+
+    @Override
     public List<ShoppingCartEntity> getByIdClientOneShoppingCart(Long id) {
         return iShoppingCartRepository.findByClientEntity_Id(id);
     }
@@ -94,6 +103,14 @@ public class ShoppingCartImpl implements IShoppingCartService {
                 shoppingCart.setProductEntities(products);
                 iShoppingCartRepository.save(shoppingCart);
             }
+        }
+    }
+
+    @Override
+    public void deleteByIdShoppingCart(Long id) {
+        Optional<ShoppingCartEntity> shoppingCartEntity = iShoppingCartRepository.findById(id);
+        if (shoppingCartEntity.isPresent()) {
+            iShoppingCartRepository.deleteById(shoppingCartEntity.get().getId());
         }
     }
 
