@@ -22,32 +22,32 @@ public class SalesController {
     }
 
     @GetMapping("/getById/{id}")
-    SalesEntity getById(@PathVariable("id") Long id) {
+    public SalesEntity getById(@PathVariable("id") Long id) {
         return iSalesService.getById(id);
     }
 
     @GetMapping("/getByIdClient/{id}")
-    List<SalesEntity> getByIdClient(@PathVariable("id") Long id) {
+    public List<SalesEntity> getByIdClient(@PathVariable("id") Long id) {
         return iSalesService.getByIdClient(id);
     }
 
     @GetMapping("/getByDate/{dateString}")
-    List<SalesEntity> getByDate(@PathVariable("dateString") String dateString) {
+    public List<SalesEntity> getByDate(@PathVariable("dateString") String dateString) {
         return iSalesService.getByDate(dateString);
     }
 
     @GetMapping("/getByIdShoppingCart/{id}")
-    SalesEntity getByIdShoppingCart(@PathVariable("id") Long id) {
+    public SalesEntity getByIdShoppingCart(@PathVariable("id") Long id) {
         return iSalesService.getByIdShoppingCart(id);
     }
 
     @GetMapping("/getByPaymentMethod/{paymentMethod}")
-    List<SalesEntity> getByPaymentMethod(@PathVariable("paymentMethod") String paymentMethod) {
+    public List<SalesEntity> getByPaymentMethod(@PathVariable("paymentMethod") String paymentMethod) {
         return iSalesService.getByPaymentMethod(paymentMethod);
     }
 
     @PostMapping("/create")
-    SalesEntity create(@RequestBody SalesEntity sales) {
+    public SalesEntity create(@RequestBody SalesEntity sales) {
         return iSalesService.create(sales);
     }
 }
