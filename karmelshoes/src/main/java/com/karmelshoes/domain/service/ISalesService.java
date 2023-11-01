@@ -6,11 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface ISalesService {
-    SalesEntity create(SalesEntity sales);
+    SalesEntity create(SalesEntity sales, Long idShoppingCart);
     List<SalesEntity> getAll();
     SalesEntity getById(Long id);
     List<SalesEntity> getByIdClient(Long id);
     List<SalesEntity> getByDate(String dateString);
-    SalesEntity getByIdShoppingCart(Long id);
     List<SalesEntity> getByPaymentMethod(String paymentMethod);
 }

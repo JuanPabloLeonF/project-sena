@@ -36,18 +36,13 @@ public class SalesController {
         return iSalesService.getByDate(dateString);
     }
 
-    @GetMapping("/getByIdShoppingCart/{id}")
-    public SalesEntity getByIdShoppingCart(@PathVariable("id") Long id) {
-        return iSalesService.getByIdShoppingCart(id);
-    }
-
     @GetMapping("/getByPaymentMethod/{paymentMethod}")
     public List<SalesEntity> getByPaymentMethod(@PathVariable("paymentMethod") String paymentMethod) {
         return iSalesService.getByPaymentMethod(paymentMethod);
     }
 
-    @PostMapping("/create")
-    public SalesEntity create(@RequestBody SalesEntity sales) {
-        return iSalesService.create(sales);
+    @PostMapping("/create/{idShoppingCart}")
+    public SalesEntity create(@RequestBody SalesEntity sales, @PathVariable("idShoppingCart") Long idShoppingCart) {
+        return iSalesService.create(sales, idShoppingCart);
     }
 }

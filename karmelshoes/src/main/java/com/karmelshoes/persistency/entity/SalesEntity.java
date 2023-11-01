@@ -1,5 +1,6 @@
 package com.karmelshoes.persistency.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,10 +15,6 @@ public class SalesEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "shopping_cart_id")
-    private ShoppingCartEntity shoppingCart;
-
     @Column(name = "sale_amount")
     private Double saleAmount;
 
@@ -27,6 +24,30 @@ public class SalesEntity {
 
     @Column(name = "payment_method")
     private String paymentMethod;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_entity_id", nullable = false)
+    @JsonIgnore
+    private ClientEntity clientEntity;
+
+    @Column(name = "shopping_cart_id")
+    private Long shoppingCartId;
+
+    public Long getShoppingCartId() {
+        return shoppingCartId;
+    }
+
+    public void setShoppingCartId(Long shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
+    }
+
+    public ClientEntity getClientEntity() {
+        return clientEntity;
+    }
+
+    public void setClientEntity(ClientEntity clientEntity) {
+        this.clientEntity = clientEntity;
+    }
 
     public String getPaymentMethod() {
         return paymentMethod;
@@ -43,21 +64,12 @@ public class SalesEntity {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ShoppingCartEntity getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(ShoppingCartEntity shoppingCart) {
-        this.shoppingCart = shoppingCart;
     }
 
     public Double getSaleAmount() {
