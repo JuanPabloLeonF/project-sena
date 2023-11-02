@@ -1,5 +1,6 @@
 package com.karmelshoes.web.controller;
 
+import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,22 @@ public class ClientController {
     }
 
     @GetMapping("/getAll")
-    public List<ClientEntity> getAll() {
+    public List<ClientDto> getAll() {
         return iClientService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public ClientEntity getById(@PathVariable("id") Long id) {
+    public ClientDto getById(@PathVariable("id") Long id) {
         return iClientService.getById(id);
     }
 
     @PostMapping("/create")
-    public ClientEntity create(@RequestBody ClientEntity client){
+    public ClientDto create(@RequestBody ClientEntity client){
         return iClientService.create(client);
     }
 
     @PutMapping("/updateAll/{id}")
-    public ClientEntity updateAll(@PathVariable("id") Long id, @RequestBody ClientEntity client) {
+    public ClientDto updateAll(@PathVariable("id") Long id, @RequestBody ClientEntity client) {
         return iClientService.updateAllField(id, client);
     }
 

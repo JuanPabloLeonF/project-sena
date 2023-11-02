@@ -1,44 +1,53 @@
 package com.karmelshoes.domain.serviceImpl;
 
+import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.mappers.IClientMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements IClientService {
 
     private final IClientRepository iClientRepository;
+    private final IClientMapper iClientMapper;
 
-    public ClientServiceImpl(IClientRepository iClientRepository) {
+    public ClientServiceImpl(IClientRepository iClientRepository,
+                             IClientMapper iClientMapper) {
         this.iClientRepository = iClientRepository;
+        this.iClientMapper = iClientMapper;
     }
 
     @Override
-    public List<ClientEntity> getAll() {
-        return iClientRepository.findAll();
+    public List<ClientDto> getAll() {
+        return iClientRepository.findAll()
+                .stream()
+                .map(iClientMapper::clientEntityToClientDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public ClientEntity getById(Long id) {
+    public ClientDto getById(Long id) {
         Optional<ClientEntity> client = iClientRepository.findById(id);
         if (client.isPresent()) {
-            return client.get();
+            return iClientMapper.clientEntityToClientDto(client.get());
         }
         return null;
     }
 
     @Override
-    public ClientEntity create(ClientEntity clientEntity) {
+    public ClientDto create(ClientEntity clientEntity) {
         clientEntity.setStatus(true);
-        return iClientRepository.save(clientEntity);
+        return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
     }
 
     @Override
-    public ClientEntity updateAllField(Long id, ClientEntity client) {
+    public ClientDto updateAllField(Long id, ClientEntity client) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         if (clientOptional.isPresent()) {
             ClientEntity clientEntity = clientOptional.get();
@@ -46,7 +55,7 @@ public class ClientServiceImpl implements IClientService {
             clientEntity.setEmail(client.getEmail());
             clientEntity.setAddress(client.getAddress());
             clientEntity.setPhone(client.getPhone());
-            return iClientRepository.save(clientEntity);
+            return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         }
         return null;
     }
