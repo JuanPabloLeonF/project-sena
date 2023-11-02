@@ -42,8 +42,12 @@ public class SalesController {
         return iSalesService.getByPaymentMethod(paymentMethod);
     }
 
-    @PostMapping("/create/{idShoppingCart}/{idClient}")
-    public SalesDto create(@RequestBody SalesEntity sales, @PathVariable("idShoppingCart") Long idShoppingCart, @PathVariable("idClient") Long idClient) {
-        return iSalesService.create(sales, idShoppingCart, idClient);
+    @PostMapping("/create/{idShoppingCart}")
+    public SalesDto create(@RequestBody SalesEntity sales, @PathVariable("idShoppingCart") Long idShoppingCart) {
+        return iSalesService.create(sales, idShoppingCart);
+    }
+    @GetMapping("/getByIdShoppingCart/{id}")
+    SalesDto getByIdShoppingCart(@PathVariable("id") Long id) {
+        return iSalesService.getByIdShoppingCart(id);
     }
 }

@@ -1,6 +1,5 @@
 package com.karmelshoes.domain.dto;
 
-import com.karmelshoes.persistency.entity.ClientEntity;
 import com.karmelshoes.persistency.entity.ProductEntity;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ public class ShoppingCartDto {
     private Long idShoppingCartDto;
     private Map<ProductEntity, Integer> cartItemsShoppingCartDto = new HashMap<>();
     private Double totalPriceShoppingCartDto;
-    private ClientEntity clientEntityShoppingCartDto;
     private List<ProductEntity> productEntitiesShoppingCartDto = new ArrayList<>();
 
     public Long getIdShoppingCartDto() {
@@ -38,14 +36,6 @@ public class ShoppingCartDto {
 
     public void setTotalPriceShoppingCartDto(Double totalPriceShoppingCartDto) {
         this.totalPriceShoppingCartDto = totalPriceShoppingCartDto;
-    }
-
-    public ClientEntity getClientEntityShoppingCartDto() {
-        return clientEntityShoppingCartDto;
-    }
-
-    public void setClientEntityShoppingCartDto(ClientEntity clientEntityShoppingCartDto) {
-        this.clientEntityShoppingCartDto = clientEntityShoppingCartDto;
     }
 
     public List<ProductEntity> getProductEntitiesShoppingCartDto() {

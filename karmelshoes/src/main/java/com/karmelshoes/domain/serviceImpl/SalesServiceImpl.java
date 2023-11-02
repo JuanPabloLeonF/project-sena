@@ -33,16 +33,15 @@ public class SalesServiceImpl implements ISalesService {
     }
 
     @Override
-    public SalesDto create(SalesEntity sales, Long idShoppingCart, Long idClient) {
-        Optional<ClientEntity> clientEntityOptional = iClientRepository.findById(idClient);
+    public SalesDto create(SalesEntity sales, Long idShoppingCart) {
+        Optional<ClientEntity> clientEntityOptional = iClientRepository.findById(sales.getClient().getId());
         Optional<ShoppingCartEntity> shoppingCartEntityOptional = iShoppingCartRepository.findById(idShoppingCart);
 
         if (clientEntityOptional.isPresent() && shoppingCartEntityOptional.isPresent()) {
             ShoppingCartEntity shoppingCart = shoppingCartEntityOptional.get();
             ClientEntity client = clientEntityOptional.get();
-
-            sales.setClientEntity(client);
-            sales.setShoppingCartId(shoppingCart.getId());
+            sales.setShoppingCart(shoppingCart);
+            sales.setClient(client);
             sales.setSaleAmount(shoppingCart.getTotalPrice());
             return iSalesMapper.salesEntityToSalesDto(iSalesEntityRepository.save(sales));
         }
@@ -69,7 +68,7 @@ public class SalesServiceImpl implements ISalesService {
     public List<SalesDto> getByIdClient(Long id) {
         Optional<ClientEntity> clientEntityOptional = iClientRepository.findById(id);
         if (clientEntityOptional.isPresent()) {
-            return iSalesEntityRepository.findByClientEntity_Id(clientEntityOptional.get().getId())
+            return iSalesEntityRepository.findByClient_Id(clientEntityOptional.get().getId())
                     .stream().map(iSalesMapper::salesEntityToSalesDto)
                     .collect(Collectors.toList());
         }
@@ -89,5 +88,14 @@ public class SalesServiceImpl implements ISalesService {
         return iSalesEntityRepository.findByPaymentMethod(paymentMethod).stream()
                 .map(iSalesMapper::salesEntityToSalesDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public SalesDto getByIdShoppingCart(Long id) {
+        Optional<SalesEntity> shoppingCartEntityOptional = iSalesEntityRepository.findByShoppingCart_Id(id);
+        if (shoppingCartEntityOptional.isPresent()) {
+            return shoppingCartEntityOptional.map(iSalesMapper::salesEntityToSalesDto).get();
+        }
+        return null;
     }
 }

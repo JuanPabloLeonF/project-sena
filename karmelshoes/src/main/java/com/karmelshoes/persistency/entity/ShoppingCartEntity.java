@@ -1,6 +1,19 @@
 package com.karmelshoes.persistency.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MapKeyJoinColumn;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,10 +38,6 @@ public class ShoppingCartEntity {
     @Column(name = "total_price")
     private Double totalPrice;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_entity_id", nullable = false)
-    private ClientEntity clientEntity;
-
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "shopping_cart_productEntities",
             joinColumns = @JoinColumn(name = "shoppingCartEntity_id"),
@@ -41,14 +50,6 @@ public class ShoppingCartEntity {
 
     public void setProductEntities(List<ProductEntity> productEntities) {
         this.productEntities = productEntities;
-    }
-
-    public ClientEntity getClientEntity() {
-        return clientEntity;
-    }
-
-    public void setClientEntity(ClientEntity clientEntity) {
-        this.clientEntity = clientEntity;
     }
 
     public Map<ProductEntity, Integer> getCartItems() {

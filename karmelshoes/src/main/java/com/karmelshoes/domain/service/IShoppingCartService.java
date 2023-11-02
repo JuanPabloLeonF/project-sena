@@ -8,7 +8,6 @@ import java.util.List;
 public interface IShoppingCartService {
     List<ShoppingCartDto> getAll();
     ShoppingCartDto getByIdShoppingCart(Long id);
-    List<ShoppingCartDto> getByIdClientOneShoppingCart(Long id);
     void addProductToCart(Long shoppingCartId, Long productId);
     ShoppingCartDto create(Long id);
     void removeProductFromCart(Long shoppingCartId, Long productId);

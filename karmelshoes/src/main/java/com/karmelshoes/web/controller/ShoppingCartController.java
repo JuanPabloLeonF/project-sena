@@ -2,7 +2,6 @@ package com.karmelshoes.web.controller;
 
 import com.karmelshoes.domain.dto.ShoppingCartDto;
 import com.karmelshoes.domain.service.IShoppingCartService;
-import com.karmelshoes.persistency.entity.ShoppingCartEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +24,6 @@ public class ShoppingCartController {
     @GetMapping("/getById/{id}")
     public ShoppingCartDto getByIdShoppingCart(@PathVariable("id") Long id) {
         return iShoppingCartService.getByIdShoppingCart(id);
-    }
-
-    @GetMapping("/getByIdClient/{id}")
-    public List<ShoppingCartDto> getByIdClientOneShoppingCart(@PathVariable("id") Long id) {
-        return iShoppingCartService.getByIdClientOneShoppingCart(id);
     }
 
     @PostMapping("/create/{id}")

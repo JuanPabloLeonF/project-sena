@@ -1,7 +1,17 @@
 package com.karmelshoes.persistency.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -25,28 +35,29 @@ public class SalesEntity {
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_entity_id", nullable = false)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_id", nullable = false)
     @JsonIgnore
-    private ClientEntity clientEntity;
+    private ShoppingCartEntity shoppingCart;
 
-    @Column(name = "shopping_cart_id")
-    private Long shoppingCartId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", nullable = false)
+    private ClientEntity client;
 
-    public Long getShoppingCartId() {
-        return shoppingCartId;
+    public ClientEntity getClient() {
+        return client;
     }
 
-    public void setShoppingCartId(Long shoppingCartId) {
-        this.shoppingCartId = shoppingCartId;
+    public void setClient(ClientEntity client) {
+        this.client = client;
     }
 
-    public ClientEntity getClientEntity() {
-        return clientEntity;
+    public ShoppingCartEntity getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void setClientEntity(ClientEntity clientEntity) {
-        this.clientEntity = clientEntity;
+    public void setShoppingCart(ShoppingCartEntity shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public String getPaymentMethod() {

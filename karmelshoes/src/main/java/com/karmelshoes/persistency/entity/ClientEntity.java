@@ -1,10 +1,11 @@
 package com.karmelshoes.persistency.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "client")
@@ -30,20 +31,8 @@ public class ClientEntity {
     @Column(name = "status", nullable = false)
     private Boolean status;
 
-    @OneToMany(mappedBy = "clientEntity", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<ShoppingCartEntity> shoppingCarts = new ArrayList<>();
-
     public Boolean getStatus() {
         return status;
-    }
-
-    public List<ShoppingCartEntity> getShoppingCarts() {
-        return shoppingCarts;
-    }
-
-    public void setShoppingCarts(List<ShoppingCartEntity> shoppingCarts) {
-        this.shoppingCarts = shoppingCarts;
     }
 
     public Boolean isStatus() {

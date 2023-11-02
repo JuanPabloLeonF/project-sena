@@ -16,8 +16,7 @@ public interface IClientMapper {
             @Mapping(target = "email", source = "clientDto.emailClientDto"),
             @Mapping(target = "address", source = "clientDto.addressClientDto"),
             @Mapping(target = "phone", source = "clientDto.phoneClientDto"),
-            @Mapping(target = "status", source = "clientDto.statusClientDto"),
-            @Mapping(target = "shoppingCarts", ignore = true)
+            @Mapping(target = "status", source = "clientDto.statusClientDto")
     })
     ClientEntity clientDtoToClientEntity(ClientDto clientDto);
 

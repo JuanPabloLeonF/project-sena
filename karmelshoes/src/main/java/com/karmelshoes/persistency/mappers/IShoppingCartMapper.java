@@ -12,7 +12,6 @@ public interface IShoppingCartMapper {
     @Mappings(value = {
             @Mapping(target = "id", source = "shoppingCartDto.idShoppingCartDto"),
             @Mapping(target = "cartItems", source = "shoppingCartDto.cartItemsShoppingCartDto"),
-            @Mapping(target = "clientEntity", source = "shoppingCartDto.clientEntityShoppingCartDto"),
             @Mapping(target = "productEntities", source = "shoppingCartDto.productEntitiesShoppingCartDto"),
             @Mapping(target = "totalPrice", source = "shoppingCartDto.totalPriceShoppingCartDto")
     })

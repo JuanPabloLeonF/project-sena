@@ -9,6 +9,7 @@ import com.karmelshoes.persistency.mappers.IShoppingCartMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
+import com.karmelshoes.persistency.validation.ValidationLogic;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,21 +50,16 @@ public class ShoppingCartImpl implements IShoppingCartService {
     }
 
     @Override
-    public List<ShoppingCartDto> getByIdClientOneShoppingCart(Long id) {
-        return iShoppingCartRepository.findByClientEntity_Id(id).stream()
-                .map(iShoppingCartMapper::shoppingCartEntityToShoppingCartDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public ShoppingCartDto create(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
+
         if (clientOptional.isPresent()) {
-            ClientEntity client = clientOptional.orElseThrow();
-            shoppingCartEntity.setClientEntity(client);
-            shoppingCartEntity.setTotalPrice(00.0);
-            return iShoppingCartMapper.shoppingCartEntityToShoppingCartDto(iShoppingCartRepository.save(shoppingCartEntity));
+            if (ValidationLogic.validateIsClientDelete(clientOptional.get())){
+                shoppingCartEntity.setTotalPrice(00.0);
+                return iShoppingCartMapper.shoppingCartEntityToShoppingCartDto(iShoppingCartRepository.save(shoppingCartEntity));
+            }
+            return null;
         }
 
         return null;

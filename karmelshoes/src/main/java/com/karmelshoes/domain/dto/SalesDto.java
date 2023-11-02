@@ -1,6 +1,8 @@
 package com.karmelshoes.domain.dto;
 
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.entity.ShoppingCartEntity;
+
 import java.time.LocalDate;
 
 public class SalesDto {
@@ -9,7 +11,24 @@ public class SalesDto {
     private Double saleAmountSalesDto;
     private LocalDate dateSalesDto;
     private String paymentMethodSalesDto;
-    private Long shoppingCartIdSalesDto;
+    private ShoppingCartEntity shoppingCartSalesDto;
+    private ClientEntity clientSalesDto;
+
+    public ShoppingCartEntity getShoppingCartSalesDto() {
+        return shoppingCartSalesDto;
+    }
+
+    public void setShoppingCartSalesDto(ShoppingCartEntity shoppingCartSalesDto) {
+        this.shoppingCartSalesDto = shoppingCartSalesDto;
+    }
+
+    public ClientEntity getClientSalesDto() {
+        return clientSalesDto;
+    }
+
+    public void setClientSalesDto(ClientEntity clientSalesDto) {
+        this.clientSalesDto = clientSalesDto;
+    }
 
     public Long getIdSalesDto() {
         return idSalesDto;
@@ -41,13 +60,5 @@ public class SalesDto {
 
     public void setPaymentMethodSalesDto(String paymentMethodSalesDto) {
         this.paymentMethodSalesDto = paymentMethodSalesDto;
-    }
-
-    public Long getShoppingCartIdSalesDto() {
-        return shoppingCartIdSalesDto;
-    }
-
-    public void setShoppingCartIdSalesDto(Long shoppingCartIdSalesDto) {
-        this.shoppingCartIdSalesDto = shoppingCartIdSalesDto;
     }
 }
