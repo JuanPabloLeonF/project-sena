@@ -1,5 +1,6 @@
 package com.karmelshoes.web.controller;
 
+import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +18,22 @@ public class ProductController {
     }
 
     @GetMapping("/getAll")
-    public List<ProductEntity> getAll() {
+    public List<ProductDto> getAll() {
         return iProductService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public ProductEntity getById(@PathVariable("id") Long id) {
+    public ProductDto getById(@PathVariable("id") Long id) {
         return iProductService.getById(id);
     }
 
     @PostMapping("/create")
-    public ProductEntity create(@RequestBody ProductEntity product) {
+    public ProductDto create(@RequestBody ProductEntity product) {
         return iProductService.create(product);
     }
 
     @PutMapping("/update/{id}")
-    public ProductEntity updateAll(@PathVariable("id") Long id, @RequestBody ProductEntity product) {
+    public ProductDto updateAll(@PathVariable("id") Long id, @RequestBody ProductEntity product) {
         return iProductService.updateAllFields(id, product);
     }
 
@@ -42,12 +43,12 @@ public class ProductController {
     }
 
     @PatchMapping("/updateImg/{id}")
-    public ProductEntity updateFieldImg(@PathVariable("id") Long id,  @RequestBody String img) {
+    public ProductDto updateFieldImg(@PathVariable("id") Long id,  @RequestBody String img) {
         return iProductService.updateFieldImg(id, img);
     }
 
     @PatchMapping("/updateSize/{id}")
-    public ProductEntity updateFieldSizes(@PathVariable("id") Long id,  @RequestBody List<Integer> sizes) {
+    public ProductDto updateFieldSizes(@PathVariable("id") Long id,  @RequestBody List<Integer> sizes) {
         return iProductService.updateFieldSizes(id, sizes);
     }
 }

@@ -1,43 +1,51 @@
 package com.karmelshoes.domain.serviceImpl;
 
+import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
+import com.karmelshoes.persistency.mappers.IProductMapper;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements IProductService {
 
     private final IProductEntityRepository iProductEntityRepository;
+    private final IProductMapper iProductMapper;
 
-    public ProductServiceImpl(IProductEntityRepository iProductEntityRepository) {
+    public ProductServiceImpl(IProductEntityRepository iProductEntityRepository,
+                              IProductMapper iProductMapper) {
         this.iProductEntityRepository = iProductEntityRepository;
+        this.iProductMapper = iProductMapper;
     }
 
     @Override
-    public List<ProductEntity> getAll() {
-        return iProductEntityRepository.findAll();
+    public List<ProductDto> getAll() {
+        return iProductEntityRepository.findAll()
+                .stream().map(iProductMapper::productEntityToProductDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public ProductEntity getById(Long id) {
+    public ProductDto getById(Long id) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
-            return productEntityOptional.get();
+            return iProductMapper.productEntityToProductDto(productEntityOptional.get());
         }
         return null;
     }
 
     @Override
-    public ProductEntity create(ProductEntity product) {
-        return iProductEntityRepository.save(product);
+    public ProductDto create(ProductEntity product) {
+        return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(product));
     }
 
     @Override
-    public ProductEntity updateAllFields(Long id, ProductEntity product) {
+    public ProductDto updateAllFields(Long id, ProductEntity product) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
             ProductEntity productEntity = productEntityOptional.get();
@@ -52,7 +60,7 @@ public class ProductServiceImpl implements IProductService {
             productEntity.setStock(product.getStock());
             productEntity.setImg(product.getImg());
             productEntity.setGender(product.getGender());
-            return iProductEntityRepository.save(productEntity);
+            return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntity));
         }
         return null;
     }
@@ -66,21 +74,21 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductEntity updateFieldImg(Long id, String img) {
+    public ProductDto updateFieldImg(Long id, String img) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
              productEntityOptional.get().setImg(img);
-             return iProductEntityRepository.save(productEntityOptional.get());
+             return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntityOptional.get()));
         }
         return null;
     }
 
     @Override
-    public ProductEntity updateFieldSizes(Long id, List<Integer> sizes) {
+    public ProductDto updateFieldSizes(Long id, List<Integer> sizes) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
             productEntityOptional.get().setSizes(sizes);
-            return iProductEntityRepository.save(productEntityOptional.get());
+            return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntityOptional.get()));
         }
         return null;
     }
