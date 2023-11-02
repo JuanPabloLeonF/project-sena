@@ -1,9 +1,11 @@
 package com.karmelshoes.domain.serviceImpl;
 
+import com.karmelshoes.domain.dto.ShoppingCartDto;
 import com.karmelshoes.domain.service.IShoppingCartService;
 import com.karmelshoes.persistency.entity.ClientEntity;
 import com.karmelshoes.persistency.entity.ProductEntity;
 import com.karmelshoes.persistency.entity.ShoppingCartEntity;
+import com.karmelshoes.persistency.mappers.IShoppingCartMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShoppingCartImpl implements IShoppingCartService {
@@ -19,41 +22,48 @@ public class ShoppingCartImpl implements IShoppingCartService {
     private final IShoppingCartRepository iShoppingCartRepository;
     private final IProductEntityRepository iProductEntityRepository;
     private final IClientRepository iClientRepository;
+    private final IShoppingCartMapper iShoppingCartMapper;
 
-    public ShoppingCartImpl(IShoppingCartRepository iShoppingCartRepository, IProductEntityRepository iProductEntityRepository, IClientRepository iClientRepository) {
+    public ShoppingCartImpl(IShoppingCartRepository iShoppingCartRepository, IProductEntityRepository iProductEntityRepository, IClientRepository iClientRepository,
+                            IShoppingCartMapper iShoppingCartMapper) {
         this.iShoppingCartRepository = iShoppingCartRepository;
         this.iProductEntityRepository = iProductEntityRepository;
         this.iClientRepository = iClientRepository;
+        this.iShoppingCartMapper = iShoppingCartMapper;
     }
 
     @Override
-    public List<ShoppingCartEntity> getAll() {
-        return iShoppingCartRepository.findAll();
+    public List<ShoppingCartDto> getAll() {
+        return iShoppingCartRepository.findAll().stream()
+                .map(iShoppingCartMapper::shoppingCartEntityToShoppingCartDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public ShoppingCartEntity getByIdShoppingCart(Long id) {
+    public ShoppingCartDto getByIdShoppingCart(Long id) {
         Optional<ShoppingCartEntity> shoppingCartOptional = iShoppingCartRepository.findById(id);
         if (shoppingCartOptional.isPresent()) {
-            return shoppingCartOptional.get();
+            return iShoppingCartMapper.shoppingCartEntityToShoppingCartDto(shoppingCartOptional.get());
         }
         return null;
     }
 
     @Override
-    public List<ShoppingCartEntity> getByIdClientOneShoppingCart(Long id) {
-        return iShoppingCartRepository.findByClientEntity_Id(id);
+    public List<ShoppingCartDto> getByIdClientOneShoppingCart(Long id) {
+        return iShoppingCartRepository.findByClientEntity_Id(id).stream()
+                .map(iShoppingCartMapper::shoppingCartEntityToShoppingCartDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public ShoppingCartEntity create(Long id) {
+    public ShoppingCartDto create(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
         if (clientOptional.isPresent()) {
             ClientEntity client = clientOptional.orElseThrow();
             shoppingCartEntity.setClientEntity(client);
             shoppingCartEntity.setTotalPrice(00.0);
-            return iShoppingCartRepository.save(shoppingCartEntity);
+            return iShoppingCartMapper.shoppingCartEntityToShoppingCartDto(iShoppingCartRepository.save(shoppingCartEntity));
         }
 
         return null;
