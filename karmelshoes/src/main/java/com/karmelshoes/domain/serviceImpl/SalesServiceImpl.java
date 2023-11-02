@@ -9,6 +9,7 @@ import com.karmelshoes.persistency.mappers.ISalesMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import com.karmelshoes.persistency.repository.ISalesEntityRepository;
 import com.karmelshoes.persistency.repository.IShoppingCartRepository;
+import com.karmelshoes.persistency.validation.ValidationLogic;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -36,14 +37,19 @@ public class SalesServiceImpl implements ISalesService {
     public SalesDto create(SalesEntity sales, Long idShoppingCart) {
         Optional<ClientEntity> clientEntityOptional = iClientRepository.findById(sales.getClient().getId());
         Optional<ShoppingCartEntity> shoppingCartEntityOptional = iShoppingCartRepository.findById(idShoppingCart);
-
         if (clientEntityOptional.isPresent() && shoppingCartEntityOptional.isPresent()) {
-            ShoppingCartEntity shoppingCart = shoppingCartEntityOptional.get();
-            ClientEntity client = clientEntityOptional.get();
-            sales.setShoppingCart(shoppingCart);
-            sales.setClient(client);
-            sales.setSaleAmount(shoppingCart.getTotalPrice());
-            return iSalesMapper.salesEntityToSalesDto(iSalesEntityRepository.save(sales));
+            if (ValidationLogic.validateIsClientDelete(clientEntityOptional.get())) {
+                if (!ValidationLogic.validateIsUsedInSale(iShoppingCartRepository, idShoppingCart)) {
+                    ShoppingCartEntity shoppingCart = shoppingCartEntityOptional.get();
+                    ClientEntity client = clientEntityOptional.get();
+                    sales.setShoppingCart(shoppingCart);
+                    sales.setClient(client);
+                    sales.setSaleAmount(shoppingCart.getTotalPrice());
+                    return iSalesMapper.salesEntityToSalesDto(iSalesEntityRepository.save(sales));
+                }
+                return null;
+            }
+            return null;
         }
         return null;
     }

@@ -53,7 +53,6 @@ public class ShoppingCartImpl implements IShoppingCartService {
     public ShoppingCartDto create(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity();
-
         if (clientOptional.isPresent()) {
             if (ValidationLogic.validateIsClientDelete(clientOptional.get())){
                 shoppingCartEntity.setTotalPrice(00.0);

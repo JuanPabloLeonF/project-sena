@@ -1,6 +1,7 @@
 package com.karmelshoes.persistency.validation;
 
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 
 public class ValidationLogic {
 
@@ -10,4 +11,9 @@ public class ValidationLogic {
         }
         return false;
     }
+
+    public static Boolean validateIsUsedInSale(IShoppingCartRepository iShoppingCartRepository, Long shoppingCartId) {
+        return iShoppingCartRepository.isShoppingCartUsedInSale(shoppingCartId);
+    }
+
 }
