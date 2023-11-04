@@ -16,6 +16,24 @@ public class ProductDto {
     private String colorProductDto;
     private String genderProductDto;
     private String imgProductDto;
+    private Boolean statusProductDto;
+    private Integer codeProductDto;
+
+    public Boolean getStatusProductDto() {
+        return statusProductDto;
+    }
+
+    public void setStatusProductDto(Boolean statusProductDto) {
+        this.statusProductDto = statusProductDto;
+    }
+
+    public Integer getCodeProductDto() {
+        return codeProductDto;
+    }
+
+    public void setCodeProductDto(Integer codeProductDto) {
+        this.codeProductDto = codeProductDto;
+    }
 
     public Long getIdProductDto() {
         return idProductDto;

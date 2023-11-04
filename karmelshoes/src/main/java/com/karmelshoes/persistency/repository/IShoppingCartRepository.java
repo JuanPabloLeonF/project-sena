@@ -15,5 +15,4 @@ public interface IShoppingCartRepository extends JpaRepository<ShoppingCartEntit
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END FROM SalesEntity s WHERE s.shoppingCart.id = :shoppingCartId")
     Boolean isShoppingCartUsedInSale(@Param("shoppingCartId") Long shoppingCartId);
     List<ShoppingCartEntity> findAllByProductEntitiesContaining(ProductEntity product);
-
 }

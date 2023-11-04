@@ -3,15 +3,16 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
-import com.karmelshoes.persistency.entity.ShoppingCartEntity;
+import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IProductMapper;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
-import com.karmelshoes.persistency.repository.IShoppingCartRepository;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,13 +21,10 @@ public class ProductServiceImpl implements IProductService {
 
     private final IProductEntityRepository iProductEntityRepository;
     private final IProductMapper iProductMapper;
-    private final IShoppingCartRepository iShoppingCartRepository;
 
-    public ProductServiceImpl(IProductEntityRepository iProductEntityRepository,
-                              IProductMapper iProductMapper, IShoppingCartRepository iShoppingCartRepository) {
+    public ProductServiceImpl(IProductEntityRepository iProductEntityRepository, IProductMapper iProductMapper) {
         this.iProductEntityRepository = iProductEntityRepository;
         this.iProductMapper = iProductMapper;
-        this.iShoppingCartRepository = iShoppingCartRepository;
     }
 
     @Transactional(readOnly = true)
@@ -50,6 +48,17 @@ public class ProductServiceImpl implements IProductService {
     @Transactional(readOnly = false)
     @Override
     public ProductDto create(ProductEntity product) {
+        Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findByCode(product.getCode());
+        if (productEntityOptional.isPresent()) {
+            ProductEntity productEntity = productEntityOptional.get();
+            if (Objects.equals(productEntity.getId(), product.getId())) {
+                productEntity.setStatus(true);
+                return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntity));
+            } else {
+                throw new DataIntegrityViolationExceptionPersonality("El campo code: " + product.getCode() + " ya existe");
+            }
+        }
+        product.setStatus(true);
         return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(product));
     }
 
@@ -58,19 +67,26 @@ public class ProductServiceImpl implements IProductService {
     public ProductDto updateAllFields(Long id, ProductEntity product) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
+
             ProductEntity productEntity = productEntityOptional.get();
-            productEntity.setName(product.getName());
-            productEntity.setProductType(product.getProductType());
-            productEntity.setPrice(product.getPrice());
-            productEntity.setDescription(product.getDescription());
-            productEntity.setColor(product.getColor());
-            productEntity.setMark(product.getMark());
-            productEntity.setModel(product.getModel());
-            productEntity.setSizes(product.getSizes());
-            productEntity.setStock(product.getStock());
-            productEntity.setImg(product.getImg());
-            productEntity.setGender(product.getGender());
-            return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntity));
+            Optional<ProductEntity> productEntityCode = iProductEntityRepository.findByCode(product.getCode());
+            if (productEntityCode.isPresent() && !Objects.equals(productEntity.getId(), productEntityCode.get().getId())) {
+                throw new DataIntegrityViolationExceptionPersonality("El campo code: " + product.getCode() + " ya existe");
+            } else {
+                productEntity.setName(product.getName());
+                productEntity.setProductType(product.getProductType());
+                productEntity.setPrice(product.getPrice());
+                productEntity.setDescription(product.getDescription());
+                productEntity.setColor(product.getColor());
+                productEntity.setMark(product.getMark());
+                productEntity.setModel(product.getModel());
+                productEntity.setSizes(product.getSizes());
+                productEntity.setStock(product.getStock());
+                productEntity.setImg(product.getImg());
+                productEntity.setGender(product.getGender());
+                productEntity.setCode(product.getCode());
+                return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntity));
+            }
         }
         throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
@@ -80,10 +96,8 @@ public class ProductServiceImpl implements IProductService {
     public void deleteById(Long id) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
-            ProductEntity productEntity = productEntityOptional.get();
-            List<ShoppingCartEntity> shoppingCartsWithProduct = iShoppingCartRepository.findAllByProductEntitiesContaining(productEntity);
-            shoppingCartsWithProduct.forEach(shoppingCart -> shoppingCart.getProductEntities().remove(productEntity));
-            iProductEntityRepository.delete(productEntity);
+            productEntityOptional.get().setStatus(false);
+            iProductEntityRepository.save(productEntityOptional.get());
         } else {
             throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
         }

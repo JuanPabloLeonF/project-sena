@@ -14,6 +14,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class ShoppingCartEntity {
     @Column(name = "total_price")
     private Double totalPrice;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "shopping_cart_productEntities",
             joinColumns = @JoinColumn(name = "shoppingCartEntity_id"),
             inverseJoinColumns = @JoinColumn(name = "productEntities_id"))

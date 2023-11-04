@@ -1,9 +1,10 @@
 package com.karmelshoes.persistency.errors.handler;
 
 import com.karmelshoes.persistency.errors.ResponseErrors;
+import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.UnexpectedTypeException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -37,18 +37,17 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseErrors);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ResponseErrors> handleConstraintViolationException(ConstraintViolationException ex) {
-        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
-        Map<String, Object> errorMessages = new HashMap<>();
-        constraintViolations.forEach(constraint -> {
-            String constraintName =constraint.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
-            String errorMessage = constraint.getMessage();
-            String customErrorMessage = "Error: " + constraintName + " - " + errorMessage;
-            errorMessages.put(constraintName, customErrorMessage);
-        });
-        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, "Errores de validación de datos", errorMessages, HttpStatus.BAD_REQUEST.value());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
+    @ExceptionHandler({DataIntegrityViolationExceptionPersonality.class, DataIntegrityViolationException.class})
+    public ResponseEntity<ResponseErrors> handleValidationExceptions(DataIntegrityViolationException ex, DataIntegrityViolationExceptionPersonality exceptionPersonality) {
+        ResponseErrors errors = new ResponseErrors(HttpStatus.BAD_REQUEST, exceptionPersonality.getMessage(), null, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ResponseErrors> handleConstraintViolationException(ConstraintViolationException exception) {
+        Map<String, Object> errors = new HashMap<>();
+        exception.getConstraintViolations().forEach(constraintViolation -> errors.put(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage()));
+        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, "Invalida peticion, error en el campo", errors, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
+    }
 }

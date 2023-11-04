@@ -82,6 +82,29 @@ public class ProductEntity {
     @Column(name = "img")
     private String img;
 
+    @Column(name = "status", nullable = false)
+    private Boolean status;
+
+    @Size(min = 5, message = "El campo code debe tener minimo 5 digitos")
+    @Column(name = "code", unique = true)
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     public List<Integer> getSizes() {
         return sizes;
     }

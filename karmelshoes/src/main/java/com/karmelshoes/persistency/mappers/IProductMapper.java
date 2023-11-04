@@ -22,7 +22,9 @@ public interface IProductMapper {
             @Mapping(target = "price", source = "productDto.priceProductDto"),
             @Mapping(target = "sizes", source = "productDto.sizesProductDto"),
             @Mapping(target = "stock", source = "productDto.stockProductDto"),
-            @Mapping(target = "description", source = "productDto.descriptionProductDto")
+            @Mapping(target = "description", source = "productDto.descriptionProductDto"),
+            @Mapping(target = "code", source = "productDto.codeProductDto"),
+            @Mapping(target = "status", source = "productDto.statusProductDto")
     })
     ProductEntity productDtoToProductEntity(ProductDto productDto);
 

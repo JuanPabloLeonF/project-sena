@@ -3,9 +3,11 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IClientMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,8 +49,13 @@ public class ClientServiceImpl implements IClientService {
     @Transactional(readOnly = false)
     @Override
     public ClientDto create(ClientEntity clientEntity) {
-         clientEntity.setStatus(true);
-         return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
+
+        try {
+            clientEntity.setStatus(true);
+            return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
+        } catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityViolationExceptionPersonality("No se puede crear el clinte por que el email:" + clientEntity.getEmail() + " ya existe");
+        }
     }
 
     @Transactional(readOnly = false)

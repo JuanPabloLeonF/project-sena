@@ -3,6 +3,7 @@ package com.karmelshoes.web.controller;
 import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
+import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
