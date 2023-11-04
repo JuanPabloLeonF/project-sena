@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -36,11 +35,9 @@ public class ProductEntity {
     private String description;
 
     @Min(value = 0 , message = "El precio debe ser mayor o igual a 0.00")
-    @Digits(integer = 10, fraction = 2, message = "El precio debe tener como máximo 10 dígitos en total, con 2 decimales")
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @NotBlank(message = "El stock no puede estar en blanco")
     @Min(value = 0, message = "El valor debe ser igual o mayor que cero")
     @Column(name = "stock")
     private Integer stock;
@@ -65,10 +62,11 @@ public class ProductEntity {
             name = "product_sizes",
             joinColumns = @JoinColumn(name = "product_id")
     )
+    @Size(min = 1, message = "La lista de tallas no puede estar vacía")
     @Column(name = "size")
     private List<Integer> sizes;
 
-    @NotBlank(message = "El color no puede estar en blanco")
+    @NotBlank(message = "El color no puede estar en vacio")
     @Size(min = 4, max = 200, message = "El color debe tener entre 4 y 200 caracteres")
     @Column(name = "color", length = 200)
     private String color;

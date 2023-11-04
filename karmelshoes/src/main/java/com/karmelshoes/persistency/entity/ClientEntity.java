@@ -43,10 +43,6 @@ public class ClientEntity {
         return status;
     }
 
-    public Boolean isStatus() {
-        return status;
-    }
-
     public void setStatus(Boolean status) {
         this.status = status;
     }

@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping("/getById/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody ProductDto getById(@PathVariable("id") Long id) {
         return iProductService.getById(id);
     }

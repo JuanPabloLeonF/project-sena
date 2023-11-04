@@ -26,16 +26,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         Map<String, Object> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error -> {
-            errors.put(error.getField(), error.getDefaultMessage());
-        });
+        ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         ResponseErrors responseErrors = new ResponseErrors(status, "Invalida peticion, error en los campos", errors, status.value());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ResponseErrors> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, "Ya existe un cliente con el mismo email.", null, HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
     }
 
@@ -46,12 +38,17 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    private ResponseErrors handleConstraintViolations(ConstraintViolationException constraintViolationException) {
-        Set<ConstraintViolation<?>> violations = constraintViolationException.getConstraintViolations();
-        Map<String, Object> errors = new HashMap<>();
-        violations.forEach(violation -> {
-            errors.put(violation.getPropertyPath().toString(), violation.getMessage());
+    public ResponseEntity<ResponseErrors> handleConstraintViolationException(ConstraintViolationException ex) {
+        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+        Map<String, Object> errorMessages = new HashMap<>();
+        constraintViolations.forEach(constraint -> {
+            String constraintName =constraint.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
+            String errorMessage = constraint.getMessage();
+            String customErrorMessage = "Error: " + constraintName + " - " + errorMessage;
+            errorMessages.put(constraintName, customErrorMessage);
         });
-        return new ResponseErrors(HttpStatus.BAD_REQUEST, "Error de integridad de datos", errors, HttpStatus.BAD_REQUEST.value());
+        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, "Errores de validación de datos", errorMessages, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
     }
+
 }

@@ -3,9 +3,11 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
+import com.karmelshoes.persistency.entity.ShoppingCartEntity;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IProductMapper;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
+import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +20,13 @@ public class ProductServiceImpl implements IProductService {
 
     private final IProductEntityRepository iProductEntityRepository;
     private final IProductMapper iProductMapper;
+    private final IShoppingCartRepository iShoppingCartRepository;
 
     public ProductServiceImpl(IProductEntityRepository iProductEntityRepository,
-                              IProductMapper iProductMapper) {
+                              IProductMapper iProductMapper, IShoppingCartRepository iShoppingCartRepository) {
         this.iProductEntityRepository = iProductEntityRepository;
         this.iProductMapper = iProductMapper;
+        this.iShoppingCartRepository = iShoppingCartRepository;
     }
 
     @Transactional(readOnly = true)
@@ -76,10 +80,15 @@ public class ProductServiceImpl implements IProductService {
     public void deleteById(Long id) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
-            iProductEntityRepository.deleteById(productEntityOptional.get().getId());
+            ProductEntity productEntity = productEntityOptional.get();
+            List<ShoppingCartEntity> shoppingCartsWithProduct = iShoppingCartRepository.findAllByProductEntitiesContaining(productEntity);
+            shoppingCartsWithProduct.forEach(shoppingCart -> shoppingCart.getProductEntities().remove(productEntity));
+            iProductEntityRepository.delete(productEntity);
+        } else {
+            throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
         }
-        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
+
 
     @Transactional(readOnly = false)
     @Override
