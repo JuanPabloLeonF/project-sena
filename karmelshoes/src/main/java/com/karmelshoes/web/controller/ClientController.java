@@ -3,6 +3,8 @@ package com.karmelshoes.web.controller;
 import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,26 +20,31 @@ public class ClientController {
     }
 
     @GetMapping("/getAll")
-    public List<ClientDto> getAll() {
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<ClientDto> getAll() {
         return iClientService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public ClientDto getById(@PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody ClientDto getById(@PathVariable("id") Long id) {
         return iClientService.getById(id);
     }
 
     @PostMapping("/create")
-    public ClientDto create(@RequestBody ClientEntity client){
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody ClientDto create(@Valid @RequestBody ClientEntity client) {
         return iClientService.create(client);
     }
 
     @PutMapping("/updateAll/{id}")
-    public ClientDto updateAll(@PathVariable("id") Long id, @RequestBody ClientEntity client) {
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody ClientDto updateAll(@PathVariable("id") Long id,@Valid @RequestBody ClientEntity client) {
         return iClientService.updateAllField(id, client);
     }
 
     @PatchMapping("/deleteById/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable("id") Long id) {
         iClientService.deleteById(id);
     }

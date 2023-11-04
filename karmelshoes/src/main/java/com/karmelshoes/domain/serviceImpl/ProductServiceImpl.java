@@ -3,9 +3,11 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ProductDto;
 import com.karmelshoes.domain.service.IProductService;
 import com.karmelshoes.persistency.entity.ProductEntity;
+import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IProductMapper;
 import com.karmelshoes.persistency.repository.IProductEntityRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,7 @@ public class ProductServiceImpl implements IProductService {
         this.iProductMapper = iProductMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ProductDto> getAll() {
         return iProductEntityRepository.findAll()
@@ -30,20 +33,23 @@ public class ProductServiceImpl implements IProductService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ProductDto getById(Long id) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
             return iProductMapper.productEntityToProductDto(productEntityOptional.get());
         }
-        return null;
+        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ProductDto create(ProductEntity product) {
         return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(product));
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ProductDto updateAllFields(Long id, ProductEntity product) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
@@ -62,17 +68,20 @@ public class ProductServiceImpl implements IProductService {
             productEntity.setGender(product.getGender());
             return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntity));
         }
-        return null;
+        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public void deleteById(Long id) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
         if (productEntityOptional.isPresent()) {
             iProductEntityRepository.deleteById(productEntityOptional.get().getId());
         }
+        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ProductDto updateFieldImg(Long id, String img) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
@@ -80,9 +89,10 @@ public class ProductServiceImpl implements IProductService {
              productEntityOptional.get().setImg(img);
              return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntityOptional.get()));
         }
-        return null;
+        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ProductDto updateFieldSizes(Long id, List<Integer> sizes) {
         Optional<ProductEntity> productEntityOptional = iProductEntityRepository.findById(id);
@@ -90,6 +100,6 @@ public class ProductServiceImpl implements IProductService {
             productEntityOptional.get().setSizes(sizes);
             return iProductMapper.productEntityToProductDto(iProductEntityRepository.save(productEntityOptional.get()));
         }
-        return null;
+        throw new ObjectNotFoundException("Producto no encontrado con el ID:" + id);
     }
 }

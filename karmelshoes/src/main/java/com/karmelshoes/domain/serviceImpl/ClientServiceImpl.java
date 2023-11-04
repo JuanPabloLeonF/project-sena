@@ -3,9 +3,11 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IClientMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,7 @@ public class ClientServiceImpl implements IClientService {
         this.iClientMapper = iClientMapper;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ClientDto> getAll() {
         return iClientRepository.findAll()
@@ -31,21 +34,24 @@ public class ClientServiceImpl implements IClientService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ClientDto getById(Long id) {
         Optional<ClientEntity> client = iClientRepository.findById(id);
         if (client.isPresent()) {
             return iClientMapper.clientEntityToClientDto(client.get());
         }
-        return null;
+        throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ClientDto create(ClientEntity clientEntity) {
-        clientEntity.setStatus(true);
-        return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
+         clientEntity.setStatus(true);
+         return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
     }
 
+    @Transactional(readOnly = false)
     @Override
     public ClientDto updateAllField(Long id, ClientEntity client) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
@@ -57,9 +63,10 @@ public class ClientServiceImpl implements IClientService {
             clientEntity.setPhone(client.getPhone());
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         }
-        return null;
+        throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public void deleteById(Long id) {
         Optional<ClientEntity> clientOptional = iClientRepository.findById(id);
@@ -68,5 +75,6 @@ public class ClientServiceImpl implements IClientService {
             client.setStatus(false);
             iClientRepository.save(client);
         }
+        throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
     }
 }
