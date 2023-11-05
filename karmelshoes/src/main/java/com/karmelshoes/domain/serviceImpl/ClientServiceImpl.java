@@ -81,7 +81,8 @@ public class ClientServiceImpl implements IClientService {
             ClientEntity client = clientOptional.get();
             client.setStatus(false);
             iClientRepository.save(client);
+        } else {
+            throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
         }
-        throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
     }
 }

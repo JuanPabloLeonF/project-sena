@@ -1,6 +1,7 @@
 package com.karmelshoes.persistency.errors.handler;
 
 import com.karmelshoes.persistency.errors.ResponseErrors;
+import com.karmelshoes.persistency.errors.exception.ClientIsEliminatedException;
 import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -48,6 +49,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         Map<String, Object> errors = new HashMap<>();
         exception.getConstraintViolations().forEach(constraintViolation -> errors.put(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage()));
         ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, "Invalida peticion, error en el campo", errors, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
+    }
+
+    @ExceptionHandler(ClientIsEliminatedException.class)
+    public ResponseEntity<ResponseErrors> handleClientIsEliminatedException(ClientIsEliminatedException exception) {
+        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, exception.getMessage(), null, HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
     }
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ public class SalesEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    @Size(min = 5, max = 200, message = "El campo paymentMethod no puede tener menos de 5 caracteres o maximo de 200")
     @Column(name = "payment_method")
     private String paymentMethod;
 

@@ -1,6 +1,5 @@
 package com.karmelshoes.persistency.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -14,7 +13,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.HashMap;

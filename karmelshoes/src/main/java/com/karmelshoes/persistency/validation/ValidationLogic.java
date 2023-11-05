@@ -6,10 +6,7 @@ import com.karmelshoes.persistency.repository.IShoppingCartRepository;
 public class ValidationLogic {
 
     public static Boolean validateIsClientDelete(ClientEntity client) {
-        if (client.getStatus()) {
-            return true;
-        }
-        return false;
+        return Boolean.TRUE.equals(client.getStatus());
     }
 
     public static Boolean validateIsUsedInSale(IShoppingCartRepository iShoppingCartRepository, Long shoppingCartId) {
