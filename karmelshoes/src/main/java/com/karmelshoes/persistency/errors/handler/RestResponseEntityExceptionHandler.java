@@ -4,6 +4,7 @@ import com.karmelshoes.persistency.errors.ResponseErrors;
 import com.karmelshoes.persistency.errors.exception.ClientIsEliminatedException;
 import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
+import com.karmelshoes.persistency.errors.exception.ShoppingCartAssociatedWithSaleException;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.UnexpectedTypeException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -54,6 +55,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(ClientIsEliminatedException.class)
     public ResponseEntity<ResponseErrors> handleClientIsEliminatedException(ClientIsEliminatedException exception) {
+        ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, exception.getMessage(), null, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
+    }
+
+    @ExceptionHandler(ShoppingCartAssociatedWithSaleException.class)
+    public ResponseEntity<ResponseErrors> handleShoppingCartAssociatedWithSaleException(ShoppingCartAssociatedWithSaleException exception) {
         ResponseErrors responseErrors = new ResponseErrors(HttpStatus.BAD_REQUEST, exception.getMessage(), null, HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseErrors);
     }
