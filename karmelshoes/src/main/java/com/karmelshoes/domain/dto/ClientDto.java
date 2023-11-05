@@ -8,6 +8,7 @@ public class ClientDto {
     private String phoneClientDto;
     private String addressClientDto;
     private Boolean statusClientDto;
+    private Boolean adminClientDto;
 
     public Long getIdClientDto() {
         return idClientDto;
@@ -15,6 +16,14 @@ public class ClientDto {
 
     public void setIdClientDto(Long idClientDto) {
         this.idClientDto = idClientDto;
+    }
+
+    public Boolean getAdminClientDto() {
+        return adminClientDto;
+    }
+
+    public void setAdminClientDto(Boolean adminClientDto) {
+        this.adminClientDto = adminClientDto;
     }
 
     public String getNameClientDto() {

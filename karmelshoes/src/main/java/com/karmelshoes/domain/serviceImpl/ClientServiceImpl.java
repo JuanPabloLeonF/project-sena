@@ -3,14 +3,17 @@ package com.karmelshoes.domain.serviceImpl;
 import com.karmelshoes.domain.dto.ClientDto;
 import com.karmelshoes.domain.service.IClientService;
 import com.karmelshoes.persistency.entity.ClientEntity;
+import com.karmelshoes.persistency.entity.RoleEntity;
 import com.karmelshoes.persistency.errors.exception.DataIntegrityViolationExceptionPersonality;
 import com.karmelshoes.persistency.errors.exception.ObjectNotFoundException;
 import com.karmelshoes.persistency.mappers.IClientMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
+import com.karmelshoes.persistency.repository.IRoleRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +23,13 @@ public class ClientServiceImpl implements IClientService {
 
     private final IClientRepository iClientRepository;
     private final IClientMapper iClientMapper;
+    private final IRoleRepository iRoleRepository;
 
     public ClientServiceImpl(IClientRepository iClientRepository,
-                             IClientMapper iClientMapper) {
+                             IClientMapper iClientMapper, IRoleRepository iRoleRepository) {
         this.iClientRepository = iClientRepository;
         this.iClientMapper = iClientMapper;
+        this.iRoleRepository = iRoleRepository;
     }
 
     @Transactional(readOnly = true)
@@ -52,6 +57,9 @@ public class ClientServiceImpl implements IClientService {
 
         try {
             clientEntity.setStatus(true);
+            List<RoleEntity> roles = getRoles(clientEntity);
+            clientEntity.setRoles(roles);
+            clientEntity.setEmail(clientEntity.getEmail());
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityViolationExceptionPersonality("No se puede crear el clinte por que el email:" + clientEntity.getEmail() + " ya existe");
@@ -84,5 +92,22 @@ public class ClientServiceImpl implements IClientService {
         } else {
             throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
         }
+    }
+
+    private List<RoleEntity> getRoles(ClientEntity user) {
+        List<RoleEntity> roles = new ArrayList<>();
+        Optional<RoleEntity> roleUser = iRoleRepository.findByName("ROLE_USER");
+
+        if(roleUser.isPresent()) {
+            roles.add(roleUser.orElseThrow());
+        }
+
+        if (user.getAdmin()) {
+            Optional<RoleEntity> roleAdmin = iRoleRepository.findByName("ROLE_ADMIN");
+            if (roleAdmin.isPresent()) {
+                roles.add(roleAdmin.orElseThrow());
+            }
+        }
+        return roles;
     }
 }
