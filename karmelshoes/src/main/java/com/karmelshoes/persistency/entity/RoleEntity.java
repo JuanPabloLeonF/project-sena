@@ -10,7 +10,7 @@ public class RoleEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "id", unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
     public Long getId() {

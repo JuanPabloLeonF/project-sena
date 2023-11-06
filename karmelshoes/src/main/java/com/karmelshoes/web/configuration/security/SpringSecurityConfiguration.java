@@ -44,9 +44,9 @@ public class SpringSecurityConfiguration {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests(requests ->
                         requests
-                                .requestMatchers(HttpMethod.GET, "/user/getall").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/user/getbyid/{id}").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/user/save" ).hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/product/getAll").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/client/getAll").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/product/getById/{id}" ).hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "user/update/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "user/delete/{id}").hasRole("ADMIN")
                                 .anyRequest().authenticated()
