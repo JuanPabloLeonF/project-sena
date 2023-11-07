@@ -18,6 +18,7 @@ public interface IClientMapper {
             @Mapping(target = "phone", source = "clientDto.phoneClientDto"),
             @Mapping(target = "status", source = "clientDto.statusClientDto"),
             @Mapping(target = "admin", source = "clientDto.adminClientDto"),
+            @Mapping(target = "password", source = "clientDto.passwordClientDto"),
             @Mapping(target = "roles", ignore = true)
     })
     ClientEntity clientDtoToClientEntity(ClientDto clientDto);

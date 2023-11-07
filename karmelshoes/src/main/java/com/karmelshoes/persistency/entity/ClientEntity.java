@@ -39,6 +39,8 @@ public class ClientEntity {
 
     @Column(name = "admin")
     private Boolean admin;
+    @Column(name = "password")
+    private String password;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
@@ -50,6 +52,14 @@ public class ClientEntity {
             }
     )
     private List<RoleEntity> roles = new ArrayList<>();
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Boolean getAdmin() {
         return admin;

@@ -9,6 +9,15 @@ public class ClientDto {
     private String addressClientDto;
     private Boolean statusClientDto;
     private Boolean adminClientDto;
+    private String passwordClientDto;
+
+    public String getPasswordClientDto() {
+        return passwordClientDto;
+    }
+
+    public void setPasswordClientDto(String passwordClientDto) {
+        this.passwordClientDto = passwordClientDto;
+    }
 
     public Long getIdClientDto() {
         return idClientDto;

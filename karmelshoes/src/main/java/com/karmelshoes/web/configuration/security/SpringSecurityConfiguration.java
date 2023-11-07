@@ -25,6 +25,8 @@ import java.util.Arrays;
 public class SpringSecurityConfiguration {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final static String ADMIN = "ADMIN";
+    private final static String USER = "USER";
 
     public SpringSecurityConfiguration(AuthenticationConfiguration authenticationConfiguration) {
         this.authenticationConfiguration = authenticationConfiguration;
@@ -44,11 +46,31 @@ public class SpringSecurityConfiguration {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests(requests ->
                         requests
+                                .requestMatchers(HttpMethod.PATCH, "/client/deleteById/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/client/getAll").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/client/getById/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/client/create").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/client/updateAll/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/product/getById/{id}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/product/getAll").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/client/getAll").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers(HttpMethod.GET, "/product/getById/{id}" ).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "user/update/{id}").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "user/delete/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/product/create").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.PUT, "/product/update/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.PATCH, "/product/delete/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.PATCH, "/product/updateImg/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.PATCH, "/product/updateSize/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/sales//getByIdClient/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/sales/getAll").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/sales/getById/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/sales/getByDate/{dateString}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/sales/getByPaymentMethod/{paymentMethod}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.POST, "/sales/create/{idShoppingCart}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/sales/getByIdShoppingCart/{id}").hasRole(ADMIN)
+                                .requestMatchers(HttpMethod.GET, "/shoppingCart/getAll").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/shoppingCart/getById/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/shoppingCart/create/{id}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/shoppingCart/addProduct/{shoppingCartId}/{productId}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/shoppingCart/removeProduct/{shoppingCartId}/{productId}").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/shoppingCart/deleteById/{id}").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilter(new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()))

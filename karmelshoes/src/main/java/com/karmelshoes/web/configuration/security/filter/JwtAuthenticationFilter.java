@@ -33,19 +33,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         ClientEntity user = null;
-        String userName = null;
-        String userEmail = null;
+        String name = null;
+        String password = null;
 
         try {
             user = new ObjectMapper().readValue(request.getInputStream(), ClientEntity.class);
-            userName = user.getName();
-            userEmail = user.getEmail();
+            name = user.getName();
+            password = user.getPassword();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userName, userEmail);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(name, password);
         return authenticationManager.authenticate(authToken);
     }
 
@@ -54,10 +54,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
         Boolean isAdmin = roles.stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
-        String userName = ((User) authResult.getPrincipal()).getUsername();
+        String name = ((User) authResult.getPrincipal()).getUsername();
 
         String token = Jwts.builder()
-                .setSubject(userName)
+                .setSubject(name)
                 .claim("isAdmin", isAdmin)
                 .claim("authorities", new ObjectMapper().writeValueAsString(roles))
                 .setIssuedAt(new Date())
@@ -69,8 +69,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         Map<String, Object> body = new HashMap<>();
         body.put("token", token);
-        body.put("message", "Hola "+ userName + ", has iniciado sesion con exito");
-        body.put("userName", userName);
+        body.put("message", "Hola "+ name + ", has iniciado sesion con exito");
+        body.put("name", name);
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setStatus(200);
         response.setContentType("application/json");

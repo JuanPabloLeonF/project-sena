@@ -10,6 +10,7 @@ import com.karmelshoes.persistency.mappers.IClientMapper;
 import com.karmelshoes.persistency.repository.IClientRepository;
 import com.karmelshoes.persistency.repository.IRoleRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,14 @@ public class ClientServiceImpl implements IClientService {
     private final IClientRepository iClientRepository;
     private final IClientMapper iClientMapper;
     private final IRoleRepository iRoleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public ClientServiceImpl(IClientRepository iClientRepository,
-                             IClientMapper iClientMapper, IRoleRepository iRoleRepository) {
+                             IClientMapper iClientMapper, IRoleRepository iRoleRepository, PasswordEncoder passwordEncoder) {
         this.iClientRepository = iClientRepository;
         this.iClientMapper = iClientMapper;
         this.iRoleRepository = iRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
@@ -59,7 +62,7 @@ public class ClientServiceImpl implements IClientService {
             clientEntity.setStatus(true);
             List<RoleEntity> roles = getRoles(clientEntity);
             clientEntity.setRoles(roles);
-            clientEntity.setEmail(clientEntity.getEmail());
+            clientEntity.setPassword(passwordEncoder.encode(clientEntity.getPassword()));
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityViolationExceptionPersonality("No se puede crear el clinte por que el email:" + clientEntity.getEmail() + " ya existe");
@@ -76,6 +79,8 @@ public class ClientServiceImpl implements IClientService {
             clientEntity.setEmail(client.getEmail());
             clientEntity.setAddress(client.getAddress());
             clientEntity.setPhone(client.getPhone());
+            clientEntity.setAdmin(client.getAdmin());
+            clientEntity.setPassword(passwordEncoder.encode(client.getPassword()));
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         }
         throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);
@@ -102,7 +107,7 @@ public class ClientServiceImpl implements IClientService {
             roles.add(roleUser.orElseThrow());
         }
 
-        if (user.getAdmin()) {
+        if (Boolean.TRUE.equals(user.getAdmin())) {
             Optional<RoleEntity> roleAdmin = iRoleRepository.findByName("ROLE_ADMIN");
             if (roleAdmin.isPresent()) {
                 roles.add(roleAdmin.orElseThrow());

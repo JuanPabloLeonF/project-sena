@@ -44,7 +44,7 @@ public class ProductController {
         return iProductService.updateAllFields(id, product);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PatchMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable("id") Long id) {
         iProductService.deleteById(id);

@@ -1,4 +1,4 @@
-package com.karmelshoes.domain.security;
+package com.karmelshoes.domain.service.security;
 
 import com.karmelshoes.persistency.entity.ClientEntity;
 import com.karmelshoes.persistency.repository.IClientRepository;
@@ -27,12 +27,12 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        Optional<ClientEntity> userFind = iClientRepository.findByEmail(userEmail);
+        Optional<ClientEntity> userFind = iClientRepository.findByName(userName);
 
         if(!userFind.isPresent()) {
-            throw new UsernameNotFoundException(userEmail + " no existe en el sistema");
+            throw new UsernameNotFoundException(userName + " no existe en el sistema");
         } else {
 
             ClientEntity userEntity = userFind.orElseThrow();
@@ -43,7 +43,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 
             return new User(
                     userEntity.getName(),
-                    userEntity.getEmail(),
+                    userEntity.getPassword(),
                     true,
                     true,
                     true,
