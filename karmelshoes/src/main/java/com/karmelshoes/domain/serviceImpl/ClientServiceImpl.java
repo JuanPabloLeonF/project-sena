@@ -60,8 +60,7 @@ public class ClientServiceImpl implements IClientService {
 
         try {
             clientEntity.setStatus(true);
-            List<RoleEntity> roles = getRoles(clientEntity);
-            clientEntity.setRoles(roles);
+            clientEntity.setRoles(getRoles(clientEntity));
             clientEntity.setPassword(passwordEncoder.encode(clientEntity.getPassword()));
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         } catch (DataIntegrityViolationException exception) {
@@ -81,6 +80,7 @@ public class ClientServiceImpl implements IClientService {
             clientEntity.setPhone(client.getPhone());
             clientEntity.setAdmin(client.getAdmin());
             clientEntity.setPassword(passwordEncoder.encode(client.getPassword()));
+            clientEntity.setRoles(getRoles(client));
             return iClientMapper.clientEntityToClientDto(iClientRepository.save(clientEntity));
         }
         throw new ObjectNotFoundException("Cliente no encontrado con el ID: " + id);

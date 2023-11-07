@@ -39,6 +39,13 @@ public class ClientEntity {
 
     @Column(name = "admin")
     private Boolean admin;
+
+    @NotBlank(message = "El campo password no puede estar vacio")
+    @Pattern.List({
+            @Pattern(regexp = ".*[A-Z].*", message = "La contraseña debe contener al menos una letra mayúscula"),
+            @Pattern(regexp = ".*[a-z].*", message = "La contraseña debe contener al menos una letra minúscula"),
+            @Pattern(regexp = ".*\\d.*", message = "La contraseña debe contener al menos un número")
+    })
     @Column(name = "password")
     private String password;
 
