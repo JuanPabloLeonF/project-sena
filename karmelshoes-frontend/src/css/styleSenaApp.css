@@ -1,0 +1,32 @@
+.header {
+    grid-area: header;
+    margin: 0;
+    background-color: black;
+    color: white;
+}
+
+.header h5:nth-child(1) {
+    display: grid;
+    justify-items: center;
+    margin: 0;
+    margin-top: 23px;
+}
+
+.nav {
+    grid-area: nav;
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+}
+
+.section {
+    grid-area: section;
+    margin: 0;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
