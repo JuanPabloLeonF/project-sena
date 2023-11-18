@@ -30,3 +30,7 @@
 .footer {
     grid-area: footer;
 }
+
+.active-link {
+    border-bottom: 2px solid black;
+}
