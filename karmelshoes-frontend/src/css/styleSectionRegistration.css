@@ -1,0 +1,53 @@
+.sectionRegistration {
+    grid-column: 1/2;
+    grid-row: 1/6;
+    display: grid;
+    grid-template-columns: 20% 25% 30% auto;
+    grid-template-rows: 15% 70% auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%; /* Asegura que el contenedor tenga un ancho especificado */
+    height: 100%; /* Asegura que el contenedor tenga una altura especificada */
+}
+
+.sectionRegistration svg:nth-child(1) {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: auto;
+    height: 100%;
+    margin-left: 90px;
+}
+
+.sectionRegistration .arcticle:nth-child(2) {
+    grid-column: 3/4;
+    grid-row: 2/3;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 81%, rgba(34,34,34,1) 100%);
+    display: grid;
+    grid-template-rows: 5% auto;
+    grid-template-columns: 90% auto;
+}
+
+.arcticle a:nth-child(1) {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+    justify-self: end;
+    align-self: end;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.arcticle form:nth-child(2) {
+    color: white;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, 1fr);
+    background-color: rgb(231, 6, 6);
+}
+
+

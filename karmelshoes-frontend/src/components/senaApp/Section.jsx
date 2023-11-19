@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "/src/css/styleSection.css"
 
 export const Section = () => {
@@ -5,9 +6,7 @@ export const Section = () => {
     <>
       <section className="section">
         <h2>Calzado</h2>
-          <a href="/pages/registrer.html" target="_blank">
-            Registrarse
-          </a>
+        <Link to={"/registration"}>Registrarse</Link>
           <a href="">Inicio</a>
       </section>
     </>

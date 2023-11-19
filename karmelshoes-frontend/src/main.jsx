@@ -6,6 +6,7 @@ import {Child} from "/src/pages/Child";
 import { SenaApp } from "./pages/SenaApp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { WhoWeAre } from "./pages/WhoWeAre";
+import { Registration } from "./pages/Registration";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/lady" element={<Lady></Lady>}></Route>
         <Route path="/gentleman" element={<Gentleman></Gentleman>}></Route>
         <Route path="/child" element={<Child></Child>}></Route>
+        <Route path="/registration" element={<Registration></Registration>}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
