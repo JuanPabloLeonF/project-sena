@@ -1,0 +1,22 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(to bottom, #4D72D3, #203580);
+  font-family: 'Domine', serif, 'Courier New', Courier, monospace;
+  overflow: hidden;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 7% 13% 10% 55% auto;
+  grid-template-areas:
+    "header"
+    "nav"
+    "section"
+    "main"
+    "footer";
+}
