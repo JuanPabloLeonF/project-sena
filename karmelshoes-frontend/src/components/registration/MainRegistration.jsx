@@ -41,7 +41,7 @@ export const MainRegistration = () => {
                 <span className="placeholder-text">Telefono/Movil:</span>
               </label>
             </div>
-            <button type="submit">Registrarse</button>
+            <button className="button" type="submit">Registrarse</button>
           </form>
         </article>
       </section>

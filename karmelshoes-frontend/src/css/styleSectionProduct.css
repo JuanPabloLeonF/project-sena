@@ -1,0 +1,9 @@
+.section-product:nth-child(5) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    grid-column: 1/2;
+    grid-row: 1/6;
+    display: grid;
+    
+}

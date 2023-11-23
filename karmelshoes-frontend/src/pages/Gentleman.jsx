@@ -1,8 +1,12 @@
+import { Header } from "../components/senaApp/Header";
+import { Nav } from "../components/senaApp/Nav";
+
 export const Gentleman = () => {
 
     return (
         <>
-        <h2>pagina Gentleman</h2>
+        <Header></Header>
+        <Nav></Nav>
         </>
     );
 }
