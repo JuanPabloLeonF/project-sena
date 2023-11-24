@@ -18,9 +18,19 @@ export const SectionProduct = () => {
     }
   };
 
+  const sectionClassName = () => {
+    if (location.pathname === "/lady") {
+      return "section-product";
+    } else if (location.pathname === "/gentleman") {
+      return "section-product";
+    } else if (location.pathname === "/child") {
+      return "section-boy";
+    } else {
+      return "section-product";
+    }
+  };
+
   return (
-    <section className="section-product">
-      {renderProductContainer()}
-    </section>
+    <section className={sectionClassName()}>{renderProductContainer()}</section>
   );
 };
