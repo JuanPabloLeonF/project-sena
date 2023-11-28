@@ -8,7 +8,9 @@ export const ContainerNavOne = () => {
           src="/src/assets/imgs/location-dot-solid.svg"
           alt="logo-ubucacion"
         />
-        <a href="">Tienda</a>
+        <NavLink className={({ isActive }) => (isActive ? "active-link" : null)} to={"/shop"}>
+          Tienda
+        </NavLink>
         <img src="/src/assets/imgs/interrogatorio.svg" alt="" />
         <NavLink
           className={({ isActive }) => (isActive ? "active-link" : null)}

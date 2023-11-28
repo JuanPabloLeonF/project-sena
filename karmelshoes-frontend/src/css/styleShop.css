@@ -1,0 +1,10 @@
+.main-shop {
+  display: grid;
+  grid-template-columns: 20% auto 20%;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.main-shop img {
+    grid-column: 2/3;
+    grid-row: 1/4;
+}

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const ContainerNavThree = () => {
   return (
     <>
@@ -11,9 +13,9 @@ export const ContainerNavThree = () => {
         <a href="" className="enlace">
           <img src="/src/assets/imgs/receipt-solid.svg" alt="" />
         </a>
-        <a href="" className="enlace">
+        <Link to={"/"} className="enlace">
           <img src="/src/assets/imgs/user-solid.svg" alt="" />
-        </a>
+        </Link>
       </div>
     </>
   );
