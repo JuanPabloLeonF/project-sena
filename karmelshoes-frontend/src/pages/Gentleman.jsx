@@ -1,5 +1,6 @@
 
 import { SectionProduct } from "../components/sectionProduct/SectionProduct";
+import { DivShowProduct } from "../components/senaApp/DivShowProduct";
 import { Footer } from "../components/senaApp/Footer";
 import { Header } from "../components/senaApp/Header";
 import { Main } from "../components/senaApp/Main";
@@ -12,8 +13,9 @@ export const Gentleman = () => {
         <>
         <Header></Header>
         <Nav></Nav>
-        <section></section>
+        {/* <section></section> */}
         <Main></Main>
+        <DivShowProduct></DivShowProduct>
         <Footer></Footer>
         <SectionProduct></SectionProduct>
         </>

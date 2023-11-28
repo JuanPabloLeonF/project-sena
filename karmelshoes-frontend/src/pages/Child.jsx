@@ -4,6 +4,7 @@ import {Main} from "/src/components/senaApp/Main.jsx"
 import {Footer} from "/src/components/senaApp/Footer.jsx"
 import {SectionProduct} from "/src/components/sectionProduct/SectionProduct";
 import "/src/css/styleChild.css";
+import { DivShowProduct } from "../components/senaApp/DivShowProduct";
 
 export const Child = () => {
 
@@ -11,8 +12,8 @@ export const Child = () => {
         <>
         <Header></Header>
         <Nav></Nav>
-        <section></section>
         <Main></Main>
+        <DivShowProduct></DivShowProduct>
         <Footer></Footer>
         <SectionProduct></SectionProduct>
         </>

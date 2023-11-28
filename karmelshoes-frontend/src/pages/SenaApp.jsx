@@ -4,7 +4,7 @@ import { Main } from "../components/senaApp/Main";
 import { Nav } from "../components/senaApp/Nav";
 import { Section } from "../components/senaApp/Section";
 import "/src/css/styleSenaApp.css";
-import "/src/css/index.css"
+import "/src/css/index.css";
 
 export const SenaApp = () => {
   return (

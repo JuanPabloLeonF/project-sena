@@ -32,7 +32,7 @@ export const MainRegistration = () => {
             <div className="form-group">
               <input type="text" id="date" required />
               <label htmlFor="date" className="form-label">
-                <span className="placeholder-text">Fecha de nacimiento:</span>
+                <span className="placeholder-text">Fecha de nacimiento (dd/mm/aaaa):</span>
               </label>
             </div>
             <div className="form-group">
