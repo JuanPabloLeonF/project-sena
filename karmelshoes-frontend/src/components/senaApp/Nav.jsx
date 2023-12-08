@@ -4,7 +4,7 @@ import { ContainerNavOne } from "./ContainerNavOne";
 import { ContainerNavTwo } from "./ContainerNavTwo";
 import { ContainerNavThree } from "./ContainerNavThree";
 
-export const Nav = () => {
+export const Nav = ({showShoppingCart}) => {
   return (
     <>
       <nav className="nav">
@@ -13,7 +13,7 @@ export const Nav = () => {
         </Link>
         <ContainerNavOne></ContainerNavOne>
         <ContainerNavTwo></ContainerNavTwo>
-        <ContainerNavThree></ContainerNavThree>
+        <ContainerNavThree showShoppingCart={showShoppingCart}></ContainerNavThree>
       </nav>
     </>
   );
