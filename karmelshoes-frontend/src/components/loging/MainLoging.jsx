@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import "/src/css/styleLoging.css"
 
-export const MainLoging = () => {
+export const MainLoging = ({showLoging}) => {
   return (
     <>
       <main className="main-loging">
@@ -9,7 +10,7 @@ export const MainLoging = () => {
         </div>
         <form className="section-loging">
           <div className="section-loging-1">
-            <Link to={"/"}>
+            <Link onClick={showLoging}>
               <img src="/src/assets/imgs/circulo-marca-x.svg" alt="" />
             </Link>
           </div>

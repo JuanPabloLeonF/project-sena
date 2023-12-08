@@ -6,9 +6,7 @@ import {Child} from "/src/pages/Child";
 import { SenaApp } from "./pages/SenaApp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { WhoWeAre } from "./pages/WhoWeAre";
-import { Registration } from "./pages/Registration";
 import { Shop } from "./pages/Shop";
-import { Loging } from "./pages/Loging";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -19,9 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/lady" element={<Lady></Lady>}></Route>
         <Route path="/gentleman" element={<Gentleman></Gentleman>}></Route>
         <Route path="/child" element={<Child></Child>}></Route>
-        <Route path="/registration" element={<Registration></Registration>}></Route>
         <Route path="/shop" element={<Shop></Shop>}></Route>
-        <Route path="/loging" element={<Loging></Loging>}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

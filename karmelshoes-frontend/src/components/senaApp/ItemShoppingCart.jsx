@@ -6,11 +6,11 @@ export const ItemShoppingCart = () => {
         <>
         <div className="div-item">
             <div className="div-img">
-                <img src="/src/assets/imgs/zapato1.jpg" alt="" />
+                <img className="img" src="/src/assets/imgs/zapato1.jpg" alt="" />
             </div>
             <div className="div-name">
                 <h2>Nombre del producto</h2>
-                <img src="/src/assets/imgs/circulo-marca-x.svg" alt="" />
+                <img className="img" src="/src/assets/imgs/circulo-marca-x.svg" alt="" />
             </div>
             <div className="div-price">
                 <h2>Cantidad:</h2>

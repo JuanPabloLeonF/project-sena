@@ -8,7 +8,8 @@ export const ShoppingCart = ({ showShoppingCart }) => {
         <div className="div-ShoopingCart">
           <div className="div-header">
             <h2>Carrito De Compras</h2>
-            <img
+            <img 
+              className="img"
               onClick={showShoppingCart}
               src="/src/assets/imgs/circulo-marca-x.png"
               alt=""

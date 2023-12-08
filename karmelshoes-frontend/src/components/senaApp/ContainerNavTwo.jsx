@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 
-export const ContainerNavTwo = () => {
+export const ContainerNavTwo = ({showLady}) => {
   return (
     <>
       <div className="container-nav-2 navLink">
         <NavLink
           className={({ isActive }) => (isActive ? "active-link-people" : null)}
-          to={"/lady"}
+          onClick={showLady}
         >
           <h3>Dama</h3>
         </NavLink>

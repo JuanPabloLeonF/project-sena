@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import "/src/css/styleSectionRegistration.css";
 
-export const MainRegistration = () => {
+export const MainRegistration = ({showRegistrer}) => {
   return (
     <>
       <section className="sectionRegistration">
         <img className="img" src="/src/assets/imgs/foto-registro.jfif" alt="" />
         <article className="arcticle">
-          <Link to={"/"}>
+          <Link onClick={showRegistrer}>
             <img src="/src/assets/imgs/circulo-marca-x.png" alt="" />
           </Link>
           <form className="formulary">

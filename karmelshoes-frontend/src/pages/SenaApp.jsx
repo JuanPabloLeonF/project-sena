@@ -7,10 +7,29 @@ import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import { useState } from "react";
 import { ShoppingCart } from "../components/senaApp/ShoppingCart";
+import { MainLoging } from "../components/loging/MainLoging";
+import { MainRegistration } from "../components/registration/MainRegistration";
+import { DivShowProduct } from "../components/senaApp/DivShowProduct";
+import { SectionProduct } from "../components/sectionProduct/SectionProduct";
 
 export const SenaApp = () => {
 
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
+  const [activeLoging, setActiveLoging] = useState(false);
+  const [activeRegistrer, setActiveRegistrer] = useState(false);
+  const [activeLady, setActiveLady] = useState(false);
+
+  const showLady = () => {
+    setActiveLady(!activeLady);
+  }
+
+  const showRegistrer = () => {
+    setActiveRegistrer(!activeRegistrer);
+  }
+
+  const showLoging = () => {
+    setActiveLoging(!activeLoging);
+  }
 
   const showShoppingCart = () => {
     setActiveShoppingCart(!activeShoppingCart);
@@ -19,11 +38,15 @@ export const SenaApp = () => {
   return (
     <>
       <Header></Header>
-      <Nav showShoppingCart={showShoppingCart}></Nav>
-      <Section></Section>
+      <Nav showShoppingCart={showShoppingCart} showLady={showLady}></Nav>
+      <Section showLoging={showLoging} showRegistrer={showRegistrer}></Section>
       <Main></Main>
-      <Footer></Footer>
+      {activeLoging && <MainLoging showLoging={showLoging}></MainLoging>}
+      {activeRegistrer && <MainRegistration showRegistrer={showRegistrer}></MainRegistration>}
+      {activeLady && <DivShowProduct></DivShowProduct>}
       {activeShoppingCart && <ShoppingCart showShoppingCart={showShoppingCart}></ShoppingCart>}
+      <Footer></Footer>
+      <SectionProduct showLady={showLady}></SectionProduct>
     </>
   );
 };

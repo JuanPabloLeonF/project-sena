@@ -6,6 +6,7 @@ import { ContainerMenuProductChild } from "./ContainerMenuProductChild";
 export const SectionProduct = () => {
   const location = useLocation();
 
+  
   const renderProductContainer = () => {
     if (location.pathname === "/lady") {
       return <ContainerMenuProductLady />;

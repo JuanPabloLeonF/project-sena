@@ -36,7 +36,7 @@
   padding-right: 10px;
 }
 
-.div-header img {
+.div-header .img {
   margin: 0;
   padding: 0;
   width: 20px;
@@ -58,7 +58,7 @@
   padding-right: 20px;
 }
 
-.div-body .div-item div img {
+.div-body .div-item div .img {
     width: 80%;
     height: auto;
 }
@@ -120,7 +120,7 @@
 }
 
 
-.div-body .div-item .div-name img{
+.div-body .div-item .div-name .img{
     width: 15px;
     height: auto;
     justify-self: end;
