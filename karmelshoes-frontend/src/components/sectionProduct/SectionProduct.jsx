@@ -1,33 +1,31 @@
-import { useLocation } from "react-router-dom";
 import { ContainerMenuProductGentleman } from "./ContainerMenuProductGentleman";
 import { ContainerMenuProductLady } from "./ContainerMenuProductLady";
 import { ContainerMenuProductChild } from "./ContainerMenuProductChild";
+import "/src/css/styleLady.css";
+import "/src/css/styleGentleman.css";
+import "/src/css/styleChild.css";
 
-export const SectionProduct = () => {
-  const location = useLocation();
-
-  
-  const renderProductContainer = () => {
-    if (location.pathname === "/lady") {
-      return <ContainerMenuProductLady />;
-    } else if (location.pathname === "/gentleman") {
-      return <ContainerMenuProductGentleman />;
-    } else if (location.pathname === "/child") {
-      return <ContainerMenuProductChild></ContainerMenuProductChild>;
-    } else {
-      return null;
-    }
-  };
+export const SectionProduct = ({activeLady, activeGentleman, activeChild}) => {
 
   const sectionClassName = () => {
-    if (location.pathname === "/lady") {
+    if (activeLady || activeGentleman) {
       return "section-product";
-    } else if (location.pathname === "/gentleman") {
-      return "section-product";
-    } else if (location.pathname === "/child") {
+    } else if (activeChild) {
       return "section-boy";
     } else {
       return "section-product";
+    }
+  };
+
+  const renderProductContainer = () => {
+    if (activeLady) {
+      return <ContainerMenuProductLady />;
+    } else if (activeGentleman) {
+      return <ContainerMenuProductGentleman />;
+    } else if (activeChild) {
+      return <ContainerMenuProductChild />;
+    } else {
+      return null;
     }
   };
 
