@@ -19,8 +19,6 @@ export const ShoppingCart = ({ showShoppingCart }) => {
             <ItemShoppingCart></ItemShoppingCart>
             <ItemShoppingCart></ItemShoppingCart>
             <ItemShoppingCart></ItemShoppingCart>
-            <ItemShoppingCart></ItemShoppingCart>
-            <ItemShoppingCart></ItemShoppingCart>
           </div>
           <div className="div-footer">
             <div>

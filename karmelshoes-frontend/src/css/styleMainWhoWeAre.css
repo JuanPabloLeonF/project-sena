@@ -37,6 +37,7 @@
     margin: 0;
     overflow: hidden;
     padding: 10px;
+    font-size: 22px;
 }
 
 .mainWhoWeAre p:nth-child(2){
@@ -45,4 +46,5 @@
     margin: 0;
     overflow: hidden; 
     padding: 10px;
+    font-size: 22px;
 }

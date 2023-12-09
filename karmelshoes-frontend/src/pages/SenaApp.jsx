@@ -150,6 +150,7 @@ export const SenaApp = () => {
       {(activeLady || activeGentleman || activeChild) && (
         <DivShowProduct></DivShowProduct>
       )}
+      <></>
     </>
   );
 };

@@ -21,8 +21,8 @@ export const ContainerNavOne = ({ showWhoWeAre, showShop, activeWhoWeAre , activ
         >
           ¿Quienes somos?
         </NavLink>
-        <img src="/src/assets/imgs/phone-solid.svg" alt="logo-telefono" />
-        <a href="">Servicio al cliente</a>
+        <img src="/src/assets/imgs/buscar-alt.png" alt="logo-historial" />
+        <a href="">Historial De Compras</a>
       </div>
     </>
   );
