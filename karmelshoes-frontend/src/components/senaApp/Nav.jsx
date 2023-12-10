@@ -15,9 +15,12 @@ export const Nav = ({
   activeGentleman,
   showWhoWeAre,
   showShop,
+  showPurchaseHistory,
   activeWhoWeAre,
   activeShop,
+  activePurchaseHistory
 }) => {
+
   return (
     <>
       <nav className="nav">
@@ -27,8 +30,10 @@ export const Nav = ({
         <ContainerNavOne
           showWhoWeAre={showWhoWeAre}
           showShop={showShop}
+          showPurchaseHistory={showPurchaseHistory}
           activeWhoWeAre={activeWhoWeAre}
           activeShop={activeShop}
+          activePurchaseHistory={activePurchaseHistory}
         ></ContainerNavOne>
         <ContainerNavTwo
           showLady={showLady}

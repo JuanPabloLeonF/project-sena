@@ -15,6 +15,7 @@ import { MainShop } from "../components/shop/MainShop";
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
@@ -25,19 +26,34 @@ export const SenaApp = () => {
   const [activeChild, setActiveChild] = useState(false);
   const [activeWhoWeAre, setActiveWhoWeAre] = useState(false);
   const [activeShop, setActiveShop] = useState(false);
+  const [activePurchaseHistory, setActivePurchaseHistory] = useState(false);
 
   const initPage = () => {
     setActiveGentleman(false);
-    setActiveLady(false);
     setActiveChild(false);
+    setActiveLady(false);
+    setActiveShop(false);
+    setActiveWhoWeAre(false);
+    setActivePurchaseHistory(false);
+  };
+
+  const showPurchaseHistory = () => {
+    setActivePurchaseHistory(!activePurchaseHistory);
+    setActiveGentleman(false);
+    setActiveChild(false);
+    setActiveLady(false);
+    setActiveShop(false);
+    setActiveWhoWeAre(false);
   };
 
   const showBoy = () => {
     setActiveChild(!activeChild);
     setActiveGentleman(false);
+    setActiveGentleman(false);
     setActiveLady(false);
     setActiveShop(false);
     setActiveWhoWeAre(false);
+    setActivePurchaseHistory(false);
   };
 
   const showLady = () => {
@@ -46,47 +62,49 @@ export const SenaApp = () => {
     setActiveChild(false);
     setActiveShop(false);
     setActiveWhoWeAre(false);
+    setActivePurchaseHistory(false);
   };
 
   const showGentleman = () => {
     setActiveGentleman(!activeGentleman);
-    setActiveLady(false);
     setActiveChild(false);
+    setActiveLady(false);
     setActiveShop(false);
     setActiveWhoWeAre(false);
+    setActivePurchaseHistory(false);
   };
 
   const showRegistrer = () => {
     setActiveRegistrer(!activeRegistrer);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
     initPage();
   };
 
   const showLoging = () => {
     setActiveLoging(!activeLoging);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
     initPage();
   };
 
   const showShoppingCart = () => {
     setActiveShoppingCart(!activeShoppingCart);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
     initPage();
   };
 
   const showWhoWeAre = () => {
     setActiveWhoWeAre(!activeWhoWeAre);
+    setActiveGentleman(false);
+    setActiveChild(false);
+    setActiveLady(false);
     setActiveShop(false);
-    initPage();
+    setActivePurchaseHistory(false);
   };
 
   const showShop = () => {
     setActiveShop(!activeShop);
+    setActiveGentleman(false);
+    setActiveChild(false);
+    setActiveLady(false);
     setActiveWhoWeAre(false);
-    initPage();
+    setActivePurchaseHistory(false);
   };
 
   const renderComponentMain = () => {
@@ -115,6 +133,7 @@ export const SenaApp = () => {
   return (
     <>
       <Header></Header>
+
       <Nav
         initPage={initPage}
         showShoppingCart={showShoppingCart}
@@ -126,18 +145,29 @@ export const SenaApp = () => {
         activeGentleman={activeGentleman}
         showWhoWeAre={showWhoWeAre}
         showShop={showShop}
+        showPurchaseHistory={showPurchaseHistory}
         activeWhoWeAre={activeWhoWeAre}
         activeShop={activeShop}
+        activePurchaseHistory={activePurchaseHistory}
       ></Nav>
+
       {renderComponentSection()}
+
       {renderComponentMain()}
+
       <Footer></Footer>
+
       {activeShoppingCart && (
         <ShoppingCart showShoppingCart={showShoppingCart}></ShoppingCart>
       )}
+
       {activeLoging && <MainLoging showLoging={showLoging}></MainLoging>}
       {activeRegistrer && (
         <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
+      )}
+
+      {activePurchaseHistory && (
+        <PurchaseHistory initPage={initPage}></PurchaseHistory>
       )}
 
       {(activeLady || activeGentleman || activeChild) && (

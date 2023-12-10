@@ -1,6 +1,13 @@
 import { NavLink } from "react-router-dom";
 
-export const ContainerNavOne = ({ showWhoWeAre, showShop, activeWhoWeAre , activeShop}) => {
+export const ContainerNavOne = ({
+  showWhoWeAre,
+  showShop,
+  showPurchaseHistory,
+  activeWhoWeAre,
+  activeShop,
+  activePurchaseHistory,
+}) => {
   return (
     <>
       <div className="container-nav-1">
@@ -22,7 +29,12 @@ export const ContainerNavOne = ({ showWhoWeAre, showShop, activeWhoWeAre , activ
           ¿Quienes somos?
         </NavLink>
         <img src="/src/assets/imgs/buscar-alt.png" alt="logo-historial" />
-        <a href="">Historial De Compras</a>
+        <NavLink
+          className={activePurchaseHistory ? "active-link" : null}
+          onClick={showPurchaseHistory}
+        >
+          Historial De Compras
+        </NavLink>
       </div>
     </>
   );
