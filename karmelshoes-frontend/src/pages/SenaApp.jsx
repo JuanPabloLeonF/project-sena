@@ -11,11 +11,12 @@ import { DivShowProduct } from "../components/senaApp/DivShowProduct";
 import { SectionProduct } from "../components/sectionProduct/SectionProduct";
 import { MainWhoWeAre } from "../components/whoWeAre/MainWhoWeAre";
 import { MainShop } from "../components/shop/MainShop";
+import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
-import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
+
 
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
@@ -166,10 +167,6 @@ export const SenaApp = () => {
         <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
       )}
 
-      {activePurchaseHistory && (
-        <PurchaseHistory initPage={initPage}></PurchaseHistory>
-      )}
-
       {(activeLady || activeGentleman || activeChild) && (
         <SectionProduct
           activeChild={activeChild}
@@ -177,8 +174,13 @@ export const SenaApp = () => {
           activeGentleman={activeGentleman}
         ></SectionProduct>
       )}
+
       {(activeLady || activeGentleman || activeChild) && (
         <DivShowProduct></DivShowProduct>
+      )}
+
+      {activePurchaseHistory && (
+        <PurchaseHistory initPage={initPage}></PurchaseHistory>
       )}
       <></>
     </>
