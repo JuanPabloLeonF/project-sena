@@ -13,19 +13,19 @@ export const FormularyLogingOrigy = ({showLoging, showForgotPassword}) => {
           <label htmlFor="name">
             <img src="/src/assets/imgs/circulo-de-usuario.svg" alt="" />
           </label>
-          <input type="text" id="name" placeholder="Nombre" />
+          <input className="input-loging" type="text" id="name" placeholder="Nombre" />
         </div>
         <div className="input-password">
           <label htmlFor="password">
             <img src="/src/assets/imgs/cerrar.svg" alt="" />
           </label>
-          <input type="password" id="password" placeholder="Contraseña" />
+          <input className="input-loging" type="password" id="password" placeholder="Contraseña" />
         </div>
         <div className="input-save-password">
           <label htmlFor="save-password">
             <h5>Recordar Contraseña</h5>
           </label>
-          <input type="checkbox" id="save-password" />
+          <input className="input-loging" type="checkbox" id="save-password" />
           <Link onClick={showForgotPassword}>
             <h5>¿Has olvidado tu contraseña?</h5>
           </Link>

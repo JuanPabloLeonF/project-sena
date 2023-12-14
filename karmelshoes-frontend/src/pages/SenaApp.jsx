@@ -16,6 +16,8 @@ import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+import { NavPerfil } from "../components/senaApp/NavPefil";
+import { MainPerfil } from "../components/senaApp/MainPerfil";
 
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
@@ -27,6 +29,7 @@ export const SenaApp = () => {
   const [activeWhoWeAre, setActiveWhoWeAre] = useState(false);
   const [activeShop, setActiveShop] = useState(false);
   const [activePurchaseHistory, setActivePurchaseHistory] = useState(false);
+  const [activeNavPerfil, setActiveNavPerfil] = useState(false);
 
   const initPage = () => {
     setActiveGentleman(false);
@@ -35,6 +38,7 @@ export const SenaApp = () => {
     setActiveShop(false);
     setActiveWhoWeAre(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
   };
 
   const showPurchaseHistory = () => {
@@ -44,6 +48,7 @@ export const SenaApp = () => {
     setActiveLady(false);
     setActiveShop(false);
     setActiveWhoWeAre(false);
+    setActiveNavPerfil(false);
   };
 
   const showBoy = () => {
@@ -54,6 +59,7 @@ export const SenaApp = () => {
     setActiveShop(false);
     setActiveWhoWeAre(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
   };
 
   const showLady = () => {
@@ -63,6 +69,7 @@ export const SenaApp = () => {
     setActiveShop(false);
     setActiveWhoWeAre(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
   };
 
   const showGentleman = () => {
@@ -72,6 +79,7 @@ export const SenaApp = () => {
     setActiveShop(false);
     setActiveWhoWeAre(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
   };
 
   const showRegistrer = () => {
@@ -96,6 +104,7 @@ export const SenaApp = () => {
     setActiveLady(false);
     setActiveShop(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
   };
 
   const showShop = () => {
@@ -105,6 +114,17 @@ export const SenaApp = () => {
     setActiveLady(false);
     setActiveWhoWeAre(false);
     setActivePurchaseHistory(false);
+    setActiveNavPerfil(false);
+  };
+
+  const showNavPerfil = () => {
+    setActiveNavPerfil(!activeNavPerfil);
+    setActiveGentleman(false);
+    setActiveChild(false);
+    setActiveLady(false);
+    setActiveWhoWeAre(false);
+    setActivePurchaseHistory(false);
+    setActiveShop(false);
   };
 
   const renderComponentMain = () => {
@@ -112,21 +132,25 @@ export const SenaApp = () => {
       return <MainWhoWeAre />;
     } else if (activeShop) {
       return <MainShop></MainShop>;
+    } else if (activeNavPerfil) {
+      return <MainPerfil></MainPerfil>;
     } else {
       return <Main></Main>;
     }
   };
 
   const renderComponentSection = () => {
-    if (activeWhoWeAre) {
+    if (activeNavPerfil) {
       return null;
-    } else {
+    } else if (!activeWhoWeAre){
       return (
         <Section
           showLoging={showLoging}
           showRegistrer={showRegistrer}
         ></Section>
       );
+    } else {
+      return null;
     }
   };
 
@@ -157,32 +181,57 @@ export const SenaApp = () => {
     }
   };
 
+  const renderFooter = () => {
+    if (activeNavPerfil) {
+      return null;
+    } else {
+      return <Footer></Footer>;
+    }
+  }
+
+  const renderNavOrNavPerfil = () => {
+    if (!activeNavPerfil) {
+      return (
+        <Nav
+          initPage={initPage}
+          showShoppingCart={showShoppingCart}
+          showLady={showLady}
+          showGentleman={showGentleman}
+          showBoy={showBoy}
+          activeChild={activeChild}
+          activeLady={activeLady}
+          activeGentleman={activeGentleman}
+          showWhoWeAre={showWhoWeAre}
+          showShop={showShop}
+          showPurchaseHistory={showPurchaseHistory}
+          activeWhoWeAre={activeWhoWeAre}
+          activeShop={activeShop}
+          activePurchaseHistory={activePurchaseHistory}
+          showNavPerfil={showNavPerfil}
+        ></Nav>
+      );
+    } else {
+      return (
+        <NavPerfil
+          showNavPerfil={showNavPerfil}
+          showPurchaseHistory={showPurchaseHistory}
+          showShop={showShop}
+        ></NavPerfil>
+      );
+    }
+  };
+
   return (
     <>
       <Header></Header>
 
-      <Nav
-        initPage={initPage}
-        showShoppingCart={showShoppingCart}
-        showLady={showLady}
-        showGentleman={showGentleman}
-        showBoy={showBoy}
-        activeChild={activeChild}
-        activeLady={activeLady}
-        activeGentleman={activeGentleman}
-        showWhoWeAre={showWhoWeAre}
-        showShop={showShop}
-        showPurchaseHistory={showPurchaseHistory}
-        activeWhoWeAre={activeWhoWeAre}
-        activeShop={activeShop}
-        activePurchaseHistory={activePurchaseHistory}
-      ></Nav>
+      {renderNavOrNavPerfil()}
 
       {renderComponentSection()}
 
       {renderComponentMain()}
 
-      <Footer></Footer>
+      {renderFooter()}
 
       {renderComponentForSectionMain()}
       <></>

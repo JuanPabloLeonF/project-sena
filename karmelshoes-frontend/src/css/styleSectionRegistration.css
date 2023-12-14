@@ -79,20 +79,19 @@
 }
 
 .form-group div:nth-child(4) {
-    background: none;
+  background: none;
 }
 
 .form-group input:focus,
 .form-group input:valid {
-  border-bottom-color: #3cecec; /* Cambia el color del borde cuando está enfocado o es válido */
+  border-bottom-color: #3cecec;
 }
 
-/* sugerencia: */
 .form-group input:focus + label,
 .form-group input:valid + label {
   transform: translateY(-25px);
   font-size: 15px;
-  color: #ffffff; /* Puedes ajustar el color según tus preferencias */
+  color: #ffffff;
 }
 
 .form-group input:focus + label span,
@@ -114,5 +113,13 @@
 }
 
 .form-group input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
+  filter: invert(1);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

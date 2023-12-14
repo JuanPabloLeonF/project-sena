@@ -18,7 +18,8 @@ export const Nav = ({
   showPurchaseHistory,
   activeWhoWeAre,
   activeShop,
-  activePurchaseHistory
+  activePurchaseHistory,
+  showNavPerfil
 }) => {
 
   return (
@@ -45,6 +46,7 @@ export const Nav = ({
         ></ContainerNavTwo>
         <ContainerNavThree
           showShoppingCart={showShoppingCart}
+          showNavPerfil={showNavPerfil}
         ></ContainerNavThree>
       </nav>
     </>
