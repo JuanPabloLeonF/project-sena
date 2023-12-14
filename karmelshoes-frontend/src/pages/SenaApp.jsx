@@ -17,7 +17,6 @@ import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
 
-
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
   const [activeLoging, setActiveLoging] = useState(false);
@@ -131,6 +130,33 @@ export const SenaApp = () => {
     }
   };
 
+  const renderComponentForSectionMain = () => {
+    if (activeShoppingCart) {
+      return <ShoppingCart showShoppingCart={showShoppingCart}></ShoppingCart>;
+    } else if (activeLoging) {
+      return <MainLoging showLoging={showLoging}></MainLoging>;
+    } else if (activeRegistrer) {
+      return (
+        <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
+      );
+    } else if (activeLady || activeGentleman || activeChild) {
+      return (
+        <>
+          <SectionProduct
+            activeChild={activeChild}
+            activeLady={activeLady}
+            activeGentleman={activeGentleman}
+          ></SectionProduct>
+          <DivShowProduct></DivShowProduct>
+        </>
+      );
+    } else if (activePurchaseHistory) {
+      return <PurchaseHistory initPage={initPage}></PurchaseHistory>;
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <Header></Header>
@@ -158,30 +184,7 @@ export const SenaApp = () => {
 
       <Footer></Footer>
 
-      {activeShoppingCart && (
-        <ShoppingCart showShoppingCart={showShoppingCart}></ShoppingCart>
-      )}
-
-      {activeLoging && <MainLoging showLoging={showLoging}></MainLoging>}
-      {activeRegistrer && (
-        <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
-      )}
-
-      {(activeLady || activeGentleman || activeChild) && (
-        <SectionProduct
-          activeChild={activeChild}
-          activeLady={activeLady}
-          activeGentleman={activeGentleman}
-        ></SectionProduct>
-      )}
-
-      {(activeLady || activeGentleman || activeChild) && (
-        <DivShowProduct></DivShowProduct>
-      )}
-
-      {activePurchaseHistory && (
-        <PurchaseHistory initPage={initPage}></PurchaseHistory>
-      )}
+      {renderComponentForSectionMain()}
       <></>
     </>
   );

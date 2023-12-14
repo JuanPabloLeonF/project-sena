@@ -1,42 +1,31 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FormularyLogingOrigy } from "./FormularyLogingOrigy";
+import { FormularyForgotPasword } from "./FormularyForgotPasword";
 import "/src/css/styleLoging.css"
 
 export const MainLoging = ({showLoging}) => {
+
+  const [activeForgotPassword, setActiveForgotPassword] = useState(false);
+
+  const showForgotPassword = () => {
+    setActiveForgotPassword(!activeForgotPassword);
+  }
+
+  const renderFormularyOriginOrFormularyForgotPassword = () => {
+    if (!activeForgotPassword) {
+      return <FormularyLogingOrigy showLoging={showLoging} showForgotPassword={showForgotPassword}></FormularyLogingOrigy>;
+    } else if (activeForgotPassword){
+      return <FormularyForgotPasword showForgotPassword={showForgotPassword}></FormularyForgotPasword>;
+    }
+  }
+
   return (
     <>
       <main className="main-loging">
         <div className="div-loging">
           <img src="/src/assets/imgs/icons8-user-48.png" alt="" />
         </div>
-        <form className="section-loging">
-          <div className="section-loging-1">
-            <Link onClick={showLoging}>
-              <img src="/src/assets/imgs/circulo-marca-x.svg" alt="" />
-            </Link>
-          </div>
-          <div className="input-name">
-            <label htmlFor="name">
-              <img src="/src/assets/imgs/circulo-de-usuario.svg" alt="" />
-            </label>
-            <input type="text" id="name" placeholder="Nombre" />
-          </div>
-          <div className="input-password">
-            <label htmlFor="password">
-              <img src="/src/assets/imgs/cerrar.svg" alt="" />
-            </label>
-            <input type="password" id="password" placeholder="Contraseña" />
-          </div>
-          <div className="input-save-password">
-            <label htmlFor="save-password">
-              <h5>Recordar Contraseña</h5>
-            </label>
-            <input type="checkbox" id="save-password" />
-            <Link to={"/"}>
-                <h5>¿Has olvidado tu contraseña?</h5>
-            </Link>
-          </div>
-          <input className="input-submit" type="submit" value="Iniciar" />
-        </form>
+        {renderFormularyOriginOrFormularyForgotPassword()}
       </main>
     </>
   );
