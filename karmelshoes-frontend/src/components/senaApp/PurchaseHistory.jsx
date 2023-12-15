@@ -1,8 +1,26 @@
-import "/src/css/stylePurchaseHistory.css";
+import { useEffect, useState } from "react";
 import { DivBodyContainerInformation } from "./DivBodyContainerInformation";
 import { DivContainerProductsHistory } from "./DivContainerProductHistory";
+import {getAllProduct} from "/src/services/useProductsService.js";
+
+import "/src/css/stylePurchaseHistory.css";
 
 export const PurchaseHistory = ({ initPage }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect (()=> {
+    const fetchData = async () => {
+      try {
+        const data = await getAllProduct();
+        setProducts(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [])
 
   return (
     <>
@@ -20,7 +38,7 @@ export const PurchaseHistory = ({ initPage }) => {
             <div className="products-title">
               <h3>Tus Productos</h3>
             </div>
-            <DivContainerProductsHistory></DivContainerProductsHistory>
+            <DivContainerProductsHistory products={products}></DivContainerProductsHistory>
             <DivBodyContainerInformation></DivBodyContainerInformation>
           </div>
         </div>

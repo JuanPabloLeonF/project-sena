@@ -3,7 +3,7 @@ import "/src/css/styleMainPerfil.css";
 
 export const MainPerfil = () => {
   const videos = useMemo(
-    () => ["/src/assets/videos/zapato.mp4", "/src/assets/videos/zapato2.mp4"],
+    () => ["/src/assets/videos/zapato4.mp4", "/src/assets/videos/zapato2.mp4", "/src/assets/videos/zapato3.mp4"],
     []
   );
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);

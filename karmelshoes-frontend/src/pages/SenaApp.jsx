@@ -12,12 +12,12 @@ import { SectionProduct } from "../components/sectionProduct/SectionProduct";
 import { MainWhoWeAre } from "../components/whoWeAre/MainWhoWeAre";
 import { MainShop } from "../components/shop/MainShop";
 import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
+import { NavPerfil } from "../components/senaApp/NavPefil";
+import { MainPerfil } from "../components/senaApp/MainPerfil";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
-import { NavPerfil } from "../components/senaApp/NavPefil";
-import { MainPerfil } from "../components/senaApp/MainPerfil";
 
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
@@ -142,7 +142,7 @@ export const SenaApp = () => {
   const renderComponentSection = () => {
     if (activeNavPerfil) {
       return null;
-    } else if (!activeWhoWeAre){
+    } else if (!activeWhoWeAre) {
       return (
         <Section
           showLoging={showLoging}
@@ -187,7 +187,7 @@ export const SenaApp = () => {
     } else {
       return <Footer></Footer>;
     }
-  }
+  };
 
   const renderNavOrNavPerfil = () => {
     if (!activeNavPerfil) {
@@ -234,7 +234,6 @@ export const SenaApp = () => {
       {renderFooter()}
 
       {renderComponentForSectionMain()}
-      <></>
     </>
   );
 };

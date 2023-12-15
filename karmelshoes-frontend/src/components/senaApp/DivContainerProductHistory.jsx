@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { DivTheProduct } from "./DivTheProduct";
 
-export const DivContainerProductsHistory = () => {
+export const DivContainerProductsHistory = ({products}) => {
   const containerRef = useRef(null);
   const [isManualInteraction, setIsManualInteraction] = useState(false);
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
@@ -28,7 +28,7 @@ export const DivContainerProductsHistory = () => {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <DivTheProduct isAutoScrollEnabled={isAutoScrollEnabled}></DivTheProduct>
+        <DivTheProduct products={products} isAutoScrollEnabled={isAutoScrollEnabled}></DivTheProduct>
       </motion.div>
     </>
   );
