@@ -3,7 +3,7 @@ import { Header } from "../components/senaApp/Header";
 import { Main } from "../components/senaApp/Main";
 import { Nav } from "../components/senaApp/Nav";
 import { Section } from "../components/senaApp/Section";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingCart } from "../components/senaApp/ShoppingCart";
 import { MainLoging } from "../components/loging/MainLoging";
 import { MainRegistration } from "../components/registration/MainRegistration";
@@ -160,9 +160,7 @@ export const SenaApp = () => {
     } else if (activeLoging) {
       return <MainLoging showLoging={showLoging}></MainLoging>;
     } else if (activeRegistrer) {
-      return (
-        <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
-      );
+      return <MainRegistration showRegistrer={showRegistrer}></MainRegistration>;
     } else if (activeLady || activeGentleman || activeChild) {
       return (
         <>
