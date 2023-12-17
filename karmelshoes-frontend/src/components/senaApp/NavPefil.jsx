@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 import "/src/css/styleNavPerfil.css";
 
-export const NavPerfil = ({ showNavPerfil, showPurchaseHistory, showShop }) => {
+export const NavPerfil = ({ showNavPerfil, showPurchaseHistory, showShop, initPage }) => {
   return (
     <>
       <nav className="nav">
-        <Link onClick={showNavPerfil} className="link">
+        <Link onClick={initPage} className="link">
           <h1 className="title">KARMELSHOES</h1>
         </Link>
         <div className="container-nav-perfil-2">
@@ -20,7 +20,7 @@ export const NavPerfil = ({ showNavPerfil, showPurchaseHistory, showShop }) => {
             <img onClick={showShop} src="/src/assets/imgs/location-dot-solid.svg" alt="" />
           </div>
           <div className="img">
-            <img onClick={showNavPerfil} src="/src/assets/imgs/house-solid.svg" alt="" />
+            <img onClick={initPage} src="/src/assets/imgs/house-solid.svg" alt="" />
           </div>
         </div>
       </nav>

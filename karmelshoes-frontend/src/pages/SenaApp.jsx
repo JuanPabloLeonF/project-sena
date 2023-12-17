@@ -3,7 +3,7 @@ import { Header } from "../components/senaApp/Header";
 import { Main } from "../components/senaApp/Main";
 import { Nav } from "../components/senaApp/Nav";
 import { Section } from "../components/senaApp/Section";
-import { useState } from "react";
+import { useReducer } from "react";
 import { ShoppingCart } from "../components/senaApp/ShoppingCart";
 import { MainLoging } from "../components/loging/MainLoging";
 import { MainRegistration } from "../components/registration/MainRegistration";
@@ -16,136 +16,90 @@ import { NavPerfil } from "../components/senaApp/NavPefil";
 import { MainPerfil } from "../components/senaApp/MainPerfil";
 import { AuthenticationProvider } from "../context/AuthenticationProvider";
 import { BrowserRouter } from "react-router-dom";
+import { senaAppReducer } from "../reducer/senaAppReducer";
+import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
 
-
 export const SenaApp = () => {
-  const [activeShoppingCart, setActiveShoppingCart] = useState(false);
-  const [activeLoging, setActiveLoging] = useState(false);
-  const [activeRegistrer, setActiveRegistrer] = useState(false);
-  const [activeLady, setActiveLady] = useState(false);
-  const [activeGentleman, setActiveGentleman] = useState(false);
-  const [activeChild, setActiveChild] = useState(false);
-  const [activeWhoWeAre, setActiveWhoWeAre] = useState(false);
-  const [activeShop, setActiveShop] = useState(false);
-  const [activePurchaseHistory, setActivePurchaseHistory] = useState(false);
-  const [activeNavPerfil, setActiveNavPerfil] = useState(false);
+  const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
 
   const initPage = () => {
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "INIT_PAGE" });
+    showSection("Main");
   };
 
-  const showPurchaseHistory = () => {
-    setActivePurchaseHistory(!activePurchaseHistory);
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
-    setActiveNavPerfil(false);
+  const showSection = (section) => {
+    dispatch({ type: "SET_ACTIVE_SECTION", payload: section });
   };
 
   const showBoy = () => {
-    setActiveChild(!activeChild);
-    setActiveGentleman(false);
-    setActiveGentleman(false);
-    setActiveLady(false);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "SHOW_BOY" });
+    showSection("Main");
   };
 
   const showLady = () => {
-    setActiveLady(!activeLady);
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "SHOW_LADY" });
+    showSection("Main");
   };
 
   const showGentleman = () => {
-    setActiveGentleman(!activeGentleman);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveShop(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "SHOW_GENTLEMAN" });
+    showSection("Main");
   };
 
   const showRegistrer = () => {
-    setActiveRegistrer(!activeRegistrer);
-    initPage();
+    dispatch({ type: "SHOW_REGISTRER" });
   };
 
   const showLoging = () => {
-    setActiveLoging(!activeLoging);
-    initPage();
+    dispatch({ type: "SHOW_LOGING" });
   };
 
   const showShoppingCart = () => {
-    setActiveShoppingCart(!activeShoppingCart);
-    initPage();
+    dispatch({ type: "SHOW_SHOPPING_CART" });
   };
 
   const showWhoWeAre = () => {
-    setActiveWhoWeAre(!activeWhoWeAre);
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveShop(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "SHOW_WHO_WE_ARE" });
+    showSection("WhoWeAre");
+  };
+
+  const showPurchaseHistory = () => {
+    dispatch({ type: "SHOW_PURCHARSE_HISTORY" });
   };
 
   const showShop = () => {
-    setActiveShop(!activeShop);
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveNavPerfil(false);
+    dispatch({ type: "SHOW_SHOP" });
+    showSection("Shop");
   };
 
   const showNavPerfil = () => {
-    setActiveNavPerfil(!activeNavPerfil);
-    setActiveGentleman(false);
-    setActiveChild(false);
-    setActiveLady(false);
-    setActiveWhoWeAre(false);
-    setActivePurchaseHistory(false);
-    setActiveShop(false);
+    dispatch({ type: "SHOW_NAV_PERFIL" });
+    showSection("NavPerfil");
   };
 
   const renderComponentMain = () => {
-    if (activeWhoWeAre) {
-      return <MainWhoWeAre />;
-    } else if (activeShop) {
-      return <MainShop></MainShop>;
-    } else if (activeNavPerfil) {
-      return <MainPerfil></MainPerfil>;
-    } else {
-      return <Main></Main>;
+    switch (state.activeSection) {
+      case "Main":
+        return <Main />;
+      case "WhoWeAre":
+        return <MainWhoWeAre />;
+      case "Shop":
+        return <MainShop />;
+      case "NavPerfil":
+        return <MainPerfil />;
+      default:
+        return <Main />;
     }
   };
 
   const renderComponentSection = () => {
-    if (activeNavPerfil) {
+    if (state.activeNavPerfil) {
       return null;
-    } else if (!activeWhoWeAre) {
+    } else if (!state.activeWhoWeAre) {
       return (
         <Section
           showLoging={showLoging}
@@ -158,42 +112,41 @@ export const SenaApp = () => {
   };
 
   const renderComponentForSectionMain = () => {
-    if (activeShoppingCart) {
-      return <ShoppingCart showShoppingCart={showShoppingCart}></ShoppingCart>;
-    } else if (activeLoging) {
-      return <MainLoging showLoging={showLoging}></MainLoging>;
-    } else if (activeRegistrer) {
-      return (
-        <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
-      );
-    } else if (activeLady || activeGentleman || activeChild) {
-      return (
-        <>
-          <SectionProduct
-            activeChild={activeChild}
-            activeLady={activeLady}
-            activeGentleman={activeGentleman}
-          ></SectionProduct>
-          <DivShowProduct></DivShowProduct>
-        </>
-      );
-    } else if (activePurchaseHistory) {
-      return <PurchaseHistory initPage={initPage}></PurchaseHistory>;
-    } else {
-      return null;
+    switch (true) {
+      case state.activeShoppingCart:
+        return <ShoppingCart showShoppingCart={showShoppingCart} />;
+      case state.activeLoging:
+        return <MainLoging showLoging={showLoging} />;
+      case state.activeRegistrer:
+        return <MainRegistration showRegistrer={showRegistrer} />;
+      case state.activeLady || state.activeGentleman || state.activeChild:
+        return (
+          <>
+            <SectionProduct
+              activeChild={state.activeChild}
+              activeLady={state.activeLady}
+              activeGentleman={state.activeGentleman}
+            />
+            <DivShowProduct />
+          </>
+        );
+      case state.activePurchaseHistory:
+        return <PurchaseHistory initPage={initPage} />;
+      default:
+        return null;
     }
   };
 
   const renderFooter = () => {
-    if (activeNavPerfil) {
+    if (state.activeNavPerfil) {
       return null;
     } else {
-      return <Footer></Footer>;
+      return <Footer />;
     }
   };
 
   const renderNavOrNavPerfil = () => {
-    if (!activeNavPerfil) {
+    if (!state.activeNavPerfil) {
       return (
         <Nav
           initPage={initPage}
@@ -201,17 +154,17 @@ export const SenaApp = () => {
           showLady={showLady}
           showGentleman={showGentleman}
           showBoy={showBoy}
-          activeChild={activeChild}
-          activeLady={activeLady}
-          activeGentleman={activeGentleman}
+          activeChild={state.activeChild}
+          activeLady={state.activeLady}
+          activeGentleman={state.activeGentleman}
           showWhoWeAre={showWhoWeAre}
           showShop={showShop}
           showPurchaseHistory={showPurchaseHistory}
-          activeWhoWeAre={activeWhoWeAre}
-          activeShop={activeShop}
-          activePurchaseHistory={activePurchaseHistory}
+          activeWhoWeAre={state.activeWhoWeAre}
+          activeShop={state.activeShop}
+          activePurchaseHistory={state.activePurchaseHistory}
           showNavPerfil={showNavPerfil}
-        ></Nav>
+        />
       );
     } else {
       return (
@@ -219,7 +172,8 @@ export const SenaApp = () => {
           showNavPerfil={showNavPerfil}
           showPurchaseHistory={showPurchaseHistory}
           showShop={showShop}
-        ></NavPerfil>
+          initPage={initPage}
+        />
       );
     }
   };
@@ -228,16 +182,11 @@ export const SenaApp = () => {
     <>
       <AuthenticationProvider>
         <BrowserRouter>
-          <Header></Header>
-
+          <Header />
           {renderNavOrNavPerfil()}
-
           {renderComponentSection()}
-
           {renderComponentMain()}
-
           {renderFooter()}
-
           {renderComponentForSectionMain()}
         </BrowserRouter>
       </AuthenticationProvider>

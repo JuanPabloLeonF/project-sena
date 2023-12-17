@@ -19,7 +19,7 @@ export const Nav = ({
   activeWhoWeAre,
   activeShop,
   activePurchaseHistory,
-  showNavPerfil
+  showNavPerfil,
 }) => {
 
   return (
