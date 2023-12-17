@@ -1,11 +1,12 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { logingModel } from "../../models/logingModel";
-
+import { useContext, useState } from "react";
+import { AuthenticationContext } from "../../context/AuthenticationProvider";
 
 export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
   const [dataFormulary, setDataFormulary] = useState(logingModel);
-  const { name, password } = dataFormulary;
+  const {name, password} = dataFormulary;
+  const {handlerLoging} = useContext(AuthenticationContext);
 
   const handlerOnChange = (event) => {
     const { name, value } = event.target;
@@ -15,10 +16,13 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
     }));
   };
 
-  const handlerOnSubmit = (event) => {
+  const handlerOnSubmit = async (event) => {
     event.preventDefault();
-    console.log("Formulario enviado:", dataFormulary);
-  }
+    setDataFormulary(logingModel);
+    showLoging();
+    handlerLoging(dataFormulary);
+  };
+
 
   return (
     <>
@@ -40,6 +44,7 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
             type="text"
             id="name"
             placeholder="Nombre"
+            required
           />
         </div>
         <div className="input-password">
@@ -54,6 +59,7 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
             type="password"
             id="password"
             placeholder="Contraseña"
+            required
           />
         </div>
         <div className="input-save-password">

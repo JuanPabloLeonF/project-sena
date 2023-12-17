@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-catch */
 import axios from "axios";
 
-export const logingAuthentication = async ({userName, password}) => {
+export const logingAuthentication = async ({name, password}) => {
     try {
         return await axios.post("http://localhost:9090/login", 
         {
-            userName, 
+            name, 
             password,
         }
     );
@@ -13,3 +13,8 @@ export const logingAuthentication = async ({userName, password}) => {
         throw error;
     }
 } 
+
+const admin = {
+    name: "gabriel garcia marquez",
+    password: "Papo123",
+}

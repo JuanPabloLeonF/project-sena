@@ -3,7 +3,7 @@ import { Header } from "../components/senaApp/Header";
 import { Main } from "../components/senaApp/Main";
 import { Nav } from "../components/senaApp/Nav";
 import { Section } from "../components/senaApp/Section";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingCart } from "../components/senaApp/ShoppingCart";
 import { MainLoging } from "../components/loging/MainLoging";
 import { MainRegistration } from "../components/registration/MainRegistration";
@@ -14,10 +14,13 @@ import { MainShop } from "../components/shop/MainShop";
 import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 import { NavPerfil } from "../components/senaApp/NavPefil";
 import { MainPerfil } from "../components/senaApp/MainPerfil";
+import { AuthenticationProvider } from "../context/AuthenticationProvider";
+import { BrowserRouter } from "react-router-dom";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+
 
 export const SenaApp = () => {
   const [activeShoppingCart, setActiveShoppingCart] = useState(false);
@@ -160,7 +163,9 @@ export const SenaApp = () => {
     } else if (activeLoging) {
       return <MainLoging showLoging={showLoging}></MainLoging>;
     } else if (activeRegistrer) {
-      return <MainRegistration showRegistrer={showRegistrer}></MainRegistration>;
+      return (
+        <MainRegistration showRegistrer={showRegistrer}></MainRegistration>
+      );
     } else if (activeLady || activeGentleman || activeChild) {
       return (
         <>
@@ -221,17 +226,21 @@ export const SenaApp = () => {
 
   return (
     <>
-      <Header></Header>
+      <AuthenticationProvider>
+        <BrowserRouter>
+          <Header></Header>
 
-      {renderNavOrNavPerfil()}
+          {renderNavOrNavPerfil()}
 
-      {renderComponentSection()}
+          {renderComponentSection()}
 
-      {renderComponentMain()}
+          {renderComponentMain()}
 
-      {renderFooter()}
+          {renderFooter()}
 
-      {renderComponentForSectionMain()}
+          {renderComponentForSectionMain()}
+        </BrowserRouter>
+      </AuthenticationProvider>
     </>
   );
 };
