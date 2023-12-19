@@ -1,6 +1,7 @@
 .purchase-history {
   grid-column: 1/2;
   grid-row: 1/7;
+  height: 640px;
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   grid-template-columns: 20% auto 20%;

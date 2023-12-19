@@ -1,6 +1,6 @@
 export const senaAppReducer = (state = {}, action) => {
   switch (action.type) {
-    case "SET_ACTIVE_SECTION":
+    case "SET_ACTIVE_SECTION_MAIN":
       return {
         ...state,
         activeSection: action.payload,
@@ -13,7 +13,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_BOY":
       return {
         ...state,
-        activeChild: !state.activeChild,
+        activeChild: true,
         activeLady: false,
         activeGentleman: false,
         activeShop: false,
@@ -24,7 +24,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_LADY":
       return {
         ...state,
-        activeLady: !state.activeLady,
+        activeLady: true,
         activeChild: false,
         activeGentleman: false,
         activeShop: false,
@@ -35,7 +35,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_GENTLEMAN":
       return {
         ...state,
-        activeGentleman: !state.activeGentleman,
+        activeGentleman: true,
         activeChild: false,
         activeLady: false,
         activeShop: false,
@@ -70,7 +70,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_WHO_WE_ARE":
       return {
         ...state,
-        activeWhoWeAre: !state.activeWhoWeAre,
+        activeWhoWeAre: true,
         activeGentleman: false,
         activeChild: false,
         activeLady: false,
@@ -81,7 +81,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_PURCHARSE_HISTORY":
       return {
         ...state,
-        activePurchaseHistory: !state.activePurchaseHistory,
+        activePurchaseHistory: true,
         activeWhoWeAre: false,
         activeGentleman: false,
         activeChild: false,
@@ -92,7 +92,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_SHOP":
       return {
         ...state,
-        activeShop: !state.activeShop,
+        activeShop: true,
         activeGentleman: false,
         activeChild: false,
         activeLady: false,
@@ -103,7 +103,7 @@ export const senaAppReducer = (state = {}, action) => {
     case "SHOW_NAV_PERFIL":
       return {
         ...state,
-        activeNavPerfil: !state.activeNavPerfil,
+        activeNavPerfil: true,
         activeGentleman: false,
         activeChild: false,
         activeLady: false,

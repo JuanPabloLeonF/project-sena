@@ -1,12 +1,7 @@
 import { useReducer } from "react";
 import { logingReducer } from "../reducer/logingReducer";
 import { logingAuthentication } from "/src/services/logingAuthentication";
-
-const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
-  isAuth: false,
-  user: undefined,
-  isAdmin: false,
-};
+import { initialLogin } from "../models/initialLogin";
 
 export const useLoging = () => {
   const [login, dispach] = useReducer(logingReducer, initialLogin);
@@ -31,6 +26,8 @@ export const useLoging = () => {
           isAdmin: claims.isAdmin,
         })
       );
+
+      console.log("Todo bien incio sesion: " + user.name + "Bienvenido")
 
       sessionStorage.setItem("token", `Bearer ${token}`);
     } catch (error) {

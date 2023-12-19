@@ -3,7 +3,6 @@ import { Header } from "../components/senaApp/Header";
 import { Main } from "../components/senaApp/Main";
 import { Nav } from "../components/senaApp/Nav";
 import { Section } from "../components/senaApp/Section";
-import { useReducer } from "react";
 import { ShoppingCart } from "../components/senaApp/ShoppingCart";
 import { MainLoging } from "../components/loging/MainLoging";
 import { MainRegistration } from "../components/registration/MainRegistration";
@@ -14,72 +13,30 @@ import { MainShop } from "../components/shop/MainShop";
 import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 import { NavPerfil } from "../components/senaApp/NavPefil";
 import { MainPerfil } from "../components/senaApp/MainPerfil";
-import { AuthenticationProvider } from "../context/AuthenticationProvider";
-import { BrowserRouter } from "react-router-dom";
-import { senaAppReducer } from "../reducer/senaAppReducer";
-import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
+import { useStateSenaApp } from "../hooks/useStateSenaApp";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
 
 export const SenaApp = () => {
-  const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
-
-  const initPage = () => {
-    dispatch({ type: "INIT_PAGE" });
-    showSection("Main");
-  };
-
-  const showSection = (section) => {
-    dispatch({ type: "SET_ACTIVE_SECTION", payload: section });
-  };
-
-  const showBoy = () => {
-    dispatch({ type: "SHOW_BOY" });
-    showSection("Main");
-  };
-
-  const showLady = () => {
-    dispatch({ type: "SHOW_LADY" });
-    showSection("Main");
-  };
-
-  const showGentleman = () => {
-    dispatch({ type: "SHOW_GENTLEMAN" });
-    showSection("Main");
-  };
-
-  const showRegistrer = () => {
-    dispatch({ type: "SHOW_REGISTRER" });
-  };
-
-  const showLoging = () => {
-    dispatch({ type: "SHOW_LOGING" });
-  };
-
-  const showShoppingCart = () => {
-    dispatch({ type: "SHOW_SHOPPING_CART" });
-  };
-
-  const showWhoWeAre = () => {
-    dispatch({ type: "SHOW_WHO_WE_ARE" });
-    showSection("WhoWeAre");
-  };
-
-  const showPurchaseHistory = () => {
-    dispatch({ type: "SHOW_PURCHARSE_HISTORY" });
-  };
-
-  const showShop = () => {
-    dispatch({ type: "SHOW_SHOP" });
-    showSection("Shop");
-  };
-
-  const showNavPerfil = () => {
-    dispatch({ type: "SHOW_NAV_PERFIL" });
-    showSection("NavPerfil");
-  };
+  const {
+    handlerLoging,
+    handlerLogout,
+    login,
+    state,
+    initPage,
+    showBoy,
+    showLady,
+    showGentleman,
+    showRegistrer,
+    showLoging,
+    showShoppingCart,
+    showWhoWeAre,
+    showPurchaseHistory,
+    showShop,
+    showNavPerfil,
+  } = useStateSenaApp();
 
   const renderComponentMain = () => {
     switch (state.activeSection) {
@@ -97,17 +54,17 @@ export const SenaApp = () => {
   };
 
   const renderComponentSection = () => {
-    if (state.activeNavPerfil) {
-      return null;
+    if (state.activeNavPerfil || state.activeShop) {
+      return <section></section>;
     } else if (!state.activeWhoWeAre) {
       return (
         <Section
+          handlerLogout={handlerLogout}
+          login={login}
           showLoging={showLoging}
           showRegistrer={showRegistrer}
         ></Section>
       );
-    } else {
-      return null;
     }
   };
 
@@ -116,7 +73,7 @@ export const SenaApp = () => {
       case state.activeShoppingCart:
         return <ShoppingCart showShoppingCart={showShoppingCart} />;
       case state.activeLoging:
-        return <MainLoging showLoging={showLoging} />;
+        return <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />;
       case state.activeRegistrer:
         return <MainRegistration showRegistrer={showRegistrer} />;
       case state.activeLady || state.activeGentleman || state.activeChild:
@@ -180,16 +137,12 @@ export const SenaApp = () => {
 
   return (
     <>
-      <AuthenticationProvider>
-        <BrowserRouter>
-          <Header />
-          {renderNavOrNavPerfil()}
-          {renderComponentSection()}
-          {renderComponentMain()}
-          {renderFooter()}
-          {renderComponentForSectionMain()}
-        </BrowserRouter>
-      </AuthenticationProvider>
+      <Header />
+      {renderNavOrNavPerfil()}
+      {renderComponentSection()}
+      {renderComponentMain()}
+      {renderFooter()}
+      {renderComponentForSectionMain()}
     </>
   );
 };

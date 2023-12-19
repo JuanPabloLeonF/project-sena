@@ -30,15 +30,21 @@ export const MainRegistration = ({showRegistrer}) => {
               </label>
             </div>
             <div className="form-group">
-              <input type="text" id="date" required />
-              <label htmlFor="date" className="form-label">
-                <span className="placeholder-text">Fecha de nacimiento (dd/mm/aaaa):</span>
+              <input type="text" id="address" required />
+              <label htmlFor="address" className="form-label">
+                <span className="placeholder-text">Direccion:</span>
               </label>
             </div>
             <div className="form-group">
               <input type="text" id="phone" required/>
               <label htmlFor="phone" className="form-label">
                 <span className="placeholder-text">Telefono/Movil:</span>
+              </label>
+            </div>
+            <div className="form-group">
+              <input type="password" id="password" required/>
+              <label htmlFor="password" className="form-label">
+                <span className="placeholder-text">Contraseña:</span>
               </label>
             </div>
             <button className="button" type="submit">Registrarse</button>

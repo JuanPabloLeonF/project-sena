@@ -3,7 +3,7 @@ import { FormularyLogingOrigy } from "./FormularyLogingOrigy";
 import { FormularyForgotPasword } from "./FormularyForgotPasword";
 import "/src/css/styleLoging.css"
 
-export const MainLoging = ({showLoging}) => {
+export const MainLoging = ({showLoging, handlerLoging}) => {
 
   const [activeForgotPassword, setActiveForgotPassword] = useState(false);
 
@@ -13,7 +13,7 @@ export const MainLoging = ({showLoging}) => {
 
   const renderFormularyOriginOrFormularyForgotPassword = () => {
     if (!activeForgotPassword) {
-      return <FormularyLogingOrigy showLoging={showLoging} showForgotPassword={showForgotPassword}></FormularyLogingOrigy>;
+      return <FormularyLogingOrigy handlerLoging={handlerLoging} showLoging={showLoging} showForgotPassword={showForgotPassword}></FormularyLogingOrigy>;
     } else if (activeForgotPassword){
       return <FormularyForgotPasword showForgotPassword={showForgotPassword}></FormularyForgotPasword>;
     }

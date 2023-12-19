@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import { logingModel } from "../../models/logingModel";
-import { useContext, useState } from "react";
-import { AuthenticationContext } from "../../context/AuthenticationProvider";
+import { useState } from "react";
 
-export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
+export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLoging }) => {
   const [dataFormulary, setDataFormulary] = useState(logingModel);
   const {name, password} = dataFormulary;
-  const {handlerLoging} = useContext(AuthenticationContext);
 
   const handlerOnChange = (event) => {
     const { name, value } = event.target;
@@ -16,11 +14,11 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword }) => {
     }));
   };
 
-  const handlerOnSubmit = async (event) => {
+  const handlerOnSubmit = (event) => {
     event.preventDefault();
     setDataFormulary(logingModel);
-    showLoging();
     handlerLoging(dataFormulary);
+    showLoging();
   };
 
 
