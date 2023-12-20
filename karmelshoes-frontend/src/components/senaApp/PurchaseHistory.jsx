@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DivBodyContainerInformation } from "./DivBodyContainerInformation";
 import { DivContainerProductsHistory } from "./DivContainerProductHistory";
-import {getAllProduct} from "/src/services/useProductsService.js";
+import {getAllProduct} from "/src/services/productsService.js";
 
 import "/src/css/stylePurchaseHistory.css";
 

@@ -75,7 +75,7 @@ export const SenaApp = () => {
       case state.activeLoging:
         return <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />;
       case state.activeRegistrer:
-        return <MainRegistration showRegistrer={showRegistrer} />;
+        return <MainRegistration showLoging={showLoging} showRegistrer={showRegistrer} />;
       case state.activeLady || state.activeGentleman || state.activeChild:
         return (
           <>

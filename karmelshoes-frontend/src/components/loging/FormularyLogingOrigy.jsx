@@ -16,9 +16,9 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLo
 
   const handlerOnSubmit = (event) => {
     event.preventDefault();
-    setDataFormulary(logingModel);
     handlerLoging(dataFormulary);
     showLoging();
+    setDataFormulary(logingModel);
   };
 
 

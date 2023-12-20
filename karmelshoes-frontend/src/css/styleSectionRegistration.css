@@ -55,6 +55,7 @@
 
 .form-group {
   display: grid;
+  height: 45px;
 }
 
 .form-group label:nth-child(2) {
@@ -62,11 +63,9 @@
   grid-row: 1/2;
   justify-self: start;
   align-self: center;
-  margin-top: 20px;
 }
 
 .form-group input:nth-child(1) {
-  margin-top: 30px;
   grid-column: 1/2;
   grid-row: 1/2;
   background: none;
@@ -114,6 +113,13 @@
 
 .form-group input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
+}
+
+.form-input-radio {
+  display: grid;
+  grid-template-columns: 25% 50% auto;
+  justify-items: start;
+  align-items: center;
 }
 
 input:-webkit-autofill,

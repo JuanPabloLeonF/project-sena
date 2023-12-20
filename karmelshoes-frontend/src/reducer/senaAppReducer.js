@@ -66,6 +66,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeRegistrer:false,
       };
     case "SHOW_WHO_WE_ARE":
       return {

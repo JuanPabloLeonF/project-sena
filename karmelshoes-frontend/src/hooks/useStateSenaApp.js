@@ -37,6 +37,7 @@ export const useStateSenaApp = () => {
 
   const showLoging = () => {
     dispatch({ type: "SHOW_LOGING" });
+    state.ac
   };
 
   const showShoppingCart = () => {
