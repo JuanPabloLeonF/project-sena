@@ -23,11 +23,6 @@ export const createClientOrAdmin = async ({
       password,
     });
   } catch (error) {
-    if (error.response?.status == 400) {
-      const errorData = error.response.data;
-      console.error("Error al crear cliente:", errorData.errors);
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
