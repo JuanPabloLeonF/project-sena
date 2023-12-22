@@ -2,10 +2,39 @@ import { senaAppReducer } from "../reducer/senaAppReducer";
 import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
+import { getClientByName } from "../services/clientServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
-  const { login, handlerLogout, handlerLoging } = useContext(AuthenticationContext);
+  const { login, handlerLogout, handlerLoging } = useContext(
+    AuthenticationContext
+  );
+
+  const normalizeClientData = (data) => {
+    return {
+      id: data.idClientDto || 0,
+      name: data.nameClientDto || "",
+      email: data.emailClientDto || "",
+      phone: data.phoneClientDto || "",
+      address: data.addressClientDto || "",
+      identification: data.identificationDto || "",
+      admin: data.adminClientDto || false,
+      password: data.passwordClientDto || "",
+      status: data.statusClientDto || true,
+    };
+  };
+
+  const getClientByNameData = async (name) => {
+    const data = await getClientByName(name);
+    const normalizedData = normalizeClientData(data);
+    return normalizedData;
+  };
+
+  const dataClient = async (nameClient) => {
+    console.log(nameClient);
+    const clientData = await getClientByNameData(nameClient);
+    dispatch({ type: "INIT_DATA_CLIENT", payload: clientData });
+  };
 
   const initPage = () => {
     dispatch({ type: "INIT_PAGE" });
@@ -37,7 +66,7 @@ export const useStateSenaApp = () => {
 
   const showLoging = () => {
     dispatch({ type: "SHOW_LOGING" });
-    state.ac
+    state.ac;
   };
 
   const showShoppingCart = () => {
@@ -81,5 +110,6 @@ export const useStateSenaApp = () => {
     showPurchaseHistory,
     showShop,
     showNavPerfil,
-  }
+    dataClient,
+  };
 };

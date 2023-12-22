@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "/src/css/styleNavPerfil.css";
 
-export const NavPerfil = ({ showNavPerfil, showPurchaseHistory, showShop, initPage }) => {
+export const NavPerfil = ({ showPurchaseHistory, showShop, initPage }) => {
   return (
     <>
       <nav className="nav">

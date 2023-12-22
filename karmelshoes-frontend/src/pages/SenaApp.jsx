@@ -18,6 +18,7 @@ import { useStateSenaApp } from "../hooks/useStateSenaApp";
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+import { useEffect } from "react";
 
 export const SenaApp = () => {
   const {
@@ -36,7 +37,26 @@ export const SenaApp = () => {
     showPurchaseHistory,
     showShop,
     showNavPerfil,
+    dataClient,
   } = useStateSenaApp();
+
+  const {
+    id,
+    name,
+    email,
+    phone,
+    address,
+    identification,
+    status,
+    admin,
+    password,
+  } = state.clienteOrAdmin;
+
+  useEffect(() => {
+    if (login.user) {
+      dataClient(login.user.name);
+    }
+  }, [login.user]);
 
   const renderComponentMain = () => {
     switch (state.activeSection) {
@@ -47,7 +67,7 @@ export const SenaApp = () => {
       case "Shop":
         return <MainShop />;
       case "NavPerfil":
-        return <MainPerfil />;
+        return <MainPerfil login={login} dataClient={state.clienteOrAdmin} />;
       default:
         return <Main />;
     }
@@ -61,6 +81,7 @@ export const SenaApp = () => {
         <Section
           handlerLogout={handlerLogout}
           login={login}
+          name={name}
           showLoging={showLoging}
           showRegistrer={showRegistrer}
         ></Section>
@@ -73,9 +94,17 @@ export const SenaApp = () => {
       case state.activeShoppingCart:
         return <ShoppingCart showShoppingCart={showShoppingCart} />;
       case state.activeLoging:
-        return <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />;
+        return (
+          <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />
+        );
       case state.activeRegistrer:
-        return <MainRegistration showLoging={showLoging} showRegistrer={showRegistrer} />;
+        return (
+          <MainRegistration
+            showLoging={showLoging}
+            showRegistrer={showRegistrer}
+            login={login}
+          />
+        );
       case state.activeLady || state.activeGentleman || state.activeChild:
         return (
           <>
@@ -126,7 +155,6 @@ export const SenaApp = () => {
     } else {
       return (
         <NavPerfil
-          showNavPerfil={showNavPerfil}
           showPurchaseHistory={showPurchaseHistory}
           showShop={showShop}
           initPage={initPage}

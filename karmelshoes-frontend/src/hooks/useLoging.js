@@ -23,7 +23,7 @@ export const useLoging = () => {
         JSON.stringify({
           isAuth: true,
           user: user,
-          isAdmin: claims.isAdmin,
+          isAdmin: claims.isAdmin, 
         })
       );
 

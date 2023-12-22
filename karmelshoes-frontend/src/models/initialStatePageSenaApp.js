@@ -1,3 +1,5 @@
+import { clientModelId } from "./clientModel";
+
 export const initialStatePageSenaApp = {
   activeSection: "Main",
   activeShoppingCart: false,
@@ -10,4 +12,5 @@ export const initialStatePageSenaApp = {
   activeShop: false,
   activePurchaseHistory: false,
   activeNavPerfil: false,
+  clienteOrAdmin: clientModelId
 };

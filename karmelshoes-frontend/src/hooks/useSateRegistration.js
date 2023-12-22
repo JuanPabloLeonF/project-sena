@@ -3,7 +3,7 @@ import { createClientOrAdmin } from "../services/clientServices";
 import { registrationReducer } from "../reducer/registrationReducer";
 import { initialStateFormRegistration } from "../models/initialStateFormRegistration";
 
-export const useSateRegistration = () => {
+export const useSateRegistration = ({ showLoging }) => {
   const [state, dispatch] = useReducer(
     registrationReducer,
     initialStateFormRegistration
@@ -27,7 +27,7 @@ export const useSateRegistration = () => {
     dispatch({
       type: "SET_FIELD",
       field: name,
-      value: type === "checkbox" ? checked : value,
+      value:type === "checkbox" ? checked: type === "radio" ? value === "true": value,
     });
   };
 
@@ -36,7 +36,9 @@ export const useSateRegistration = () => {
     validateFields();
     try {
       await createClientOrAdmin(state);
+      console.log(state);
       dispatch({ type: "RESET_FORM" });
+      showLoging();
     } catch (error) {
       if (error.response?.status === 400) {
         const errorData = error.response.data;
@@ -71,7 +73,7 @@ export const useSateRegistration = () => {
     }
 
     if (!/\+57 \d{10}/.test(phone)) {
-      errors.phone = "Debe ser con +57";
+      errors.phone = "Debe ser con +57 seguid de 10 digitos";
     }
 
     if (address.length < 8 || address.length > 200) {

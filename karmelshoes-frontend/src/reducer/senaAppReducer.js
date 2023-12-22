@@ -66,7 +66,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
-        activeRegistrer:false,
+        activeRegistrer: false,
       };
     case "SHOW_WHO_WE_ARE":
       return {
@@ -122,6 +122,14 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+      };
+    case "INIT_DATA_CLIENT":
+      return {
+        ...state,
+        clienteOrAdmin: {
+          ...state.clienteOrAdmin,
+          ...action.payload,
+        },
       };
     default:
       return state;

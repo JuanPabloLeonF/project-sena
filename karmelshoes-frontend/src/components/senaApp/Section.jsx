@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "/src/css/styleSection.css";
 
-export const Section = ({login, showLoging, showRegistrer, handlerLogout}) => {
+export const Section = ({login, showLoging, showRegistrer, handlerLogout, name}) => {
 
   const renderSectionIfIsAuth = () => {
     if (!login.isAuth) {
@@ -17,7 +17,7 @@ export const Section = ({login, showLoging, showRegistrer, handlerLogout}) => {
       <section className="section">
         <h2>Bienvenido</h2>
         <Link onClick={handlerLogout}>Cerrar Sesion</Link>
-        <h2 className="h2-name">{login.user.name}</h2>
+        <h2 className="h2-name">{name}</h2>
       </section>
       );
     }
