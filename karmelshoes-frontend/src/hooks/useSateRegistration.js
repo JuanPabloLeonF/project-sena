@@ -73,7 +73,7 @@ export const useSateRegistration = ({ showLoging }) => {
     }
 
     if (!/\+57 \d{10}/.test(phone)) {
-      errors.phone = "Debe ser con +57 seguid de 10 digitos";
+      errors.phone = "Debe ser con +57 seguido de 10 digitos";
     }
 
     if (address.length < 8 || address.length > 200) {

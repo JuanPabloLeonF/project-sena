@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useMemo, useState } from "react";
-import "/src/css/styleMainPerfil.css";
 import { clientModelId } from "../../models/clientModel";
 import { updateAllFieldsClientOrAdmin } from "../../services/clientServices";
+import "/src/css/styleMainPerfil.css";
 
-export const MainPerfil = ({ login, dataClient }) => {
+export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
   const videos = useMemo(
     () => [
       "/src/assets/videos/zapato4.mp4",
@@ -16,6 +16,11 @@ export const MainPerfil = ({ login, dataClient }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [dataFormulary, setDataFormulary] = useState(clientModelId);
   const [erroState, setErrorState] = useState({});
+
+  useEffect(() => {
+    dataClientOrAdmin.password = "Null123";
+    updateFieldsWithDataClient(dataClientOrAdmin);
+  }, [dataClientOrAdmin]);
 
   useEffect(() => {
     const videoElement = document.querySelector(".video video");
@@ -61,48 +66,72 @@ export const MainPerfil = ({ login, dataClient }) => {
     event.preventDefault();
     const formDataToSend = {
       ...dataFormulary,
-      admin: dataClient.admin,
-      status: dataClient.status,
-      id: dataClient.id,
+      admin: dataClientOrAdmin.admin,
+      status: dataClientOrAdmin.status,
+      id: dataClientOrAdmin.id,
     };
+    updateFieldsWithDataClient(formDataToSend);
     validateFields();
     try {
       const data = await updateAllFieldsClientOrAdmin(formDataToSend);
       console.log(formDataToSend);
+      console.log(data);
+      dataClient(data.nameClientDto);
       setDataFormulary(data);
     } catch (error) {
       console.log(error);
     }
-    
   };
+
+  const updateFieldsWithDataClient = ({
+    name,
+    email,
+    phone,
+    address,
+    identification,
+    password,
+  }) => {
+    setDataFormulary((prevData) => ({
+      ...prevData,
+      name: name || dataClientOrAdmin.name,
+      email: email || dataClientOrAdmin.email,
+      phone: phone || dataClientOrAdmin.phone,
+      address: address || dataClientOrAdmin.address,
+      identification: identification || dataClientOrAdmin.identification,
+      password: password || "Null123",
+    }));
+  };
+  
+  
 
   const validateFields = () => {
     const errors = {};
-    if (name.length < 6 || name.length > 70) {
+  
+    if (!name || name.length < 6 || name.length > 70) {
       errors.name = "Debe tener entre 4 y 70 caracteres";
     }
-
-    if (email.length < 15 || email.length > 100) {
+  
+    if (!email || email.length < 15 || email.length > 100) {
       errors.email = "Debe tener entre 15 y 100 caracteres";
     }
-
-    if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+  
+    if (!email || !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
       errors.email = "El email no tiene el formato correcto";
     }
-
-    if (!/\+57 \d{10}/.test(phone)) {
-      errors.phone = "Debe ser con +57 seguid de 10 digitos";
+  
+    if (!phone || !/\+57 \d{10}/.test(phone)) {
+      errors.phone = "Debe ser con +57 seguido de 10 dígitos";
     }
-
-    if (address.length < 8 || address.length > 200) {
+  
+    if (!address || address.length < 8 || address.length > 200) {
       errors.address = "Debe tener entre 8 y 200 caracteres";
     }
-
-    if (!/\d{8,10}/.test(identification)) {
+  
+    if (!identification || !/\d{8,10}/.test(identification)) {
       errors.identification =
         "Un máximo de 10 números y un mínimo de 8 números.";
     }
-
+  
     if (password) {
       const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
       if (!passwordRegex.test(password)) {
@@ -110,10 +139,11 @@ export const MainPerfil = ({ login, dataClient }) => {
           "Debe tener una letra mayúscula, una letra minúscula y un número";
       }
     }
-    
+  
     setErrorState(errors);
     return Object.keys(errors).length === 0;
   };
+  
 
   return (
     <>
@@ -132,7 +162,6 @@ export const MainPerfil = ({ login, dataClient }) => {
                 value={name}
                 onChange={handlerOnChange}
                 name={"name"}
-                placeholder={dataClient.name}
                 className="input"
                 type="text"
                 id="name"
@@ -140,13 +169,15 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="name" className="form-label-perfil">
                 <span>NOMBRE</span>
               </label>
+              {erroState.name && (
+                <p className="error-message">{erroState.name}</p>
+              )}
             </div>
             <div className="form-perfil-input">
               <input
                 value={email}
                 onChange={handlerOnChange}
                 name={"email"}
-                placeholder={dataClient.email}
                 className="input"
                 type="email"
                 id="email"
@@ -154,13 +185,15 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="email" className="form-label-perfil">
                 <span>{"CORREO"}</span>
               </label>
+              {erroState.email && (
+                <p className="error-message">{erroState.email}</p>
+              )}
             </div>
             <div className="form-perfil-input">
               <input
                 value={address}
                 onChange={handlerOnChange}
                 name={"address"}
-                placeholder={dataClient.address}
                 className="input"
                 type="text"
                 id="address"
@@ -168,6 +201,9 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="address" className="form-label-perfil">
                 <span>DIRECCION</span>
               </label>
+              {erroState.address && (
+                <p className="error-message">{erroState.address}</p>
+              )}
             </div>
           </div>
           <div className="container-form-1">
@@ -176,7 +212,6 @@ export const MainPerfil = ({ login, dataClient }) => {
                 value={phone}
                 onChange={handlerOnChange}
                 name={"phone"}
-                placeholder={dataClient.phone}
                 className="input"
                 type="text"
                 id="phone"
@@ -184,13 +219,15 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="phone" className="form-label-perfil">
                 <span>TELEFONO</span>
               </label>
+              {erroState.phone && (
+                <p className="error-message">{erroState.phone}</p>
+              )}
             </div>
             <div className="form-perfil-input">
               <input
                 value={identification}
                 onChange={handlerOnChange}
                 name={"identification"}
-                placeholder={dataClient.identification}
                 className="input"
                 type="text"
                 id="identification"
@@ -198,10 +235,12 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="identification" className="form-label-perfil">
                 <span>IDENTIFICACION</span>
               </label>
+              {erroState.identification && (
+                <p className="error-message">{erroState.identification}</p>
+              )}
             </div>
             <div className="form-perfil-input">
               <input
-                value={password}
                 onChange={handlerOnChange}
                 name={"password"}
                 className="input"
@@ -211,6 +250,9 @@ export const MainPerfil = ({ login, dataClient }) => {
               <label htmlFor="password" className="form-label-perfil">
                 <span>CONTRASEÑA</span>
               </label>
+              {erroState.password && (
+                <p className="error-message">{erroState.password}</p>
+              )}
             </div>
           </div>
           <div className="container-form-1">

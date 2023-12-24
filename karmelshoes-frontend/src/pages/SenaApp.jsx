@@ -14,11 +14,11 @@ import { PurchaseHistory } from "../components/senaApp/PurchaseHistory";
 import { NavPerfil } from "../components/senaApp/NavPefil";
 import { MainPerfil } from "../components/senaApp/MainPerfil";
 import { useStateSenaApp } from "../hooks/useStateSenaApp";
+import { useEffect } from "react";
 
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
-import { useEffect } from "react";
 
 export const SenaApp = () => {
   const {
@@ -52,9 +52,18 @@ export const SenaApp = () => {
     password,
   } = state.clienteOrAdmin;
 
+  let counter = 0;
   useEffect(() => {
+    counter += 1;
+
     if (login.user) {
-      dataClient(login.user.name);
+      if (counter === 1) {
+        console.log("estoy en cunter");
+        dataClient(login.user.name);
+      } else {
+        console.log("no estoy en cunter");
+        dataClient(state.clienteOrAdmin.name);
+      }
     }
   }, [login.user]);
 
@@ -67,7 +76,13 @@ export const SenaApp = () => {
       case "Shop":
         return <MainShop />;
       case "NavPerfil":
-        return <MainPerfil login={login} dataClient={state.clienteOrAdmin} />;
+        return (
+          <MainPerfil
+            login={login}
+            dataClient={dataClient}
+            dataClientOrAdmin={state.clienteOrAdmin}
+          />
+        );
       default:
         return <Main />;
     }
@@ -150,6 +165,7 @@ export const SenaApp = () => {
           activeShop={state.activeShop}
           activePurchaseHistory={state.activePurchaseHistory}
           showNavPerfil={showNavPerfil}
+          login={login}
         />
       );
     } else {
