@@ -37,7 +37,7 @@ export const SenaApp = () => {
     showPurchaseHistory,
     showShop,
     showNavPerfil,
-    dataClient,
+    dataClientById,
   } = useStateSenaApp();
 
   const {
@@ -52,18 +52,9 @@ export const SenaApp = () => {
     password,
   } = state.clienteOrAdmin;
 
-  let counter = 0;
   useEffect(() => {
-    counter += 1;
-
     if (login.user) {
-      if (counter === 1) {
-        console.log("estoy en cunter");
-        dataClient(login.user.name);
-      } else {
-        console.log("no estoy en cunter");
-        dataClient(state.clienteOrAdmin.name);
-      }
+      dataClientById(login.user.clientId)
     }
   }, [login.user]);
 
@@ -79,7 +70,7 @@ export const SenaApp = () => {
         return (
           <MainPerfil
             login={login}
-            dataClient={dataClient}
+            dataClientById={dataClientById}
             dataClientOrAdmin={state.clienteOrAdmin}
           />
         );

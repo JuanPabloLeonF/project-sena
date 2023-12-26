@@ -4,7 +4,7 @@ import { clientModelId } from "../../models/clientModel";
 import { updateAllFieldsClientOrAdmin } from "../../services/clientServices";
 import "/src/css/styleMainPerfil.css";
 
-export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
+export const MainPerfil = ({ login, dataClientOrAdmin, dataClientById }) => {
   const videos = useMemo(
     () => [
       "/src/assets/videos/zapato4.mp4",
@@ -16,6 +16,7 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [dataFormulary, setDataFormulary] = useState(clientModelId);
   const [erroState, setErrorState] = useState({});
+  const [formSubmissionStatus, setFormSubmissionStatus] = useState(null);
 
   useEffect(() => {
     dataClientOrAdmin.password = "Null123";
@@ -30,12 +31,13 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
     };
 
     videoElement.addEventListener("ended", handleVideoEnd);
+    videoElement.src = videos[currentVideoIndex];
     videoElement.play();
 
     return () => {
       videoElement.removeEventListener("ended", handleVideoEnd);
     };
-  }, [videos, currentVideoIndex]);
+  }, [currentVideoIndex, videos]);
 
   useEffect(() => {
     const videoElement = document.querySelector(".video video");
@@ -74,12 +76,17 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
     validateFields();
     try {
       const data = await updateAllFieldsClientOrAdmin(formDataToSend);
-      console.log(formDataToSend);
-      console.log(data);
-      dataClient(data.nameClientDto);
+      dataClientById(dataClientOrAdmin.id);
       setDataFormulary(data);
+      setFormSubmissionStatus("Los Datos Se Han Actualizado Correctamente");
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 400 || error.response?.status === 403) {
+        if (error.response?.status === 403) {
+          setFormSubmissionStatus("El Correo O La Identificacion Ya Existen");
+        }
+      } else {
+        throw error;
+      }
     }
   };
 
@@ -101,37 +108,35 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
       password: password || "Null123",
     }));
   };
-  
-  
 
   const validateFields = () => {
     const errors = {};
-  
+
     if (!name || name.length < 6 || name.length > 70) {
       errors.name = "Debe tener entre 4 y 70 caracteres";
     }
-  
+
     if (!email || email.length < 15 || email.length > 100) {
       errors.email = "Debe tener entre 15 y 100 caracteres";
     }
-  
+
     if (!email || !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
       errors.email = "El email no tiene el formato correcto";
     }
-  
+
     if (!phone || !/\+57 \d{10}/.test(phone)) {
       errors.phone = "Debe ser con +57 seguido de 10 dígitos";
     }
-  
+
     if (!address || address.length < 8 || address.length > 200) {
       errors.address = "Debe tener entre 8 y 200 caracteres";
     }
-  
+
     if (!identification || !/\d{8,10}/.test(identification)) {
       errors.identification =
         "Un máximo de 10 números y un mínimo de 8 números.";
     }
-  
+
     if (password) {
       const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
       if (!passwordRegex.test(password)) {
@@ -139,11 +144,28 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
           "Debe tener una letra mayúscula, una letra minúscula y un número";
       }
     }
-  
+
     setErrorState(errors);
     return Object.keys(errors).length === 0;
   };
-  
+
+  const renderMessageUpdateData = () => {
+    if (formSubmissionStatus === "Los Datos Se Han Actualizado Correctamente") {
+      return (
+        <div className="container-form-1">
+          <h2 className="h2-update">{formSubmissionStatus}</h2>
+        </div>
+      );
+    } else if (formSubmissionStatus) {
+      return (
+        <div className="container-form-1">
+          <h2 className="h2-update-server">{formSubmissionStatus + "error"}</h2>
+        </div>
+      );
+    } else {
+      return <div className="container-form-1"></div>;
+    }
+  };
 
   return (
     <>
@@ -255,6 +277,7 @@ export const MainPerfil = ({ login, dataClient, dataClientOrAdmin }) => {
               )}
             </div>
           </div>
+          {renderMessageUpdateData()}
           <div className="container-form-1">
             {login.isAdmin && (
               <>

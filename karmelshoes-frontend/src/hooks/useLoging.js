@@ -11,7 +11,8 @@ export const useLoging = () => {
       const response = await logingAuthentication({ name, password });
       const token = response.data.token;
       const claims = JSON.parse(window.atob(token.split(".")[1]));
-      const user = { name: claims.sub };
+      const clientId = claims.clientId;
+      const user = { name: claims.sub, clientId: clientId };
 
       dispach({
         type: "login",

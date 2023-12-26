@@ -62,3 +62,12 @@ export const getClientByName = async (name) => {
     throw error;
   }
 };
+
+export const getClientById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:9090/client/getById/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

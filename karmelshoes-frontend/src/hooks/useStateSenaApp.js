@@ -2,7 +2,7 @@ import { senaAppReducer } from "../reducer/senaAppReducer";
 import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
-import { getClientByName } from "../services/clientServices";
+import { getClientById } from "../services/clientServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
@@ -24,15 +24,14 @@ export const useStateSenaApp = () => {
     };
   };
 
-  const getClientByNameData = async (name) => {
-    const data = await getClientByName(name);
+  const getClientByIdData = async (id) => {
+    const data = await getClientById(id);
     const normalizedData = normalizeClientData(data);
     return normalizedData;
-  };
+  }
 
-  const dataClient = async (nameClient) => {
-    console.log(nameClient);
-    const clientData = await getClientByNameData(nameClient);
+  const dataClientById = async (id) => {
+    const clientData = await getClientByIdData(id);
     dispatch({ type: "INIT_DATA_CLIENT", payload: clientData });
   };
 
@@ -110,6 +109,6 @@ export const useStateSenaApp = () => {
     showPurchaseHistory,
     showShop,
     showNavPerfil,
-    dataClient,
+    dataClientById,
   };
 };

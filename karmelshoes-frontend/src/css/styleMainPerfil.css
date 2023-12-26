@@ -19,7 +19,7 @@
 
 .container-input-perfil {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 35% 35% 5% auto;
 }
 
 .container-form-1 {
@@ -49,11 +49,13 @@
 }
 
 .input:focus {
-  border-bottom-color: rgb(5, 142, 255);
+  border-bottom-color: rgb(255, 255, 255);
 }
 
 .input:focus + .form-label-perfil span {
-  color: rgb(5, 142, 255);
+  color: rgb(255, 255, 255);
+  font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
+  font-weight: bold;
 }
 
 .form-perfil-input .button-perfil {
@@ -90,12 +92,21 @@
   height: 35px;
 }
 
+.container-form-1:nth-child(3) .h2-update {
+  padding: 0;
+  margin: 0;
+  color: rgb(255, 255, 255);
+}
 
-.container-form-1:nth-child(3) .form-perfil-input:nth-child(1) {
+.container-form-1:nth-child(3) .h2-update-server{
+  color:rgb(177, 43, 43)
+}
+
+.container-form-1:nth-child(4) .form-perfil-input:nth-child(1) {
   grid-column: 1/2;
 }
 
-.container-form-1:nth-child(3) .form-perfil-input:nth-child(2) {
+.container-form-1:nth-child(4) .form-perfil-input:nth-child(2) {
   grid-column: 3/4;
 }
 
