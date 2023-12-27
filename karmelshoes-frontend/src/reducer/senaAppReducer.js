@@ -20,6 +20,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_LADY":
       return {
@@ -31,6 +32,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_GENTLEMAN":
       return {
@@ -42,6 +44,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_REGISTRER":
       return {
@@ -54,6 +57,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_LOGING":
       return {
@@ -67,6 +71,7 @@ export const senaAppReducer = (state = {}, action) => {
         activePurchaseHistory: false,
         activeNavPerfil: false,
         activeRegistrer: false,
+        activeMainAdmin: false,
       };
     case "SHOW_WHO_WE_ARE":
       return {
@@ -78,6 +83,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeShop: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_PURCHARSE_HISTORY":
       return {
@@ -89,6 +95,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeLady: false,
         activeShop: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_SHOP":
       return {
@@ -100,10 +107,24 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "SHOW_NAV_PERFIL":
       return {
         ...state,
+        activeNavPerfil: true,
+        activeGentleman: false,
+        activeChild: false,
+        activeLady: false,
+        activeWhoWeAre: false,
+        activePurchaseHistory: false,
+        activeShop: false,
+        activeMainAdmin: false,
+      };
+      case "SHOW_MAIN_ADMIN":
+      return {
+        ...state,
+        activeMainAdmin: true,
         activeNavPerfil: true,
         activeGentleman: false,
         activeChild: false,
@@ -122,6 +143,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeWhoWeAre: false,
         activePurchaseHistory: false,
         activeNavPerfil: false,
+        activeMainAdmin: false,
       };
     case "INIT_DATA_CLIENT":
       return {

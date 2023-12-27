@@ -2,6 +2,7 @@ import { clientModelId } from "./clientModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
+  activeMainAdmin: false,
   activeShoppingCart: false,
   activeLoging: false,
   activeRegistrer: false,

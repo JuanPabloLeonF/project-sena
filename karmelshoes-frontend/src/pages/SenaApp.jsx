@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+import { MainAdmin } from "../components/mainAdmin/MainAdmin";
 
 export const SenaApp = () => {
   const {
@@ -38,6 +39,7 @@ export const SenaApp = () => {
     showShop,
     showNavPerfil,
     dataClientById,
+    showMainAdmin,
   } = useStateSenaApp();
 
   const {
@@ -54,7 +56,7 @@ export const SenaApp = () => {
 
   useEffect(() => {
     if (login.user) {
-      dataClientById(login.user.clientId)
+      dataClientById(login.user.clientId);
     }
   }, [login.user]);
 
@@ -69,11 +71,14 @@ export const SenaApp = () => {
       case "NavPerfil":
         return (
           <MainPerfil
+            showMainAdmin={showMainAdmin}
             login={login}
             dataClientById={dataClientById}
             dataClientOrAdmin={state.clienteOrAdmin}
           />
         );
+      case "MainAdmin":
+        return <MainAdmin />;
       default:
         return <Main />;
     }
@@ -159,7 +164,7 @@ export const SenaApp = () => {
           login={login}
         />
       );
-    } else {
+    } else if (state.activeNavPerfil){
       return (
         <NavPerfil
           showPurchaseHistory={showPurchaseHistory}

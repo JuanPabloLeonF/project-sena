@@ -28,7 +28,7 @@ export const useStateSenaApp = () => {
     const data = await getClientById(id);
     const normalizedData = normalizeClientData(data);
     return normalizedData;
-  }
+  };
 
   const dataClientById = async (id) => {
     const clientData = await getClientByIdData(id);
@@ -93,6 +93,11 @@ export const useStateSenaApp = () => {
     showSection("NavPerfil");
   };
 
+  const showMainAdmin = () => {
+    dispatch({ type: "SHOW_MAIN_ADMIN" });
+    showSection("MainAdmin");
+  };
+
   return {
     handlerLoging,
     handlerLogout,
@@ -110,5 +115,6 @@ export const useStateSenaApp = () => {
     showShop,
     showNavPerfil,
     dataClientById,
+    showMainAdmin,
   };
 };
