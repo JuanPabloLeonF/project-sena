@@ -20,7 +20,11 @@
 .table-admin td {
   border: 1px solid #ddd;
   padding: 15px;
+}
+
+.table-admin td {
   text-align: center;
+  font-size: 13px;
 }
 
 .table-admin th {
@@ -33,4 +37,10 @@
 
 .table-admin tbody tr:hover {
   background-color: #ddd;
+}
+
+.img-table {
+  height: auto;
+  width: 25%;
+  cursor: pointer;
 }

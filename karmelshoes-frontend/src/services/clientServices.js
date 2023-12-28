@@ -1,6 +1,15 @@
 /* eslint-disable no-useless-catch */
 import axios from "axios";
 
+const configuration = () => {
+  return {
+    headers: {
+      Authorization: sessionStorage.getItem("token"),
+      "Content-Type": "application/json",
+    },
+  };
+};
+
 export const createClientOrAdmin = async ({
   name,
   email,
@@ -56,7 +65,9 @@ export const updateAllFieldsClientOrAdmin = async ({
 
 export const getClientByName = async (name) => {
   try {
-    const response = await axios.get(`http://localhost:9090/client/getByName/${name}`);
+    const response = await axios.get(
+      `http://localhost:9090/client/getByName/${name}`
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -65,7 +76,21 @@ export const getClientByName = async (name) => {
 
 export const getClientById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:9090/client/getById/${id}`);
+    const response = await axios.get(
+      `http://localhost:9090/client/getById/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClient = async (currentPage, itemsPerPage) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAll/${currentPage}/${itemsPerPage}`,
+      configuration()
+    );
     return response.data;
   } catch (error) {
     throw error;
