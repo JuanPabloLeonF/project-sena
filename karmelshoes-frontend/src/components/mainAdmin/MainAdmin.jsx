@@ -14,7 +14,7 @@ export const MainAdmin = () => {
 
   const getAllData = async () => {
     try {
-      const data = await getAllClient(currentPage, itemsPerPage);
+      const data = await getAllClient(currentPage - 1, itemsPerPage);
       console.log(data);
       setDataTable(normalizeClientData(data));
       setTotalPages(data.totalPages);
@@ -78,18 +78,20 @@ export const MainAdmin = () => {
           </tbody>
         </table>
       </main>
-      <section>
+      <section className="section-pagination">
         <div className="pagination">
           <button
+            className="buttom-pagination"
             onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
           >
             Anterior
           </button>
-          <span>
+          <span className="text-span">
             Página {currentPage} de {totalPages}
           </span>
           <button
+            className="buttom-pagination"
             onClick={() =>
               setCurrentPage(Math.min(currentPage + 1, totalPages))
             }
