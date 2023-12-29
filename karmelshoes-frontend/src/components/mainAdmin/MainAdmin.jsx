@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { getAllClient } from "../../services/clientServices";
+import { getAllClientAdmin } from "../../services/clientServices";
 import "/src/css/styleMainAdmin.css";
 
-export const MainAdmin = () => {
+export const MainAdmin = ({ currentPage, setTotalPages, showDataAdmin }) => {
   const [dataTable, setDataTable] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     getAllData();
@@ -14,7 +12,7 @@ export const MainAdmin = () => {
 
   const getAllData = async () => {
     try {
-      const data = await getAllClient(currentPage - 1, itemsPerPage);
+      const data = await getAllClientAdmin(currentPage - 1, itemsPerPage);
       console.log(data);
       setDataTable(normalizeClientData(data));
       setTotalPages(data.totalPages);
@@ -51,7 +49,6 @@ export const MainAdmin = () => {
               <th>Telefono</th>
               <th>Direccion</th>
               <th>Eliminado-Estado</th>
-              <th>Administrador-Estado</th>
               <th>Identificacion</th>
               <th>Configuracion</th>
             </tr>
@@ -64,10 +61,10 @@ export const MainAdmin = () => {
                 <td>{user.phone}</td>
                 <td>{user.address}</td>
                 <td>{user.status ? "SI" : "NO"}</td>
-                <td>{user.admin ? "SI" : "NO"}</td>
                 <td>{user.identification}</td>
                 <td>
                   <img
+                    onClick={showDataAdmin}
                     className="img-table"
                     src="/src/assets/imgs/cong-admin.png"
                     alt="icono de configuracion"
@@ -78,29 +75,6 @@ export const MainAdmin = () => {
           </tbody>
         </table>
       </main>
-      <section className="section-pagination">
-        <div className="pagination">
-          <button
-            className="buttom-pagination"
-            onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Anterior
-          </button>
-          <span className="text-span">
-            Página {currentPage} de {totalPages}
-          </span>
-          <button
-            className="buttom-pagination"
-            onClick={() =>
-              setCurrentPage(Math.min(currentPage + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            Siguiente
-          </button>
-        </div>
-      </section>
     </>
   );
 };

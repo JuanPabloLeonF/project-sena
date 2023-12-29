@@ -98,6 +98,24 @@ export const useStateSenaApp = () => {
     showSection("MainAdmin");
   };
 
+  const setTotalPages = (totalPages) => {
+    dispatch({
+      type: "SET_TOTAL_PAGE_TABLE_ADMIN",
+      payload: totalPages,
+    });
+  };
+
+  const setCurrentPage = (currentPage) => {
+    dispatch({
+      type: "SET_CURRENT_PAGE_TABLE_ADMIN",
+      payload: currentPage,
+    });
+  };
+
+  const showDataAdmin = () => {
+    dispatch({ type: "SHOW_DATA_ADMIN" });
+  };
+
   return {
     handlerLoging,
     handlerLogout,
@@ -116,5 +134,8 @@ export const useStateSenaApp = () => {
     showNavPerfil,
     dataClientById,
     showMainAdmin,
+    setTotalPages,
+    setCurrentPage,
+    showDataAdmin,
   };
 };

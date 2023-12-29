@@ -96,3 +96,15 @@ export const getAllClient = async (currentPage, itemsPerPage) => {
     throw error;
   }
 };
+
+export const getAllClientAdmin = async (currentPage, itemsPerPage) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdmin/${currentPage}/${itemsPerPage}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

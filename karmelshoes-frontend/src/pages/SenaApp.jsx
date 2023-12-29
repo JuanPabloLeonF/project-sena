@@ -19,7 +19,12 @@ import { useEffect } from "react";
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+
 import { MainAdmin } from "../components/mainAdmin/MainAdmin";
+import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
+import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
+import { NavConfiguration } from "../components/senaApp/NavConfiguration";
+import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
 
 export const SenaApp = () => {
   const {
@@ -40,6 +45,9 @@ export const SenaApp = () => {
     showNavPerfil,
     dataClientById,
     showMainAdmin,
+    setTotalPages,
+    setCurrentPage,
+    showDataAdmin,
   } = useStateSenaApp();
 
   const {
@@ -78,15 +86,23 @@ export const SenaApp = () => {
           />
         );
       case "MainAdmin":
-        return <MainAdmin />;
+        return (
+          <MainAdmin
+            currentPage={state.currentPage}
+            setTotalPages={setTotalPages}
+            showDataAdmin={showDataAdmin}
+          />
+        );
       default:
         return <Main />;
     }
   };
 
   const renderComponentSection = () => {
-    if (state.activeNavPerfil || state.activeShop) {
+    if (state.activeShop) {
       return <section></section>;
+    } else if (state.activeNavPerfil || state.activeMainAdmin) {
+      return <SectionAdmin />;
     } else if (!state.activeWhoWeAre) {
       return (
         <Section
@@ -129,21 +145,47 @@ export const SenaApp = () => {
         );
       case state.activePurchaseHistory:
         return <PurchaseHistory initPage={initPage} />;
+      case state.activeDataAdmin:
+        return <SectionDataAdmin showDataAdmin={showDataAdmin} />;
       default:
         return null;
     }
   };
 
   const renderFooter = () => {
-    if (state.activeNavPerfil) {
+    if (state.activeMainAdmin) {
+      return (
+        <FooterAdmin
+          currentPage={state.currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={state.totalPages}
+        />
+      );
+    } else if (state.activeNavPerfil) {
       return null;
     } else {
       return <Footer />;
     }
   };
 
-  const renderNavOrNavPerfil = () => {
-    if (!state.activeNavPerfil) {
+  const renderNav = () => {
+    if (state.activeMainAdmin) {
+      return (
+        <NavConfiguration
+          initPage={initPage}
+          showNavPerfil={showNavPerfil}
+          showMainAdmin={showMainAdmin}
+        />
+      );
+    } else if (state.activeNavPerfil) {
+      return (
+        <NavPerfil
+          showPurchaseHistory={showPurchaseHistory}
+          showShop={showShop}
+          initPage={initPage}
+        />
+      );
+    } else {
       return (
         <Nav
           initPage={initPage}
@@ -164,21 +206,13 @@ export const SenaApp = () => {
           login={login}
         />
       );
-    } else if (state.activeNavPerfil){
-      return (
-        <NavPerfil
-          showPurchaseHistory={showPurchaseHistory}
-          showShop={showShop}
-          initPage={initPage}
-        />
-      );
     }
   };
 
   return (
     <>
       <Header />
-      {renderNavOrNavPerfil()}
+      {renderNav()}
       {renderComponentSection()}
       {renderComponentMain()}
       {renderFooter()}

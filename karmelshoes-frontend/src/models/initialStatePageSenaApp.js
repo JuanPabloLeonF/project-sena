@@ -2,6 +2,7 @@ import { clientModelId } from "./clientModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
+  activeDataAdmin: false,
   activeMainAdmin: false,
   activeShoppingCart: false,
   activeLoging: false,
@@ -13,5 +14,7 @@ export const initialStatePageSenaApp = {
   activeShop: false,
   activePurchaseHistory: false,
   activeNavPerfil: false,
-  clienteOrAdmin: clientModelId
+  clienteOrAdmin: clientModelId,
+  currentPage: 1,
+  totalPages: 0,
 };
