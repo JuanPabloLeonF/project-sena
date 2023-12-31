@@ -2,7 +2,7 @@ import { senaAppReducer } from "../reducer/senaAppReducer";
 import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
-import { getClientById } from "../services/clientServices";
+import { getAllClientAdmin, getClientById } from "../services/clientServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
@@ -116,6 +116,43 @@ export const useStateSenaApp = () => {
     dispatch({ type: "SHOW_DATA_ADMIN" });
   };
 
+  const getDataAdmin = (data) => {
+    dispatch({
+      type: "DATA_ADMIN",
+      payload: data,
+    });
+  };
+
+  const updateMainAdmin = () => {
+    dispatch({
+      type: "UPDATE_COMPONENT_MAIN_ADMIN"
+    });
+  }; 
+
+  const normalizeClientDataArray = (data) => {
+    if (data && data.content && Array.isArray(data.content)) {
+      return data.content.map((client) => ({
+        id: client.idClientDto || 0,
+        name: client.nameClientDto || "",
+        email: client.emailClientDto || "",
+        phone: client.phoneClientDto || "",
+        address: client.addressClientDto || "",
+        identification: client.identificationDto || "",
+        admin: client.adminClientDto || false,
+        password: client.passwordClientDto || "",
+        status: client.statusClientDto || true,
+      }));
+    }
+    return [];
+  };
+
+  const dataTableAdmin = async () => {
+    const data = await getAllClientAdmin(state.currentPage - 1, 10);
+    const arrayData = normalizeClientDataArray(data);
+    setTotalPages(data.totalPages);
+    dispatch({ type: "DATA_TABLE_ADMIN", payload: arrayData });
+  };
+
   return {
     handlerLoging,
     handlerLogout,
@@ -137,5 +174,8 @@ export const useStateSenaApp = () => {
     setTotalPages,
     setCurrentPage,
     showDataAdmin,
+    dataTableAdmin,
+    getDataAdmin,
+    updateMainAdmin,
   };
 };

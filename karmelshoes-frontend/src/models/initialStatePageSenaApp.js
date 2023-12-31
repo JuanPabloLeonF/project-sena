@@ -17,4 +17,7 @@ export const initialStatePageSenaApp = {
   clienteOrAdmin: clientModelId,
   currentPage: 1,
   totalPages: 0,
+  dataTableAdmin: [],
+  dataAdmin: clientModelId,
+  updateMainAdmin: false,
 };

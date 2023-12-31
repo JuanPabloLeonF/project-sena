@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react";
-import { getAllClientAdmin } from "../../services/clientServices";
+/* eslint-disable react/prop-types */
+import { useEffect } from "react";
 import "/src/css/styleMainAdmin.css";
 
-export const MainAdmin = ({ currentPage, setTotalPages, showDataAdmin }) => {
-  const [dataTable, setDataTable] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-
+export const MainAdmin = ({
+  currentPage,
+  setTotalPages,
+  showDataAdmin,
+  dataTableAdmin,
+  dataTable,
+  getDataAdmin,
+  forcerRender,
+}) => {
   useEffect(() => {
     getAllData();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage, forcerRender]);
 
-  const getAllData = async () => {
+  const getAllData = () => {
     try {
-      const data = await getAllClientAdmin(currentPage - 1, itemsPerPage);
-      console.log(data);
-      setDataTable(normalizeClientData(data));
-      setTotalPages(data.totalPages);
+      dataTableAdmin();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const normalizeClientData = (data) => {
-    if (data && data.content && Array.isArray(data.content)) {
-      return data.content.map((client) => ({
-        id: client.idClientDto || 0,
-        name: client.nameClientDto || "",
-        email: client.emailClientDto || "",
-        phone: client.phoneClientDto || "",
-        address: client.addressClientDto || "",
-        identification: client.identificationDto || "",
-        admin: client.adminClientDto || false,
-        password: client.passwordClientDto || "",
-        status: client.statusClientDto || true,
-      }));
-    }
-    return [];
+  const handlerDataAdmin = (admin) => {
+    showDataAdmin();
+    getDataAdmin(admin);
   };
 
   return (
@@ -60,11 +50,11 @@ export const MainAdmin = ({ currentPage, setTotalPages, showDataAdmin }) => {
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.address}</td>
-                <td>{user.status ? "SI" : "NO"}</td>
+                <td>{user.status ? "NO" : "SI"}</td>
                 <td>{user.identification}</td>
                 <td>
                   <img
-                    onClick={showDataAdmin}
+                    onClick={() => handlerDataAdmin(user)}
                     className="img-table"
                     src="/src/assets/imgs/cong-admin.png"
                     alt="icono de configuracion"

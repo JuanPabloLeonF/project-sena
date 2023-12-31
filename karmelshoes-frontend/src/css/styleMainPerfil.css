@@ -49,11 +49,11 @@
 }
 
 .input:focus {
-  border-bottom-color: rgb(255, 255, 255);
+  border-bottom-color: rgb(158, 158, 158);
 }
 
 .input:focus + .form-label-perfil span {
-  color: rgb(255, 255, 255);
+  color: rgb(158, 158, 158);
   font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
   font-weight: bold;
 }
@@ -111,7 +111,7 @@
 }
 
 .input::placeholder {
-  color: black; /* Cambia el color según tus preferencias */
+  color: black; 
 }
 
 .input:-webkit-autofill,

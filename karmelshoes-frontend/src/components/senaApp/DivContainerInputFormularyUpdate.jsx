@@ -60,7 +60,6 @@ export const DivContainerInputFormularyUpdate = ({
         <FormInputFormularyData
           label="CONTRASEÑA"
           name="password"
-          value=""
           onChange={handlerOnChange}
           type="password"
           id="password"

@@ -48,7 +48,12 @@ export const SenaApp = () => {
     setTotalPages,
     setCurrentPage,
     showDataAdmin,
+    dataTableAdmin,
+    getDataAdmin,
+    updateMainAdmin,
   } = useStateSenaApp();
+
+  const dataAdmin = {};
 
   const {
     id,
@@ -88,6 +93,10 @@ export const SenaApp = () => {
       case "MainAdmin":
         return (
           <MainAdmin
+            forcerRender={state.updateMainAdmin}
+            getDataAdmin={getDataAdmin}
+            dataTable={state.dataTableAdmin}
+            dataTableAdmin={dataTableAdmin}
             currentPage={state.currentPage}
             setTotalPages={setTotalPages}
             showDataAdmin={showDataAdmin}
@@ -99,9 +108,9 @@ export const SenaApp = () => {
   };
 
   const renderComponentSection = () => {
-    if (state.activeShop) {
+    if (state.activeShop || state.activeNavPerfil) {
       return <section></section>;
-    } else if (state.activeNavPerfil || state.activeMainAdmin) {
+    } else if (state.activeMainAdmin) {
       return <SectionAdmin />;
     } else if (!state.activeWhoWeAre) {
       return (
@@ -111,7 +120,7 @@ export const SenaApp = () => {
           name={name}
           showLoging={showLoging}
           showRegistrer={showRegistrer}
-        ></Section>
+        />
       );
     }
   };
@@ -146,7 +155,14 @@ export const SenaApp = () => {
       case state.activePurchaseHistory:
         return <PurchaseHistory initPage={initPage} />;
       case state.activeDataAdmin:
-        return <SectionDataAdmin showDataAdmin={showDataAdmin} />;
+        return (
+          <SectionDataAdmin
+            updateMainAdmin={updateMainAdmin}
+            dataTableAdmin={dataTableAdmin}
+            showDataAdmin={showDataAdmin}
+            dataAdmin={state.dataAdmin}
+          />
+        );
       default:
         return null;
     }

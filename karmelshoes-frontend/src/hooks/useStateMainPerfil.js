@@ -10,14 +10,8 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
   );
   const { clientModelId, erroState, formSubmissionStatus } = state;
 
-  const {
-    name,
-    email,
-    phone,
-    address,
-    identification,
-    password,
-  } = clientModelId;
+  const { name, email, phone, address, identification, password } =
+    clientModelId;
 
   const handlerOnChange = (event) => {
     const { name, value } = event.target;
@@ -42,7 +36,9 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
     validateFields();
     try {
       const data = await updateAllFieldsClientOrAdmin(formDataToSend);
-      dataClientById(dataClientOrAdmin.id);
+      if (dataClientById !== null) {
+        dataClientById(dataClientOrAdmin.id);
+      }
       dispatch({ type: "SET_CLIENT_MODEL_ID", payload: data });
       dispatch({
         type: "SET_FORM_SUBMISSION_STATUS",
@@ -135,5 +131,5 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
     handlerOnChange,
     erroState,
     clientModelId,
-  }
+  };
 };
