@@ -1,13 +1,18 @@
 import { useReducer } from "react";
-import { mainPerfilReducer } from "../reducer/mainPerfilReducer";
 import { mainPerfilStateInitial } from "../models/mainPerfilStateInitial";
-import { updateAllFieldsClientOrAdmin } from "../services/clientServices";
+import { mainPerfilReducer } from "../reducer/mainPerfilReducer";
+import {
+    deleteAdminById,
+  getClientById,
+  updateAllFieldsClientOrAdmin,
+} from "../services/clientServices";
 
-export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
+export const useStateDataAdmin = (dataAdmin) => {
   const [state, dispatch] = useReducer(
     mainPerfilReducer,
     mainPerfilStateInitial
   );
+
   const { clientModelId, erroState, formSubmissionStatus } = state;
 
   const { name, email, phone, address, identification, password } =
@@ -24,39 +29,53 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
     });
   };
 
+  const handlerDeleteAdmin = async (dataAdmin) => {
+    const id = dataAdmin.id;
+    if (id !== 0) {
+      try {
+        const data = await deleteAdminById(id);
+        console.log(data);
+        const newData = normalizeClientData(data.data);
+        dispatch({ type: "SET_CLIENT_MODEL_ID", payload: newData });
+      } catch (error) {
+        console.log("no fue eliminado: ", error);
+      }
+    }
+  };
+
   const handlerOnSubmit = async (event) => {
     event.preventDefault();
     const formDataToSend = {
       ...clientModelId,
-      admin: dataClientOrAdmin.admin,
-      status: dataClientOrAdmin.status,
-      id: dataClientOrAdmin.id,
+      admin: dataAdmin.admin,
+      status: dataAdmin.status,
+      id: dataAdmin.id,
     };
     updateFieldsWithDataClient(formDataToSend);
-    validateFields();
-    try {
-      const data = await updateAllFieldsClientOrAdmin(formDataToSend);
-      if (dataClientById !== null) {
-        dataClientById(dataClientOrAdmin.id);
-      }
-      const newData = normalizeClientData(data.data);
-      dispatch({ type: "SET_CLIENT_MODEL_ID", payload: newData });
-      dispatch({
-        type: "SET_FORM_SUBMISSION_STATUS",
-        payload: "Los Datos Se Han Actualizado Correctamente",
-      });
-      console.log(state)
-    } catch (error) {
-      if (error.response?.status === 400 || error.response?.status === 403) {
-        if (error.response?.status === 403) {
-          dispatch({
-            type: "SET_FORM_SUBMISSION_STATUS",
-            payload: "El Correo O La Identificacion Ya Existen",
-          });
+    if (validateFields()) {
+      try {
+        const data = await updateAllFieldsClientOrAdmin(formDataToSend);
+        const newData = normalizeClientData(data.data);
+        dispatch({ type: "SET_CLIENT_MODEL_ID", payload: newData });
+        dispatch({
+          type: "SET_FORM_SUBMISSION_STATUS",
+          payload: "Los Datos Se Han Actualizado Correctamente",
+        });
+        console.log(state);
+      } catch (error) {
+        if (error.response?.status === 400 || error.response?.status === 403) {
+          if (error.response?.status === 403) {
+            dispatch({
+              type: "SET_FORM_SUBMISSION_STATUS",
+              payload: "El Correo O La Identificacion Ya Existen",
+            });
+          }
+        } else {
+          throw error;
         }
-      } else {
-        throw error;
       }
+    } else {
+      console.log("los campos error");
     }
   };
 
@@ -72,11 +91,11 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
       type: "SET_CLIENT_MODEL_ID",
       payload: {
         ...clientModelId,
-        name: name || dataClientOrAdmin.name,
-        email: email || dataClientOrAdmin.email,
-        phone: phone || dataClientOrAdmin.phone,
-        address: address || dataClientOrAdmin.address,
-        identification: identification || dataClientOrAdmin.identification,
+        name: name || dataAdmin.name,
+        email: email || dataAdmin.email,
+        phone: phone || dataAdmin.phone,
+        address: address || dataAdmin.address,
+        identification: identification || dataAdmin.identification,
         password: password || "Null123",
       },
     });
@@ -147,5 +166,6 @@ export const useStateMainPerfil = (dataClientOrAdmin, dataClientById) => {
     handlerOnChange,
     erroState,
     clientModelId,
+    handlerDeleteAdmin,
   };
 };

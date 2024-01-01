@@ -2,10 +2,9 @@
 import { DivContainerInputFormularyUpdate } from "../senaApp/DivContainerInputFormularyUpdate";
 import "/src/css/styleSectionDataAdmin.css";
 import { useEffect } from "react";
-import { useStateMainPerfil } from "../../hooks/useStateMainPerfil";
+import { useStateDataAdmin } from "../../hooks/useStateDataAdmin";
 
 export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, updateMainAdmin}) => {
-  const dataClientById = null;
 
   const {
     updateFieldsWithDataClient,
@@ -13,16 +12,29 @@ export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, upd
     handlerOnChange,
     erroState,
     clientModelId,
-  } = useStateMainPerfil(dataAdmin, dataClientById);
+    handlerDeleteAdmin
+  } = useStateDataAdmin(dataAdmin);
 
   useEffect(() => {
     dataAdmin.password = "Null123";
     updateFieldsWithDataClient(dataAdmin);
   }, [dataAdmin]);
 
+  const handlerDataAdminDelete = () => {
+    handlerDeleteAdmin(dataAdmin);
+    dataTableAdmin();
+    updateMainAdmin();
+  }
+
   const handlerDataAdmin = () => {
     dataTableAdmin();
     updateMainAdmin();
+  }
+
+  const handlerDataAdminClose = () => {
+    dataTableAdmin();
+    updateMainAdmin();
+    showDataAdmin();
   }
 
   return (
@@ -33,7 +45,7 @@ export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, upd
             <div className="data-admin-title">DATOS</div>
             <div className="data-admin-img">
               <img
-                onClick={showDataAdmin}
+                onClick={handlerDataAdminClose}
                 src="/src/assets/imgs/circulo-marca-x.png"
                 alt=""
               />
@@ -47,7 +59,7 @@ export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, upd
             />
             <div className="data-admin-div-buttom">
               <div className="data-admin-div-delete-admin">
-                <button className="buttom-data-admin" type="button">
+                <button onClick={handlerDataAdminDelete} className="buttom-data-admin" type="button">
                   <h2>ELIMINAR</h2>
                 </button>
               </div>

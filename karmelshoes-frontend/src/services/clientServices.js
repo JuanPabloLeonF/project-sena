@@ -2,9 +2,10 @@
 import axios from "axios";
 
 const configuration = () => {
+  const token = sessionStorage.getItem("token");
   return {
     headers: {
-      Authorization: sessionStorage.getItem("token"),
+      Authorization: token,
       "Content-Type": "application/json",
     },
   };
@@ -78,6 +79,29 @@ export const getClientById = async (id) => {
   try {
     const response = await axios.get(
       `http://localhost:9090/client/getById/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteClientById = async (id) => {
+  try {
+    await axios.patch(
+      `http://localhost:9090/client/deleteById/${id}`,
+      configuration()
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteAdminById = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:9090/client/deleteAdminById/${id}`,
+      configuration()
     );
     return response.data;
   } catch (error) {
