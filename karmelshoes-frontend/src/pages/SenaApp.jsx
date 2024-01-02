@@ -111,7 +111,8 @@ export const SenaApp = () => {
     if (state.activeShop || state.activeNavPerfil) {
       return <section></section>;
     } else if (state.activeMainAdmin) {
-      return <SectionAdmin />;
+
+      return <SectionAdmin showRegistrer={showRegistrer}/>;
     } else if (!state.activeWhoWeAre) {
       return (
         <Section
@@ -161,6 +162,7 @@ export const SenaApp = () => {
             dataTableAdmin={dataTableAdmin}
             showDataAdmin={showDataAdmin}
             dataAdmin={state.dataAdmin}
+            id={id}
           />
         );
       default:

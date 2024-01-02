@@ -2,12 +2,11 @@ import { useReducer } from "react";
 import { mainPerfilStateInitial } from "../models/mainPerfilStateInitial";
 import { mainPerfilReducer } from "../reducer/mainPerfilReducer";
 import {
-    deleteAdminById,
-  getClientById,
+  deleteAdminById,
   updateAllFieldsClientOrAdmin,
 } from "../services/clientServices";
 
-export const useStateDataAdmin = (dataAdmin) => {
+export const useStateDataAdmin = (dataAdmin, idAdmin) => {
   const [state, dispatch] = useReducer(
     mainPerfilReducer,
     mainPerfilStateInitial
@@ -31,14 +30,33 @@ export const useStateDataAdmin = (dataAdmin) => {
 
   const handlerDeleteAdmin = async (dataAdmin) => {
     const id = dataAdmin.id;
-    if (id !== 0) {
-      try {
-        const data = await deleteAdminById(id);
-        console.log(data);
-        const newData = normalizeClientData(data.data);
-        dispatch({ type: "SET_CLIENT_MODEL_ID", payload: newData });
-      } catch (error) {
-        console.log("no fue eliminado: ", error);
+    if (idAdmin === id) {
+      dispatch({
+        type: "SET_FORM_SUBMISSION_STATUS",
+        payload: "No Te Puedes Eliminar",
+      });
+    } else {
+      if (id !== 0) {
+        try {
+          const data = await deleteAdminById(id);
+          const newData = normalizeClientData(data);
+          dispatch({ type: "SET_CLIENT_MODEL_ID", payload: newData });
+          dispatch({
+            type: "SET_FORM_SUBMISSION_STATUS",
+            payload: "Se Ha Eliminado Correctamente",
+          });
+        } catch (error) {
+          console.log("no fue eliminado: ", error);
+          dispatch({
+            type: "SET_FORM_SUBMISSION_STATUS",
+            payload: "No Se Ha Eliminado Correctamente",
+          });
+        }
+      } else {
+        dispatch({
+          type: "SET_FORM_SUBMISSION_STATUS",
+          payload: "No Se Ha Eliminado Correctamente",
+        });
       }
     }
   };

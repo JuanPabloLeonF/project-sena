@@ -61,6 +61,7 @@ export const useStateSenaApp = () => {
 
   const showRegistrer = () => {
     dispatch({ type: "SHOW_REGISTRER" });
+    showSection("Main");
   };
 
   const showLoging = () => {

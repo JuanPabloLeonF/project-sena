@@ -5,7 +5,7 @@ const configuration = () => {
   const token = sessionStorage.getItem("token");
   return {
     headers: {
-      Authorization: token,
+      Authorization:token,
       "Content-Type": "application/json",
     },
   };
@@ -97,10 +97,11 @@ export const deleteClientById = async (id) => {
   }
 };
 
+
 export const deleteAdminById = async (id) => {
   try {
-    const response = await axios.delete(
-      `http://localhost:9090/client/deleteAdminById/${id}`,
+    const response = await axios.patch(
+      `http://localhost:9090/client/deleteAdminById/${id}`,null,
       configuration()
     );
     return response.data;

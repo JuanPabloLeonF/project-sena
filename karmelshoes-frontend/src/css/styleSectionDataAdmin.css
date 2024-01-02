@@ -1,4 +1,10 @@
 .data-admin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto; 
   grid-column: 1/2;
   grid-row: 1/7;
   background-color: rgba(0, 0, 0, 0.7);
@@ -51,9 +57,11 @@
 .data-admin-body {
   background-color: rgb(255, 255, 255);
   display: grid;
-  grid-template-rows: 40% 40% auto;
+  grid-template-rows: 35% 35% 10% auto;
   border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px
+  border-bottom-right-radius: 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .data-admin-div-buttom {
@@ -82,4 +90,9 @@
 
 .buttom-data-admin:hover {
   color: rgb(155, 155, 155);
+}
+
+.message-admin {
+ display: grid;
+ align-content: center;
 }

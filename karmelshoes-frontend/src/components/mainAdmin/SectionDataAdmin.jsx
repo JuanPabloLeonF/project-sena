@@ -3,17 +3,25 @@ import { DivContainerInputFormularyUpdate } from "../senaApp/DivContainerInputFo
 import "/src/css/styleSectionDataAdmin.css";
 import { useEffect } from "react";
 import { useStateDataAdmin } from "../../hooks/useStateDataAdmin";
+import { DivMessageUpdateData } from "../senaApp/DivMessageUpdateData";
+import { DivButtomFormAdmin } from "./DivButtomFormAdmin";
 
-export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, updateMainAdmin}) => {
-
+export const SectionDataAdmin = ({
+  showDataAdmin,
+  dataAdmin,
+  dataTableAdmin,
+  updateMainAdmin,
+  id,
+}) => {
   const {
     updateFieldsWithDataClient,
     handlerOnSubmit,
     handlerOnChange,
     erroState,
     clientModelId,
-    handlerDeleteAdmin
-  } = useStateDataAdmin(dataAdmin);
+    handlerDeleteAdmin,
+    formSubmissionStatus,
+  } = useStateDataAdmin(dataAdmin, id);
 
   useEffect(() => {
     dataAdmin.password = "Null123";
@@ -24,18 +32,18 @@ export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, upd
     handlerDeleteAdmin(dataAdmin);
     dataTableAdmin();
     updateMainAdmin();
-  }
+  };
 
   const handlerDataAdmin = () => {
     dataTableAdmin();
     updateMainAdmin();
-  }
+  };
 
   const handlerDataAdminClose = () => {
     dataTableAdmin();
     updateMainAdmin();
     showDataAdmin();
-  }
+  };
 
   return (
     <>
@@ -57,16 +65,12 @@ export const SectionDataAdmin = ({ showDataAdmin, dataAdmin, dataTableAdmin, upd
               handlerOnChange={handlerOnChange}
               clientModelId={clientModelId}
             />
-            <div className="data-admin-div-buttom">
-              <div className="data-admin-div-delete-admin">
-                <button onClick={handlerDataAdminDelete} className="buttom-data-admin" type="button">
-                  <h2>ELIMINAR</h2>
-                </button>
-              </div>
-              <button onClick={handlerDataAdmin} className="buttom-data-admin" type="submit">
-                <h2>GUARDAR</h2>
-              </button>
+            <div className="message-admin">
+              <DivMessageUpdateData
+                formSubmissionStatus={formSubmissionStatus}
+              />
             </div>
+            <DivButtomFormAdmin handlerDataAdminDelete={handlerDataAdminDelete} handlerDataAdmin={handlerDataAdmin}/>
           </form>
         </div>
       </section>

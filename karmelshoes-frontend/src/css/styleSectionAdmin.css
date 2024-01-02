@@ -3,8 +3,7 @@
   grid-row: 3/4;
   background-color: #ddd;
   display: grid;
-  justify-content: center;
-  align-content: center;
+  grid-template-columns: 80% auto;
 }
 
 .h2-admin-section {
@@ -13,4 +12,16 @@
   font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
   font-size: 35px;
   font-weight: bold;
+  justify-self: center;
+  align-self: center;
+  padding-left: 290px;
+}
+
+.img-create-admin {
+  justify-self: end;
+  align-self: center;
+  width: 30px;
+  height: auto;
+  padding-right: 55px;
+  cursor: pointer;
 }
