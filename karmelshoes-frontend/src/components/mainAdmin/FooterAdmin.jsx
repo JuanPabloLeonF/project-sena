@@ -1,32 +1,35 @@
 /* eslint-disable react/prop-types */
 
-import "/src/css/styleFooterAdmin.css"
+import { DivFooterPagination } from "./DivFooterPagination";
+import "/src/css/styleFooterAdmin.css";
 
-export const FooterAdmin = ({currentPage, setCurrentPage, totalPages}) => {
+export const FooterAdmin = ({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  activeMainProductsSales,
+  currentPageProduct,
+  totalPagesProduct,
+  setCurrentPageProduct,
+}) => {
+
+  console.log("activeMainProductsSales: ", activeMainProductsSales)
   return (
     <>
       <footer className="section-pagination">
-        <div className="pagination">
-          <button
-            className="buttom-pagination"
-            onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Anterior
-          </button>
-          <span className="text-span">
-            Página {currentPage} de {totalPages}
-          </span>
-          <button
-            className="buttom-pagination"
-            onClick={() =>
-              setCurrentPage(Math.min(currentPage + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            Siguiente
-          </button>
-        </div>
+        {activeMainProductsSales ? (
+          <DivFooterPagination
+            currentPage={currentPageProduct}
+            setCurrentPage={setCurrentPageProduct}
+            totalPages={totalPagesProduct}
+          />
+        ) : (
+          <DivFooterPagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
+        )}
       </footer>
     </>
   );

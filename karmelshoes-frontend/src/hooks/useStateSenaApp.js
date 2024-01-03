@@ -3,6 +3,7 @@ import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
 import { getAllClientAdmin, getClientById } from "../services/clientServices";
+import { getAllProductPages } from "../services/productsService";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
@@ -101,7 +102,7 @@ export const useStateSenaApp = () => {
 
   const showMainProductsSales = () => {
     dispatch({ type: "SHOW_MAIN_PRODUCTS_SALES" });
-    showSection("MainProductsSales");
+    showSection("MainAdmin");
   };
 
   const setTotalPages = (totalPages) => {
@@ -111,10 +112,24 @@ export const useStateSenaApp = () => {
     });
   };
 
+  const setTotalPagesProduct = (totalPagesProduct) => {
+    dispatch({
+      type: "SET_TOTAL_PAGE_TABLE_PRODUCT",
+      payload: totalPagesProduct,
+    });
+  };
+
   const setCurrentPage = (currentPage) => {
     dispatch({
       type: "SET_CURRENT_PAGE_TABLE_ADMIN",
       payload: currentPage,
+    });
+  };
+
+  const setCurrentPageProduct = (currentPageProduct) => {
+    dispatch({
+      type: "SET_CURRENT_PAGE_TABLE_PRODUCT",
+      payload: currentPageProduct,
     });
   };
 
@@ -129,11 +144,18 @@ export const useStateSenaApp = () => {
     });
   };
 
+  const getDataProduct = (data) => {
+    dispatch({
+      type: "DATA_PRODUCT",
+      payload: data,
+    });
+  };
+
   const updateMainAdmin = () => {
     dispatch({
-      type: "UPDATE_COMPONENT_MAIN_ADMIN"
+      type: "UPDATE_COMPONENT_MAIN_ADMIN",
     });
-  }; 
+  };
 
   const normalizeClientDataArray = (data) => {
     if (data && data.content && Array.isArray(data.content)) {
@@ -159,6 +181,35 @@ export const useStateSenaApp = () => {
     dispatch({ type: "DATA_TABLE_ADMIN", payload: arrayData });
   };
 
+  const dataTableProduct = async () => {
+    const data = await getAllProductPages(state.currentPageProduct - 1, 10);
+    const arrayData = normalizeClientDataArrayProduct(data.content);
+    setTotalPagesProduct(data.totalPages);
+    dispatch({ type: "DATA_TABLE_PRODUCT", payload: arrayData });
+  };
+
+  const normalizeClientDataArrayProduct = (dataArray) => {
+    if (dataArray && Array.isArray(dataArray)) {
+      return dataArray.map((data) => ({
+        id: data.idProductDto || 0,
+        name: data.nameProductDto || "",
+        description: data.descriptionProductDto || "",
+        price: data.priceProductDto || 0,
+        stock: data.stockProductDto || 0,
+        productType: data.productTypeProductDto || "",
+        mark: data.markProductDto || "",
+        model: data.modelProductDto || "",
+        sizes: data.sizesProductDto || [],
+        color: data.colorProductDto || "",
+        gender: data.genderProductDto || "",
+        img: data.imgProductDto || "",
+        status: data.statusProductDto || true,
+        code: data.codeProductDto || "",
+      }));
+    }
+    return [];
+  };
+
   return {
     handlerLoging,
     handlerLogout,
@@ -181,8 +232,11 @@ export const useStateSenaApp = () => {
     setCurrentPage,
     showDataAdmin,
     dataTableAdmin,
+    dataTableProduct,
     getDataAdmin,
+    getDataProduct,
     updateMainAdmin,
     showMainProductsSales,
+    setCurrentPageProduct,
   };
 };

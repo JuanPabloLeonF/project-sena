@@ -1,23 +1,30 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import "/src/css/styleMainAdmin.css";
+import { TableAdmin } from "./TableAdmin";
+import { TableProduct } from "../mainProductsSales/TableProduct";
 
 export const MainAdmin = ({
   currentPage,
-  setTotalPages,
   showDataAdmin,
   dataTableAdmin,
   dataTable,
+  dataTableProductElement,
+  dataTableProduct,
   getDataAdmin,
+  getDataProduct,
   forcerRender,
+  activeMainProductsSales,
+  currentPageProduct,
 }) => {
   useEffect(() => {
     getAllData();
-  }, [currentPage, forcerRender]);
+  }, [currentPage, forcerRender, currentPageProduct]);
 
   const getAllData = () => {
     try {
       dataTableAdmin();
+      dataTableProduct();
     } catch (error) {
       console.log(error);
     }
@@ -28,42 +35,21 @@ export const MainAdmin = ({
     getDataAdmin(admin);
   };
 
+  const handlerDataProduct = (product) => {
+    getDataProduct(product);
+  }
+
   return (
     <>
       <main className="main-admin">
-        <table className="table-admin">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Telefono</th>
-              <th>Direccion</th>
-              <th>Eliminado-Estado</th>
-              <th>Identificacion</th>
-              <th>Configuracion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataTable.map((user, index) => (
-              <tr key={index}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-                <td>{user.address}</td>
-                <td>{user.status ? "NO" : "SI"}</td>
-                <td>{user.identification}</td>
-                <td>
-                  <img
-                    onClick={() => handlerDataAdmin(user)}
-                    className="img-table"
-                    src="/src/assets/imgs/cong-admin.png"
-                    alt="icono de configuracion"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {activeMainProductsSales ? (
+          <TableProduct dataTableProductElement={dataTableProductElement} handlerDataProduct={handlerDataProduct}/>
+        ) : (
+          <TableAdmin
+            dataTable={dataTable}
+            handlerDataAdmin={handlerDataAdmin}
+          />
+        )}
       </main>
     </>
   );

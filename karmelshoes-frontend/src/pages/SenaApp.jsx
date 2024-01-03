@@ -25,7 +25,6 @@ import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
 import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
-import { MainProductsSales } from "../components/mainProductsSales/MainProductsSales";
 
 export const SenaApp = () => {
   const {
@@ -46,16 +45,16 @@ export const SenaApp = () => {
     showNavPerfil,
     dataClientById,
     showMainAdmin,
-    setTotalPages,
     setCurrentPage,
     showDataAdmin,
     dataTableAdmin,
+    dataTableProduct,
     getDataAdmin,
+    getDataProduct,
     updateMainAdmin,
     showMainProductsSales,
+    setCurrentPageProduct,
   } = useStateSenaApp();
-
-  const dataAdmin = {};
 
   const {
     id,
@@ -96,17 +95,19 @@ export const SenaApp = () => {
       case "MainAdmin":
         return (
           <MainAdmin
+            dataTableProduct={dataTableProduct}
             forcerRender={state.updateMainAdmin}
             getDataAdmin={getDataAdmin}
+            getDataProduct={getDataProduct}
+            dataTableProductElement={state.dataTableProduct}
             dataTable={state.dataTableAdmin}
             dataTableAdmin={dataTableAdmin}
+            currentPageProduct={state.currentPageProduct}
             currentPage={state.currentPage}
-            setTotalPages={setTotalPages}
             showDataAdmin={showDataAdmin}
+            activeMainProductsSales={state.activeMainProductsSales}
           />
         );
-      case "MainProductsSales":
-        return <MainProductsSales />;
       default:
         return <Main />;
     }
@@ -180,18 +181,20 @@ export const SenaApp = () => {
   };
 
   const renderFooter = () => {
-    if (state.activeMainAdmin) {
+    if (state.activeMainAdmin || state.activeMainProductsSales) {
       return (
         <FooterAdmin
+          activeMainProductsSales={state.activeMainProductsSales}
+          currentPageProduct={state.currentPageProduct}
           currentPage={state.currentPage}
           setCurrentPage={setCurrentPage}
           totalPages={state.totalPages}
+          totalPagesProduct={state.totalPagesProduct}
+          setCurrentPageProduct={setCurrentPageProduct}
         />
       );
     } else if (state.activeNavPerfil) {
       return null;
-    } else if (state.activeMainProductsSales) {
-      return <footer></footer>;
     } else {
       return <Footer />;
     }

@@ -181,7 +181,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
       };
-      case "SHOW_MAIN_PRODUCTS_SALES":
+    case "SHOW_MAIN_PRODUCTS_SALES":
       return {
         ...state,
         activeMainProductsSales: true,
@@ -208,20 +208,40 @@ export const senaAppReducer = (state = {}, action) => {
         ...state,
         totalPages: action.payload,
       };
+    case "SET_TOTAL_PAGE_TABLE_PRODUCT":
+      return {
+        ...state,
+        totalPagesProduct: action.payload,
+      };
     case "DATA_TABLE_ADMIN":
       return {
         ...state,
         dataTableAdmin: action.payload,
+      };
+    case "DATA_TABLE_PRODUCT":
+      return {
+        ...state,
+        dataTableProduct: action.payload,
       };
     case "DATA_ADMIN":
       return {
         ...state,
         dataAdmin: action.payload,
       };
+    case "DATA_PRODUCT":
+      return {
+        ...state,
+        dataProduct: action.payload,
+      };
     case "SET_CURRENT_PAGE_TABLE_ADMIN":
       return {
         ...state,
         currentPage: action.payload,
+      };
+      case "SET_CURRENT_PAGE_TABLE_PRODUCT":
+      return {
+        ...state,
+        currentPageProduct: action.payload,
       };
     case "UPDATE_COMPONENT_MAIN_ADMIN":
       return {

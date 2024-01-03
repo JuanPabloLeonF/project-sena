@@ -1,4 +1,5 @@
 import { clientModelId } from "./clientModel";
+import { productModel } from "./productModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
@@ -17,8 +18,12 @@ export const initialStatePageSenaApp = {
   activeNavPerfil: false,
   clienteOrAdmin: clientModelId,
   currentPage: 1,
+  currentPageProduct: 1,
   totalPages: 0,
+  totalPagesProduct: 0,
   dataTableAdmin: [],
+  dataTableProduct: [],
+  dataProduct: productModel,
   dataAdmin: clientModelId,
   updateMainAdmin: false,
 };

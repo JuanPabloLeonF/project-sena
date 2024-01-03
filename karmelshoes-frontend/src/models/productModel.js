@@ -1,0 +1,16 @@
+export const productModel = {
+  id: 0,
+  name: "",
+  description: "",
+  price: 0.0,
+  stock: 0,
+  productType: "",
+  mark: "",
+  model: "",
+  sizes: [],
+  color: "",
+  gender: "",
+  img: "",
+  status: true,
+  code: "",
+};
