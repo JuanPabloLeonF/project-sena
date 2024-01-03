@@ -6,7 +6,7 @@ import { FormularyUpdateDataUser } from "./FormularyUpdateDataUser";
 
 import "/src/css/styleMainPerfil.css";
 
-export const MainPerfil = ({ login, dataClientOrAdmin, dataClientById, showMainAdmin }) => {
+export const MainPerfil = ({ login, dataClientOrAdmin, dataClientById, showMainAdmin, showMainProductsSales }) => {
   const {
     updateFieldsWithDataClient,
     formSubmissionStatus,
@@ -33,6 +33,7 @@ export const MainPerfil = ({ login, dataClientOrAdmin, dataClientById, showMainA
           formSubmissionStatus={formSubmissionStatus}
           login={login}
           showMainAdmin={showMainAdmin}
+          showMainProductsSales={showMainProductsSales}
         />
       </main>
     </>

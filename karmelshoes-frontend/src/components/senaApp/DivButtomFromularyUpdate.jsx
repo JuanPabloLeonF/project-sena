@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export const DivButtomFromularyUpdate = ({ login, showMainAdmin }) => {
+export const DivButtomFromularyUpdate = ({ login, showMainAdmin, showMainProductsSales }) => {
   return (
     <>
       <div className="container-form-1">
@@ -8,7 +8,7 @@ export const DivButtomFromularyUpdate = ({ login, showMainAdmin }) => {
             <div className="form-perfil-input">
               <button
                 className="button-perfil"
-                onClick={"va a pagina productos"}
+                onClick={showMainProductsSales}
                 type="button"
               >
                 Productos

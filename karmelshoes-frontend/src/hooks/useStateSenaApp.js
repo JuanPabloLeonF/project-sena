@@ -99,6 +99,11 @@ export const useStateSenaApp = () => {
     showSection("MainAdmin");
   };
 
+  const showMainProductsSales = () => {
+    dispatch({ type: "SHOW_MAIN_PRODUCTS_SALES" });
+    showSection("MainProductsSales");
+  };
+
   const setTotalPages = (totalPages) => {
     dispatch({
       type: "SET_TOTAL_PAGE_TABLE_ADMIN",
@@ -178,5 +183,6 @@ export const useStateSenaApp = () => {
     dataTableAdmin,
     getDataAdmin,
     updateMainAdmin,
+    showMainProductsSales,
   };
 };

@@ -4,6 +4,7 @@ export const NavConfiguration = ({
   initPage,
   showNavPerfil,
   showMainAdmin,
+  showMainProductsSales
 }) => {
   return (
     <>
@@ -26,7 +27,7 @@ export const NavConfiguration = ({
           <div className="img">
             <img
               style={{ width: "30px" }}
-              onClick={initPage}
+              onClick={showMainProductsSales}
               src="/src/assets/imgs/configuration-product.png"
               alt=""
             />

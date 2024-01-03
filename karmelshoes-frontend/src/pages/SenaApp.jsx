@@ -25,6 +25,7 @@ import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
 import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
+import { MainProductsSales } from "../components/mainProductsSales/MainProductsSales";
 
 export const SenaApp = () => {
   const {
@@ -51,6 +52,7 @@ export const SenaApp = () => {
     dataTableAdmin,
     getDataAdmin,
     updateMainAdmin,
+    showMainProductsSales,
   } = useStateSenaApp();
 
   const dataAdmin = {};
@@ -88,6 +90,7 @@ export const SenaApp = () => {
             login={login}
             dataClientById={dataClientById}
             dataClientOrAdmin={state.clienteOrAdmin}
+            showMainProductsSales={showMainProductsSales}
           />
         );
       case "MainAdmin":
@@ -102,6 +105,8 @@ export const SenaApp = () => {
             showDataAdmin={showDataAdmin}
           />
         );
+      case "MainProductsSales":
+        return <MainProductsSales />;
       default:
         return <Main />;
     }
@@ -110,9 +115,13 @@ export const SenaApp = () => {
   const renderComponentSection = () => {
     if (state.activeShop || state.activeNavPerfil) {
       return <section></section>;
-    } else if (state.activeMainAdmin) {
-
-      return <SectionAdmin showRegistrer={showRegistrer}/>;
+    } else if (state.activeMainAdmin || state.activeMainProductsSales) {
+      return (
+        <SectionAdmin
+          showRegistrer={showRegistrer}
+          activeMainProductsSales={state.activeMainProductsSales}
+        />
+      );
     } else if (!state.activeWhoWeAre) {
       return (
         <Section
@@ -181,18 +190,22 @@ export const SenaApp = () => {
       );
     } else if (state.activeNavPerfil) {
       return null;
+    } else if (state.activeMainProductsSales) {
+      return <footer></footer>;
     } else {
       return <Footer />;
     }
   };
 
   const renderNav = () => {
-    if (state.activeMainAdmin) {
+    if (state.activeMainAdmin || state.activeMainProductsSales) {
       return (
         <NavConfiguration
           initPage={initPage}
           showNavPerfil={showNavPerfil}
           showMainAdmin={showMainAdmin}
+          activeMainProductsSales={state.activeMainProductsSales}
+          showMainProductsSales={showMainProductsSales}
         />
       );
     } else if (state.activeNavPerfil) {

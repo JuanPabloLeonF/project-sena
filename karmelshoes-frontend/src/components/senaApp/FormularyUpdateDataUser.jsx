@@ -11,6 +11,7 @@ export const FormularyUpdateDataUser = ({
   formSubmissionStatus,
   login,
   showMainAdmin,
+  showMainProductsSales,
 }) => {
   return (
     <>
@@ -25,7 +26,7 @@ export const FormularyUpdateDataUser = ({
           erroState={erroState}
         />
         <DivMessageUpdateData formSubmissionStatus={formSubmissionStatus} />
-        <DivButtomFromularyUpdate login={login} showMainAdmin={showMainAdmin}/>
+        <DivButtomFromularyUpdate login={login} showMainAdmin={showMainAdmin} showMainProductsSales={showMainProductsSales}/>
       </form>
     </>
   );
