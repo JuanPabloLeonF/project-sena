@@ -23,6 +23,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_LADY":
       return {
@@ -37,6 +38,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_GENTLEMAN":
       return {
@@ -51,6 +53,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_REGISTRER":
       return {
@@ -66,6 +69,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_LOGING":
       return {
@@ -82,6 +86,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_WHO_WE_ARE":
       return {
@@ -96,6 +101,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_PURCHARSE_HISTORY":
       return {
@@ -110,6 +116,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_SHOP":
       return {
@@ -124,6 +131,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_NAV_PERFIL":
       return {
@@ -138,6 +146,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_MAIN_ADMIN":
       return {
@@ -152,6 +161,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeShop: false,
         activeDataAdmin: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
       };
     case "SHOW_DATA_ADMIN":
       return {
@@ -166,6 +176,22 @@ export const senaAppReducer = (state = {}, action) => {
         activePurchaseHistory: false,
         activeShop: false,
         activeMainProductsSales: false,
+        activeDataProduct: false,
+      };
+    case "SHOW_DATA_PRODUCT":
+      return {
+        ...state,
+        activeDataProduct: !state.activeDataProduct,
+        activeDataAdmin: false,
+        activeMainAdmin: false,
+        activeNavPerfil: false,
+        activeGentleman: false,
+        activeChild: false,
+        activeLady: false,
+        activeWhoWeAre: false,
+        activePurchaseHistory: false,
+        activeShop: false,
+        activeMainProductsSales: true,
       };
     case "INIT_PAGE":
       return {
@@ -179,6 +205,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeNavPerfil: false,
         activeMainAdmin: false,
         activeDataAdmin: false,
+        activeDataProduct: false,
         activeMainProductsSales: false,
       };
     case "SHOW_MAIN_PRODUCTS_SALES":
@@ -195,6 +222,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
       };
+
     case "INIT_DATA_CLIENT":
       return {
         ...state,
@@ -238,7 +266,7 @@ export const senaAppReducer = (state = {}, action) => {
         ...state,
         currentPage: action.payload,
       };
-      case "SET_CURRENT_PAGE_TABLE_PRODUCT":
+    case "SET_CURRENT_PAGE_TABLE_PRODUCT":
       return {
         ...state,
         currentPageProduct: action.payload,

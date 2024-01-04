@@ -5,6 +5,7 @@ export const initialStatePageSenaApp = {
   activeSection: "Main",
   activeMainProductsSales: false,
   activeDataAdmin: false,
+  activeDataProduct: false,
   activeMainAdmin: false,
   activeShoppingCart: false,
   activeLoging: false,

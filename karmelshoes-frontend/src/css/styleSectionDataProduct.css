@@ -1,0 +1,29 @@
+.data-product {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: auto;
+  grid-column: 1/2;
+  grid-row: 1/7;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
+  grid-template-columns: 10% auto 10%;
+  grid-template-rows: 15% auto 10%;
+}
+
+.data-product-body {
+  display: grid;
+  background-color: white;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% 20% 20% 10% 10% auto;
+}
+
+.container-form-product {
+  background-color: aquamarine;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}

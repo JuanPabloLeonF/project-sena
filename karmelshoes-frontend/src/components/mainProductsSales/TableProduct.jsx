@@ -29,7 +29,7 @@ export const TableProduct = ({dataTableProductElement, handlerDataProduct}) => {
                 <img
                   onClick={() => handlerDataProduct(product)}
                   className="img-table"
-                  src="/src/assets/imgs/cong-admin.png"
+                  src="/src/assets/imgs/zapato-config.png"
                   alt="icono de configuracion"
                 />
               </td>

@@ -25,6 +25,7 @@ import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
 import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
+import { SectionDataProduct } from "../components/mainProductsSales/SectionDataProduct";
 
 export const SenaApp = () => {
   const {
@@ -54,6 +55,7 @@ export const SenaApp = () => {
     updateMainAdmin,
     showMainProductsSales,
     setCurrentPageProduct,
+    showDataProduct,
   } = useStateSenaApp();
 
   const {
@@ -106,6 +108,7 @@ export const SenaApp = () => {
             currentPage={state.currentPage}
             showDataAdmin={showDataAdmin}
             activeMainProductsSales={state.activeMainProductsSales}
+            showDataProduct={showDataProduct}
           />
         );
       default:
@@ -175,6 +178,8 @@ export const SenaApp = () => {
             id={id}
           />
         );
+      case state.activeDataProduct:
+        return <SectionDataProduct showDataProduct={showDataProduct}/>;
       default:
         return null;
     }

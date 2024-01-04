@@ -137,6 +137,10 @@ export const useStateSenaApp = () => {
     dispatch({ type: "SHOW_DATA_ADMIN" });
   };
 
+  const showDataProduct = () => {
+    dispatch({ type: "SHOW_DATA_PRODUCT" });
+  };
+
   const getDataAdmin = (data) => {
     dispatch({
       type: "DATA_ADMIN",
@@ -238,5 +242,6 @@ export const useStateSenaApp = () => {
     updateMainAdmin,
     showMainProductsSales,
     setCurrentPageProduct,
+    showDataProduct,
   };
 };

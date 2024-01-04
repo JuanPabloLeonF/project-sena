@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import "/src/css/styleMainAdmin.css";
 import { TableAdmin } from "./TableAdmin";
 import { TableProduct } from "../mainProductsSales/TableProduct";
+import "/src/css/styleMainAdmin.css";
 
 export const MainAdmin = ({
   currentPage,
@@ -16,6 +16,7 @@ export const MainAdmin = ({
   forcerRender,
   activeMainProductsSales,
   currentPageProduct,
+  showDataProduct,
 }) => {
   useEffect(() => {
     getAllData();
@@ -36,6 +37,7 @@ export const MainAdmin = ({
   };
 
   const handlerDataProduct = (product) => {
+    showDataProduct();
     getDataProduct(product);
   }
 
