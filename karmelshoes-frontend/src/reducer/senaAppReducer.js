@@ -24,6 +24,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_LADY":
       return {
@@ -39,6 +40,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_GENTLEMAN":
       return {
@@ -54,6 +56,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_REGISTRER":
       return {
@@ -70,6 +73,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_LOGING":
       return {
@@ -87,6 +91,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_WHO_WE_ARE":
       return {
@@ -102,6 +107,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_PURCHARSE_HISTORY":
       return {
@@ -117,6 +123,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_SHOP":
       return {
@@ -132,6 +139,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_NAV_PERFIL":
       return {
@@ -147,6 +155,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_MAIN_ADMIN":
       return {
@@ -162,6 +171,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_DATA_ADMIN":
       return {
@@ -177,6 +187,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeShop: false,
         activeMainProductsSales: false,
         activeDataProduct: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_DATA_PRODUCT":
       return {
@@ -192,6 +203,7 @@ export const senaAppReducer = (state = {}, action) => {
         activePurchaseHistory: false,
         activeShop: false,
         activeMainProductsSales: true,
+        activeFormularyCreateProduct: false,
       };
     case "INIT_PAGE":
       return {
@@ -207,6 +219,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeDataProduct: false,
         activeMainProductsSales: false,
+        activeFormularyCreateProduct: false,
       };
     case "SHOW_MAIN_PRODUCTS_SALES":
       return {
@@ -221,8 +234,23 @@ export const senaAppReducer = (state = {}, action) => {
         activeNavPerfil: false,
         activeMainAdmin: false,
         activeDataAdmin: false,
+        activeFormularyCreateProduct: false,
       };
-
+      case "SHOW_FORMULARY_CREATE_PRODUCT":
+      return {
+        ...state,
+        activeFormularyCreateProduct: !state.activeFormularyCreateProduct,
+        activeMainProductsSales: true,
+        activeGentleman: false,
+        activeChild: false,
+        activeLady: false,
+        activeShop: false,
+        activeWhoWeAre: false,
+        activePurchaseHistory: false,
+        activeNavPerfil: false,
+        activeMainAdmin: false,
+        activeDataAdmin: false,
+      };
     case "INIT_DATA_CLIENT":
       return {
         ...state,

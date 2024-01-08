@@ -26,6 +26,7 @@ import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
 import { SectionDataProduct } from "../components/mainProductsSales/SectionDataProduct";
+import { SectionCreateProduct } from "../components/mainProductsSales/SectionCreateProduct";
 
 export const SenaApp = () => {
   const {
@@ -56,6 +57,7 @@ export const SenaApp = () => {
     showMainProductsSales,
     setCurrentPageProduct,
     showDataProduct,
+    showFormularyCreateProduct,
   } = useStateSenaApp();
 
   const {
@@ -124,6 +126,7 @@ export const SenaApp = () => {
         <SectionAdmin
           showRegistrer={showRegistrer}
           activeMainProductsSales={state.activeMainProductsSales}
+          showFormularyCreateProduct={showFormularyCreateProduct}
         />
       );
     } else if (!state.activeWhoWeAre) {
@@ -179,7 +182,9 @@ export const SenaApp = () => {
           />
         );
       case state.activeDataProduct:
-        return <SectionDataProduct showDataProduct={showDataProduct}/>;
+        return <SectionDataProduct showDataProduct={showDataProduct} />;
+      case state.activeFormularyCreateProduct:
+        return <SectionCreateProduct showFormularyCreateProduct={showFormularyCreateProduct} />;
       default:
         return null;
     }

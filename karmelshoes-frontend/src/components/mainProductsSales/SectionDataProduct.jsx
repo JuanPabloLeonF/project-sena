@@ -21,28 +21,11 @@ export const SectionDataProduct = ({ showDataProduct }) => {
     code,
   } = productModel;
 
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      border: "none",
-      outline: "none",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      background: state.isSelected ? "white" : "black",
-      color: state.isSelected ? "black" : "white",
-      "&:hover": {
-        background: "white",
-        color: "black",
-      },
-    }),
-  };
-
   return (
     <section className="data-product">
       <div className="data-admin-div">
         <div className="data-admin-head">
-          <div className="data-admin-title">DATOS</div>
+          <div className="data-admin-title">EDITAR DATOS</div>
           <div className="data-admin-img">
             <img
               onClick={showDataProduct}

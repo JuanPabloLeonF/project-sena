@@ -1,6 +1,6 @@
 import "/src/css/styleSectionAdmin.css";
 
-export const SectionAdmin = ({ showRegistrer, activeMainProductsSales }) => {
+export const SectionAdmin = ({ showRegistrer, activeMainProductsSales, showFormularyCreateProduct }) => {
   return (
     <>
       <section className="section-admin">
@@ -10,11 +10,20 @@ export const SectionAdmin = ({ showRegistrer, activeMainProductsSales }) => {
           <h2 className="h2-admin-section">ADMINSITRADORES</h2>
         )}
         <div className="img-create-admin">
-          <img
-            onClick={showRegistrer}
-            src="/src/assets/imgs/agregar-usuario.png"
-            alt=""
-          />
+          {activeMainProductsSales ? (
+            <img
+              style={{ width: "35px" }}
+              onClick={showFormularyCreateProduct}
+              src="/src/assets/imgs/create-zapato.png"
+              alt=""
+            />
+          ) : (
+            <img
+              onClick={showRegistrer}
+              src="/src/assets/imgs/agregar-usuario.png"
+              alt=""
+            />
+          )}
         </div>
       </section>
     </>

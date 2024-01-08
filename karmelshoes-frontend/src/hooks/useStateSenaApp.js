@@ -65,9 +65,13 @@ export const useStateSenaApp = () => {
     showSection("Main");
   };
 
+  const showFormularyCreateProduct = () => {
+    dispatch({ type: "SHOW_FORMULARY_CREATE_PRODUCT" });
+  }
+
   const showLoging = () => {
     dispatch({ type: "SHOW_LOGING" });
-    state.ac;
+    //state.ac;
   };
 
   const showShoppingCart = () => {
@@ -243,5 +247,6 @@ export const useStateSenaApp = () => {
     showMainProductsSales,
     setCurrentPageProduct,
     showDataProduct,
+    showFormularyCreateProduct,
   };
 };

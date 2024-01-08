@@ -3,6 +3,7 @@ import { productModel } from "./productModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
+  activeFormularyCreateProduct: false,
   activeMainProductsSales: false,
   activeDataAdmin: false,
   activeDataProduct: false,
