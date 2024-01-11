@@ -1,14 +1,48 @@
 import { useState } from "react";
 import { FormInputFormularyData } from "../senaApp/FormInputFormularyData";
 import { productModelCreateFormulary } from "../../models/productModel";
+import "/src/css/styleSectionCreateProduct.css";
+import { SectionCreateColor } from "./SectionCreateColor";
 
 export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   const [dataFormuary, setDataFormulary] = useState(
     productModelCreateFormulary
   );
 
+  const [activeSectionColor, sectActiveSectionColor] = useState(false);
+  const [activeSectionSize, sectActiveSectionSize] = useState(false);
+
   const [erroState, setErroState] = useState({});
 
+  const showSectionColor = () => {
+    sectActiveSectionColor(!activeSectionColor);
+  };
+
+  const showSectionSize = () => {
+    sectActiveSectionSize(!activeSectionSize);
+  };
+
+  const renderSectionColorOrSize = () => {
+    if (activeSectionColor) {
+      return <SectionCreateColor showSectionColor={showSectionColor}/>;
+    } else if (activeSectionSize) {
+      return (
+        <div className="section-color">
+          <div className="section-color-body">
+            <div className="section-color-img">
+              <img
+                onClick={showSectionSize}
+                src="/src/assets/imgs/flecha-circulo-izquierda.png"
+              />
+            </div>
+            <div className="section-color-size">
+              sdfghjuioppoiu
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
   const validateProductFields = (product) => {
     const errors = {};
 
@@ -172,11 +206,11 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
 
   const renderMessageErrors = () => {
     if (erroState.description) {
-      return <h3 style={{fontSize: "30px"}}>{erroState.description}</h3>;
+      return <h3 style={{ fontSize: "30px" }}>{erroState.description}</h3>;
     } else {
       return "CREAR PRODUCTO";
     }
-  }
+  };
   return (
     <>
       <section className="data-product">
@@ -300,13 +334,13 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                   <label htmlFor={"color"} className="form-label-perfil">
                     <span>COLORES</span>
                   </label>
-                  <button type="button">SELECCIONAR</button>
+                  <button onClick={showSectionColor} type="button">SELECCIONAR</button>
                 </div>
                 <div className="container-buttom-sizes">
                   <label htmlFor={"sizes"} className="form-label-perfil">
                     <span>TALLAS</span>
                   </label>
-                  <button type="button">SELECCIONAR</button>
+                  <button onClick={showSectionSize} type="button">SELECCIONAR</button>
                 </div>
                 <div className="container-img">
                   <label htmlFor="img" className="form-label-perfil">
@@ -366,6 +400,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
             </div>
           </form>
         </div>
+        {renderSectionColorOrSize()}
       </section>
     </>
   );
