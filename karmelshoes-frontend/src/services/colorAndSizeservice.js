@@ -12,6 +12,15 @@ const configuration = () => {
   };
 };
 
+export const getAllListColorAndSize = async () => {
+  try {
+    const data = await axios.get("http://localhost:9090/list/getAll", configuration());
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const createNewColor = async ({ name }) => {
   try {
     const data = await axios.post(
@@ -19,18 +28,53 @@ export const createNewColor = async ({ name }) => {
       {
         name,
       },
-      configuration
+      configuration()
     );
 
     return data.data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-const prueba = async () => {
-  const data = await createNewColor({ name: "ROJO" });
-  console.log(data);
+export const deleteColorByName = async (name) => {
+  try {
+    const data = await axios.delete(
+      `http://localhost:9090/color/delete/${name}`,
+      configuration()
+    );
+
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-prueba();
+export const createNewSize = async ({ size }) => {
+  try {
+    const data = await axios.post(
+      "http://localhost:9090/size/create",
+      {
+        size,
+      },
+      configuration()
+    );
+
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteSizrBySize = async (size) => {
+  try {
+    const data = await axios.delete(
+      `http://localhost:9090/size/delete/${size}`,
+      configuration()
+    );
+
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};

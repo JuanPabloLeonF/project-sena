@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { FormInputFormularyData } from "../senaApp/FormInputFormularyData";
-import { initialDataFormularyColorAndSize, showDataColorsAndSizes } from "../../models/initialStateSectionCreateColor";
+import { initialDataFormularyColorAndSize, initialErrorsMessage, showDataColorsAndSizes } from "../../models/initialStateSectionCreateColor";
+import { createNewColor, createNewSize, deleteColorByName, deleteSizrBySize, getAllListColorAndSize } from "../../services/colorAndSizeservice";
 
 export const SectionCreateColor = ({ showSectionColor }) => {
   const [dataFormuaryMain, setDataFormularyMain] = useState(initialDataFormularyColorAndSize);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [showList, setShowList] = useState(showDataColorsAndSizes);
+  const [erroState, setErroState] = useState(initialErrorsMessage);
+  const { colors, sizes } = dataFormuaryMain;
 
-  const handlerOnChangeName = (event) => {
+
+  const handlerOnChangeColor = (event) => {
     const { name, value } = event.target;
     if (name === "color") {
       const nameValue = value.toUpperCase();
       setColor(nameValue);
+      setErroState(initialErrorsMessage);
     }
   };
 
@@ -20,6 +25,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
     const { name, value } = event.target;
     if (name === "size") {
       setSize(value);
+      setErroState(initialErrorsMessage);
     }
   };
 
@@ -27,42 +33,153 @@ export const SectionCreateColor = ({ showSectionColor }) => {
     handlerListColorsAndSizes();
   }, []);
 
-  const handlerListColorsAndSizes = () => {
-    const data = {
-      colorList: [
-        { name: "ROJO" },
-        { name: "BLANCO" },
-        { name: "AZUL" },
-        { name: "VERDE" }
-      ],
-      sizesList: [
-        { size: 12 },
-        { size: 22 },
-        { size: 32 },
-      ]
-    }
-
-    setShowList(data)
+  const handlerListColorsAndSizes = async () => {
+    const data = await getAllListColorAndSize();
+    setShowList(data);
   }
 
-  const handlerSaveSize = () => {
-    console.log("size a guardar:", size);
-    setSize("");
+  const handlerSaveSize = async () => {
+    if (size < 0) {
+      setErroState((prevDataFormulary) => {
+        return {
+          ...prevDataFormulary,
+          size: "No puede ser menor a 0"
+        }
+      })
+    } else {
+      try {
+        const normalizeData = {
+          size: size,
+        }
+        await createNewSize(normalizeData);
+        handlerListColorsAndSizes();
+        setErroState((prevDataFormulary) => {
+          return {
+            ...prevDataFormulary,
+            size: "Se Guardo Correctamente"
+          }
+        })
+        setSize("");
+      } catch (error) {
+        console.log(error.response);
+        const responseError = error.response.data;
+        if (responseError.code === 400) {
+          if (responseError.errors === null) {
+            setErroState((prevDataFormulary) => {
+              return {
+                ...prevDataFormulary,
+                size: responseError.message
+              }
+            })
+          } else {
+            setErroState((prevDataFormulary) => {
+              return {
+                ...prevDataFormulary,
+                size: responseError.errors.size
+              }
+            })
+          }
+        }
+      }
+    }
   };
 
-  const handlerDeleteSize = () => {
-    console.log("size a eliminar:", size);
-    setSize("");
+  const handlerDeleteSize = async () => {
+    try {
+      await deleteSizrBySize(size);
+      setSize("");
+      setErroState((prevDataFormulary) => {
+        return {
+          ...prevDataFormulary,
+          size: "Se Ha Eliminado Correctamente"
+        }
+      })
+      handlerListColorsAndSizes();
+    } catch (error) {
+      const responseError = error.response.data;
+      if (error.response.status === 403) {
+        setErroState((prevDataFormulary) => {
+          return {
+            ...prevDataFormulary,
+            size: "No Puede Estar Vacio El Campo"
+          }
+        })
+      } else if (responseError.code === 404) {
+        setErroState((prevDataFormulary) => {
+          return {
+            ...prevDataFormulary,
+            size: responseError.message
+          }
+        })
+      }
+    }
   };
 
-  const handlerSaveColor = () => {
-    console.log("color a guardar:", color);
-    setColor("");
+  const handlerSaveColor = async () => {
+    try {
+      const sendData = {
+        name: color
+      }
+      await createNewColor(sendData);
+      handlerListColorsAndSizes();
+      setColor("");
+      setErroState((prevDataFormulary) => {
+        return {
+          ...prevDataFormulary,
+          color: "Se Guardo Correctamente"
+        }
+      })
+    } catch (error) {
+      const responseError = error.response.data;
+      if (responseError.code === 400) {
+        if (responseError.errors === null) {
+          setErroState((prevDataFormulary) => {
+            return {
+              ...prevDataFormulary,
+              color: responseError.message
+            }
+          })
+        } else {
+          setErroState((prevDataFormulary) => {
+            return {
+              ...prevDataFormulary,
+              color: responseError.errors.name
+            }
+          })
+        }
+      }
+    }
   };
 
-  const handlerDeleteColor = () => {
-    console.log("color a eliminar:", color);
-    setColor("");
+  const handlerDeleteColor = async () => {
+    try {
+      await deleteColorByName(color);
+      handlerListColorsAndSizes();
+      setColor("");
+      setErroState((prevDataFormulary) => {
+        return {
+          ...prevDataFormulary,
+          color: "Se Elimino Correctamente"
+        }
+      })
+    } catch (error) {
+      const responseError = error.response.data;
+      if (error.response.status === 403) {
+        setErroState((prevDataFormulary) => {
+          return {
+            ...prevDataFormulary,
+            color: "No Puede Estar Vacio El Campo"
+          }
+        })
+      } else if (responseError.code === 404) {
+        setErroState((prevDataFormulary) => {
+          return {
+            ...prevDataFormulary,
+            color: responseError.message
+          }
+        })
+      }
+    }
   };
 
   const handlerOnChangeFormularyName = (event) => {
@@ -82,10 +199,8 @@ export const SectionCreateColor = ({ showSectionColor }) => {
 
   const handlerOnChangeFormularySize = (event) => {
     const { name, type, checked } = event.target;
-  
-    // Verificar si el nombre es un número válido
     const sizeValue = parseInt(name);
-  
+
     if (!isNaN(sizeValue) && type === "checkbox") {
       setDataFormularyMain((prevDataFormulary) => {
         console.log(sizeValue)
@@ -97,23 +212,33 @@ export const SectionCreateColor = ({ showSectionColor }) => {
         };
       });
     } else {
-      // Manejar el caso cuando name no es un número o el tipo no es checkbox
       console.error(`Error: ${name} no es un número o el tipo no es checkbox.`);
     }
   };
-  
-
-
-
 
   const handlerOnsubmit = (event) => {
     event.preventDefault();
     console.log("data formulario color: ", dataFormuaryMain);
+    setDataFormularyMain(initialDataFormularyColorAndSize);
   };
 
-  const erroState = {};
+  const renderErrorColorOrColor = () => {
+    if (erroState.color) {
+      return <h2 style={{ fontSize: "25px" }}>{erroState.color}</h2>;
+    } else if (erroState.messageSuccesing) {
+      return <h2 style={{ fontSize: "25px" }}>{erroState.messageSuccesing}</h2>;
+    } else {
+      return <h2>COLORES</h2>;
+    }
+  }
 
-  const { colors, sizes } = dataFormuaryMain;
+  const renderErrorSizeOrSize = () => {
+    if (erroState.size) {
+      return <h2 style={{ fontSize: "25px" }}>{erroState.size}</h2>;
+    } else {
+      return <h2>TALLAS</h2>;
+    }
+  }
 
   return (
     <>
@@ -127,7 +252,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
           </div>
           <div className="section-color-div-body">
             <div className="head-section-div">
-              <h2>COLORES</h2>
+              {renderErrorColorOrColor()}
             </div>
             <div className="section-color-div">
               <div className="section-text-color">
@@ -135,10 +260,10 @@ export const SectionCreateColor = ({ showSectionColor }) => {
                   label="COLOR"
                   name="color"
                   value={color}
-                  onChange={handlerOnChangeName}
+                  onChange={handlerOnChangeColor}
                   type="text"
                   id="color"
-                  error={erroState.color}
+                  error={null}
                 />
                 <div className="buttom-create">
                   <input className="section-buttoms-color" type="button" value={"GUARDAR"} onClick={handlerSaveColor} />
@@ -160,7 +285,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
               </div>
             </div>
             <div className="head-section-div">
-              <h2>TALLAS</h2>
+              {renderErrorSizeOrSize()}
             </div>
             <div className="section-color-div">
               <div className="section-text-color">
@@ -171,7 +296,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
                   onChange={handlerOnChangeSize}
                   type="number"
                   id="size"
-                  error={erroState.size}
+                  error={null}
                 />
                 <div className="buttom-create">
                   <input className="section-buttoms-color" type="button" value={"GUARDAR"} onClick={handlerSaveSize} />
@@ -179,7 +304,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
                 </div>
               </div>
               <div className="section-select-checkbox">
-                {showList.sizesList.map((sizeItem) => (
+                {showList.sizeList.map((sizeItem) => (
                   <div className="checkbox" key={sizeItem.size}>
                     <input
                       type="checkbox"
