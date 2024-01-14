@@ -3,6 +3,7 @@ import { FormInputFormularyData } from "../senaApp/FormInputFormularyData";
 import { productModelCreateFormulary } from "../../models/productModel";
 import "/src/css/styleSectionCreateProduct.css";
 import { SectionCreateColor } from "./SectionCreateColor";
+import { createNewProduct } from "../../services/productsService";
 
 export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   const [dataFormuary, setDataFormulary] = useState(
@@ -14,12 +15,20 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   const [messageSuccesing, setMessageSuccesing] = useState("");
   const [optionsModel, setOptionsModel] = useState([]);
   const [optionsProductType, setOptionsProductType] = useState([]);
-  
+
+  const handlerOnChangeImage = (event) => {
+    console.log(event.target.files[0]);
+    setDataFormulary((prevDataFormulary) => ({
+      ...prevDataFormulary,
+      img: event.target.files[0],
+    }));
+  }
 
   useEffect(() => {
     const updateModelOptions = () => {
       if (dataFormuary.gender === "DAMA" || dataFormuary.gender === "NIÑA") {
         setOptionsModel([
+          { value: "", label: "SELECCIONA" },
           { value: "ZAPATOS", label: "ZAPATOS" },
           { value: "TENIS", label: "TENIS" },
           { value: "SANDALIAS", label: "SANDALIAS" },
@@ -30,29 +39,35 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
         dataFormuary.gender === "NIÑO"
       ) {
         setOptionsModel([
+          { value: "", label: "SELECCIONA" },
           { value: "ZAPATOS", label: "ZAPATOS" },
           { value: "TENIS", label: "TENIS" },
           { value: "SANDALIAS", label: "SANDALIAS" },
         ]);
       } else {
-        setOptionsModel([]);
+        setOptionsModel([
+          { value: "", label: "SELECCIONA" }
+        ]);
       }
     };
 
     const updateProductTypeOptions = () => {
       if (dataFormuary.model === "ZAPATOS") {
         setOptionsProductType([
+          { value: "", label: "SELECCIONA" },
           { value: "BOTAS", label: "BOTAS" },
           { value: "BOTINES", label: "BOTINES" },
         ]);
       } else if (dataFormuary.model === "SANDALIAS") {
         setOptionsProductType([
+          { value: "", label: "SELECCIONA" },
           { value: "PLANAS", label: "PLANAS" },
           { value: "PLATAFORMAS", label: "PLATAFORMAS" },
           { value: "MEDIANAS", label: "MEDIANAS" },
         ]);
       } else if (dataFormuary.model === "TENIS") {
         setOptionsProductType([
+          { value: "", label: "SELECCIONA" },
           { value: "SNEAKERS", label: "SNEAKERS" },
           { value: "PLATAFORMAS", label: "PLATAFORMAS" },
           { value: "SIN CORDONES", label: "SIN CORDONES" },
@@ -63,12 +78,13 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
           (dataFormuary.gender === "DAMA" || dataFormuary.gender === "NIÑA"))
       ) {
         setOptionsProductType([
+          { value: "", label: "SELECCIONA" },
           { value: "ALTOS", label: "ALTOS" },
           { value: "BAJOS", label: "BAJOS" },
           { value: "MEDIOS", label: "MEDIOS" },
         ]);
       } else {
-        setOptionsProductType([]);
+        setOptionsProductType([{ value: "", label: "SELECCIONA" }]);
       }
     };
 
@@ -163,16 +179,15 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
     }));
   }
 
-  const handlerOnsubmit = (event) => {
+  const handlerOnsubmit = async (event) => {
     event.preventDefault();
     if (validateProductFields(dataFormuary)) {
       try {
-        console.log("enviando formulario: ", dataFormuary);
         const stringProduct = JSON.stringify(dataFormuary);
-        console.log("stringProduct: ", stringProduct);
+        console.log(dataFormuary.img)
         setMessageSuccesing("Se Creo Correctamente El Producto");
-        console.log("archivo img: ", dataFormuary.img);
-
+        const data = await createNewProduct(stringProduct , dataFormuary.img);
+        console.log("data: ", data);
         //setDataFormulary(productModelCreateFormulary);
       } catch (error) {
         console.log("errors: ", error);
@@ -184,23 +199,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
     setDataFormulary(productModelCreateFormulary);
   };
 
-  const handlerSelectGenderOnChangeGender = (event) => {
-    const { name, value } = event.target;
-    setDataFormulary((prevDataFormulary) => ({
-      ...prevDataFormulary,
-      [name]: value,
-    }));
-  };
-
-  const handlerSelectGenderOnChangeModel = (event) => {
-    const { name, value } = event.target;
-    setDataFormulary((prevDataFormulary) => ({
-      ...prevDataFormulary,
-      [name]: value,
-    }));
-  };
-
-  const handlerSelectGenderOnChangeProductType = (event) => {
+  const handlerSelectGenderOnChange = (event) => {
     const { name, value } = event.target;
     setDataFormulary((prevDataFormulary) => ({
       ...prevDataFormulary,
@@ -239,7 +238,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
       return <h3 style={{ fontSize: "30px" }}>{erroState.model}</h3>;
     } else if (erroState.gender) {
       return <h3 style={{ fontSize: "30px" }}>{erroState.gender}</h3>;
-    }  else {
+    } else {
       return "CREAR PRODUCTO";
     }
   };
@@ -316,8 +315,9 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     value={gender}
                     className="select-1"
                     id="gender"
-                    onChange={handlerSelectGenderOnChangeGender}
+                    onChange={handlerSelectGenderOnChange}
                   >
+                    <option value="">SELECCIONAR</option>
                     <option value="DAMA">DAMA</option>
                     <option value="CABALLERO">CABALLERO</option>
                     <option value="NIÑO">NIÑO</option>
@@ -329,11 +329,12 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     <span>MODELO</span>
                   </label>
                   <select
+                    required
                     name="model"
                     value={model}
                     className="select-1"
                     id="model"
-                    onChange={handlerSelectGenderOnChangeModel}
+                    onChange={handlerSelectGenderOnChange}
                   >
                     {optionsModel.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -347,11 +348,12 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     <span>CATEGORIA</span>
                   </label>
                   <select
+                    required
                     name="productType"
                     value={productType}
                     className="select-1"
                     id="productType"
-                    onChange={handlerSelectGenderOnChangeProductType}
+                    onChange={handlerSelectGenderOnChange}
                   >
                     {optionsProductType.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -382,12 +384,12 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     <input
                       required
                       name="img"
-                      value={img}
-                      onChange={handlerOnChange}
+                      //value={img}
+                      onChange={handlerOnChangeImage}
                       type="file"
                       id="img"
                       className="file"
-                      accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, .webp, .jp2, .jxr, .hdp, .heif, .heic, .svg"
+                      accept="image/*"
                     />
                   </div>
                 </div>

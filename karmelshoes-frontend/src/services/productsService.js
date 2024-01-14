@@ -45,13 +45,15 @@ export const getAllProductPages = async (currentPage, itemsPerPage) => {
 
 export const createNewProduct = async (stringProduct, img) => {
   try {
-    const formData = new FormData();
-    formData.append('product', stringProduct);
-    formData.append('img', img);
+    console.log("stringProduct: ", stringProduct);
+    console.log("img: ", img);
 
     const response = await axios.post(
       'http://localhost:9090/product/createProductImg',
-      formData,
+      {
+        product: stringProduct,
+        img: img,
+      },
       configurationFile()
     );
 
