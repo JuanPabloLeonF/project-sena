@@ -3,7 +3,7 @@ import { FormInputFormularyData } from "../senaApp/FormInputFormularyData";
 import { initialDataFormularyColorAndSize, initialErrorsMessage, showDataColorsAndSizes } from "../../models/initialStateSectionCreateColor";
 import { createNewColor, createNewSize, deleteColorByName, deleteSizrBySize, getAllListColorAndSize } from "../../services/colorAndSizeservice";
 
-export const SectionCreateColor = ({ showSectionColor }) => {
+export const SectionCreateColor = ({ dataListColorAndListSize, showSectionColor }) => {
   const [dataFormuaryMain, setDataFormularyMain] = useState(initialDataFormularyColorAndSize);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
@@ -203,7 +203,6 @@ export const SectionCreateColor = ({ showSectionColor }) => {
 
     if (!isNaN(sizeValue) && type === "checkbox") {
       setDataFormularyMain((prevDataFormulary) => {
-        console.log(sizeValue)
         return {
           ...prevDataFormulary,
           sizes: checked
@@ -219,6 +218,7 @@ export const SectionCreateColor = ({ showSectionColor }) => {
   const handlerOnsubmit = (event) => {
     event.preventDefault();
     console.log("data formulario color: ", dataFormuaryMain);
+    dataListColorAndListSize(dataFormuaryMain);
     setDataFormularyMain(initialDataFormularyColorAndSize);
   };
 

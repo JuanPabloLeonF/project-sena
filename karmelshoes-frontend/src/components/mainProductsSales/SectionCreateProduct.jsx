@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormInputFormularyData } from "../senaApp/FormInputFormularyData";
 import { productModelCreateFormulary } from "../../models/productModel";
 import "/src/css/styleSectionCreateProduct.css";
@@ -10,39 +10,83 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   );
 
   const [activeSectionColor, sectActiveSectionColor] = useState(false);
-  const [activeSectionSize, sectActiveSectionSize] = useState(false);
-
   const [erroState, setErroState] = useState({});
+  const [messageSuccesing, setMessageSuccesing] = useState("");
+  const [optionsModel, setOptionsModel] = useState([]);
+  const [optionsProductType, setOptionsProductType] = useState([]);
+  
+
+  useEffect(() => {
+    const updateModelOptions = () => {
+      if (dataFormuary.gender === "DAMA" || dataFormuary.gender === "NIÑA") {
+        setOptionsModel([
+          { value: "ZAPATOS", label: "ZAPATOS" },
+          { value: "TENIS", label: "TENIS" },
+          { value: "SANDALIAS", label: "SANDALIAS" },
+          { value: "TACONES", label: "TACONES" },
+        ]);
+      } else if (
+        dataFormuary.gender === "CABALLERO" ||
+        dataFormuary.gender === "NIÑO"
+      ) {
+        setOptionsModel([
+          { value: "ZAPATOS", label: "ZAPATOS" },
+          { value: "TENIS", label: "TENIS" },
+          { value: "SANDALIAS", label: "SANDALIAS" },
+        ]);
+      } else {
+        setOptionsModel([]);
+      }
+    };
+
+    const updateProductTypeOptions = () => {
+      if (dataFormuary.model === "ZAPATOS") {
+        setOptionsProductType([
+          { value: "BOTAS", label: "BOTAS" },
+          { value: "BOTINES", label: "BOTINES" },
+        ]);
+      } else if (dataFormuary.model === "SANDALIAS") {
+        setOptionsProductType([
+          { value: "PLANAS", label: "PLANAS" },
+          { value: "PLATAFORMAS", label: "PLATAFORMAS" },
+          { value: "MEDIANAS", label: "MEDIANAS" },
+        ]);
+      } else if (dataFormuary.model === "TENIS") {
+        setOptionsProductType([
+          { value: "SNEAKERS", label: "SNEAKERS" },
+          { value: "PLATAFORMAS", label: "PLATAFORMAS" },
+          { value: "SIN CORDONES", label: "SIN CORDONES" },
+          { value: "DEPORTIVOS", label: "DEPORTIVOS" },
+        ]);
+      } else if (
+        (dataFormuary.model === "TACONES" &&
+          (dataFormuary.gender === "DAMA" || dataFormuary.gender === "NIÑA"))
+      ) {
+        setOptionsProductType([
+          { value: "ALTOS", label: "ALTOS" },
+          { value: "BAJOS", label: "BAJOS" },
+          { value: "MEDIOS", label: "MEDIOS" },
+        ]);
+      } else {
+        setOptionsProductType([]);
+      }
+    };
+
+
+    updateModelOptions();
+    updateProductTypeOptions();
+  }, [dataFormuary.gender, dataFormuary.model]);
 
   const showSectionColor = () => {
     sectActiveSectionColor(!activeSectionColor);
   };
 
-  const showSectionSize = () => {
-    sectActiveSectionSize(!activeSectionSize);
-  };
-
   const renderSectionColorOrSize = () => {
     if (activeSectionColor) {
-      return <SectionCreateColor showSectionColor={showSectionColor}/>;
-    } else if (activeSectionSize) {
-      return (
-        <div className="section-color">
-          <div className="section-color-body">
-            <div className="section-color-img">
-              <img
-                onClick={showSectionSize}
-                src="/src/assets/imgs/flecha-circulo-izquierda.png"
-              />
-            </div>
-            <div className="section-color-size">
-              sdfghjuioppoiu
-            </div>
-          </div>
-        </div>
-      );
+      return <SectionCreateColor dataListColorAndListSize={dataListColorAndListSize} showSectionColor={showSectionColor} />;
     }
   };
+
   const validateProductFields = (product) => {
     const errors = {};
 
@@ -72,16 +116,24 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
     }
 
     if (product.model.length < 4 || product.model.length > 200) {
-      errors.model = "El modelo debe tener entre 4 y 200 caracteres";
+      errors.model = "El modelo no puede estar vacio";
     }
 
-    // if (product.sizes.length === 0) {
-    //   errors.sizes = "La lista de tallas no puede estar vacía";
-    // }
+    if (product.gender.length < 4 || product.gender.length > 200) {
+      errors.gender = "El genero no puede estar vacio";
+    }
 
-    // if (product.color.length < 4 || product.color.length > 200) {
-    //   errors.color = "El color debe tener entre 4 y 200 caracteres";
-    // }
+    if (product.productType.length < 4 || product.productType.length > 200) {
+      errors.productType = "La categoria no puede estar vacia";
+    }
+
+    if (product.sizes.length === 0) {
+      errors.sizes = "Las tallas no pueden estar vacios";
+    }
+
+    if (product.color.length === 0) {
+      errors.color = "Los colores no pueden estar vacios";
+    }
 
     if (product.img.length === 0) {
       errors.img = "La imagen es requerida";
@@ -103,84 +155,52 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
     }));
   };
 
-  const dataOptionModel = () => {
-    if (dataFormuary.gender === "DAMA" || dataFormuary.gender === "NIÑA") {
-      return [
-        { value: "ZAPATOS", label: "ZAPATOS" },
-        { value: "TENIS", label: "TENIS" },
-        { value: "SANDALIAS", label: "SANDALIAS" },
-        { value: "TACONES", label: "TACONES" },
-      ];
-    } else if (
-      dataFormuary.gender === "CABALLERO" ||
-      dataFormuary.gender === "NIÑO"
-    ) {
-      return [
-        { value: "ZAPATOS", label: "ZAPATOS" },
-        { value: "TENIS", label: "TENIS" },
-        { value: "SANDALIAS", label: "SANDALIAS" },
-      ];
-    } else {
-      return [];
-    }
-  };
-
-  const dataOptionProductType = () => {
-    if (dataFormuary.model === "ZAPATOS") {
-      return [
-        { value: "BOTAS", label: "BOTAS" },
-        { value: "BOTINES", label: "BOTINES" },
-      ];
-    } else if (dataFormuary.model === "SANDALIAS") {
-      return [
-        { value: "PLANAS", label: "PLANAS" },
-        { value: "PLATAFORMAS", label: "PLATAFORMAS" },
-        { value: "MEDIANAS", label: "MEDIANAS" },
-      ];
-    } else if (dataFormuary.model === "TENIS") {
-      return [
-        { value: "SNEAKERS", label: "SNEAKERS" },
-        { value: "PLATAFORMAS", label: "PLATAFORMAS" },
-        { value: "SIN CORDONES", label: "SIN CORDONES" },
-        { value: "DEPORTIVOS", label: "DEPORTIVOS" },
-      ];
-    } else if (
-      (dataFormuary.model === "TACONES" && dataFormuary.gender === "DAMA") ||
-      dataFormuary.gender === "NIÑA"
-    ) {
-      return [
-        { value: "ALTOS", label: "ALTOS" },
-        { value: "BAJOS", label: "BAJOS" },
-        { value: "MEDIOS", label: "MEDIOS" },
-      ];
-    } else if (
-      dataFormuary.gender === "CABALLERO" ||
-      dataFormuary.gender === "NIÑO"
-    ) {
-      return [
-        { value: "BOTAS", label: "BOTAS" },
-        { value: "BOTINES", label: "BOTINES" },
-      ];
-    } else {
-      return [];
-    }
-  };
+  const dataListColorAndListSize = (data) => {
+    setDataFormulary((prevDataFormulary) => ({
+      ...prevDataFormulary,
+      color: data.colors,
+      sizes: data.sizes,
+    }));
+  }
 
   const handlerOnsubmit = (event) => {
     event.preventDefault();
-
     if (validateProductFields(dataFormuary)) {
-      console.log("enciando formulario: ", dataFormuary);
-      setDataFormulary(productModelCreateFormulary);
+      try {
+        console.log("enviando formulario: ", dataFormuary);
+        const stringProduct = JSON.stringify(dataFormuary);
+        console.log("stringProduct: ", stringProduct);
+        setMessageSuccesing("Se Creo Correctamente El Producto");
+        console.log("archivo img: ", dataFormuary.img);
+
+        //setDataFormulary(productModelCreateFormulary);
+      } catch (error) {
+        console.log("errors: ", error);
+      }
     }
-    console.log("errors");
   };
 
   const handlerResetFormulary = () => {
     setDataFormulary(productModelCreateFormulary);
   };
 
-  const handlerSelectGenderOnChange = (event) => {
+  const handlerSelectGenderOnChangeGender = (event) => {
+    const { name, value } = event.target;
+    setDataFormulary((prevDataFormulary) => ({
+      ...prevDataFormulary,
+      [name]: value,
+    }));
+  };
+
+  const handlerSelectGenderOnChangeModel = (event) => {
+    const { name, value } = event.target;
+    setDataFormulary((prevDataFormulary) => ({
+      ...prevDataFormulary,
+      [name]: value,
+    }));
+  };
+
+  const handlerSelectGenderOnChangeProductType = (event) => {
     const { name, value } = event.target;
     setDataFormulary((prevDataFormulary) => ({
       ...prevDataFormulary,
@@ -207,7 +227,19 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   const renderMessageErrors = () => {
     if (erroState.description) {
       return <h3 style={{ fontSize: "30px" }}>{erroState.description}</h3>;
-    } else {
+    } else if (erroState.color) {
+      return <h3 style={{ fontSize: "30px" }}>{erroState.color}</h3>;
+    } else if (erroState.sizes) {
+      return <h3 style={{ fontSize: "30px" }}>{erroState.sizes}</h3>;
+    } else if (messageSuccesing) {
+      return <h3 style={{ fontSize: "30px" }}>{messageSuccesing}</h3>;
+    } else if (erroState.productType) {
+      return <h3 style={{ fontSize: "30px" }}>{erroState.productType}</h3>;
+    } else if (erroState.model) {
+      return <h3 style={{ fontSize: "30px" }}>{erroState.model}</h3>;
+    } else if (erroState.gender) {
+      return <h3 style={{ fontSize: "30px" }}>{erroState.gender}</h3>;
+    }  else {
       return "CREAR PRODUCTO";
     }
   };
@@ -284,7 +316,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     value={gender}
                     className="select-1"
                     id="gender"
-                    onChange={handlerSelectGenderOnChange}
+                    onChange={handlerSelectGenderOnChangeGender}
                   >
                     <option value="DAMA">DAMA</option>
                     <option value="CABALLERO">CABALLERO</option>
@@ -301,9 +333,9 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     value={model}
                     className="select-1"
                     id="model"
-                    onChange={handlerSelectGenderOnChange}
+                    onChange={handlerSelectGenderOnChangeModel}
                   >
-                    {dataOptionModel().map((option) => (
+                    {optionsModel.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -319,9 +351,9 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                     value={productType}
                     className="select-1"
                     id="productType"
-                    onChange={handlerSelectGenderOnChange}
+                    onChange={handlerSelectGenderOnChangeProductType}
                   >
-                    {dataOptionProductType().map((option) => (
+                    {optionsProductType.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -340,7 +372,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                   <label htmlFor={"sizes"} className="form-label-perfil">
                     <span>TALLAS</span>
                   </label>
-                  <button onClick={showSectionSize} type="button">SELECCIONAR</button>
+                  <button onClick={showSectionColor} type="button">SELECCIONAR</button>
                 </div>
                 <div className="container-img">
                   <label htmlFor="img" className="form-label-perfil">
