@@ -2,6 +2,7 @@
 
 import axios from "axios";
 
+
 const configuration = () => {
   const token = sessionStorage.getItem("token");
   return {
@@ -17,10 +18,10 @@ const configurationFile = () => {
   return {
     headers: {
       Authorization: token,
-      "Content-Type": "multipart/form-data",
     },
   };
 };
+
 
 export const getAllProduct = async () => {
   try {
@@ -43,17 +44,19 @@ export const getAllProductPages = async (currentPage, itemsPerPage) => {
   }
 };
 
-export const createNewProduct = async (stringProduct, img) => {
+export const createNewProduct = async (product, img) => {
   try {
-    console.log("stringProduct: ", stringProduct);
-    console.log("img: ", img);
+    const productRequest = {
+      productEntity: product,
+      img: img,
+    };
+
+    const formData = new FormData();
+    formData.append('productRequestModel', JSON.stringify(productRequest));
 
     const response = await axios.post(
       'http://localhost:9090/product/createProductImg',
-      {
-        product: stringProduct,
-        img: img,
-      },
+      formData,
       configurationFile()
     );
 
@@ -62,3 +65,9 @@ export const createNewProduct = async (stringProduct, img) => {
     throw error;
   }
 };
+
+
+
+
+
+

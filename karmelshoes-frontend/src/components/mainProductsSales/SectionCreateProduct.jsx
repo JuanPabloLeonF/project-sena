@@ -184,9 +184,8 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
     if (validateProductFields(dataFormuary)) {
       try {
         const stringProduct = JSON.stringify(dataFormuary);
-        console.log(dataFormuary.img)
         setMessageSuccesing("Se Creo Correctamente El Producto");
-        const data = await createNewProduct(stringProduct , dataFormuary.img);
+        const data = await createNewProduct(dataFormuary , dataFormuary.img);
         console.log("data: ", data);
         //setDataFormulary(productModelCreateFormulary);
       } catch (error) {
