@@ -46,13 +46,20 @@ export const getAllProductPages = async (currentPage, itemsPerPage) => {
 
 export const createNewProduct = async (product, img) => {
   try {
-    const productRequest = {
-      productEntity: product,
-      img: img,
-    };
-
     const formData = new FormData();
-    formData.append('productRequestModel', JSON.stringify(productRequest));
+    formData.append('name', product.name);
+    formData.append('description', product.description);
+    formData.append('price', product.price);
+    formData.append('status', product.status);
+    formData.append('stock', product.stock);
+    formData.append('productType', product.productType);
+    formData.append('mark', product.mark);
+    formData.append('model', product.model);
+    formData.append('sizes', product.sizes);
+    formData.append('color', product.color);
+    formData.append('gender', product.gender);
+    formData.append('code', product.code);
+    formData.append('img', img);
 
     const response = await axios.post(
       'http://localhost:9090/product/createProductImg',
@@ -65,6 +72,17 @@ export const createNewProduct = async (product, img) => {
     throw error;
   }
 };
+
+export const arrayBufferToBase64 = (buffer) => {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
 
 
 

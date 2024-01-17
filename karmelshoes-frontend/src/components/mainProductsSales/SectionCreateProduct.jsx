@@ -15,6 +15,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
   const [messageSuccesing, setMessageSuccesing] = useState("");
   const [optionsModel, setOptionsModel] = useState([]);
   const [optionsProductType, setOptionsProductType] = useState([]);
+  const [showImg, setShowImg] = useState("");
 
   const handlerOnChangeImage = (event) => {
     console.log(event.target.files[0]);
@@ -185,8 +186,15 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
       try {
         const stringProduct = JSON.stringify(dataFormuary);
         setMessageSuccesing("Se Creo Correctamente El Producto");
-        const data = await createNewProduct(dataFormuary , dataFormuary.img);
+        const data = await createNewProduct(dataFormuary, dataFormuary.img);
         console.log("data: ", data);
+        console.log("img: ", data.img);
+        const imageByteArray = data.img;
+        const imageBlob = new File([imageByteArray], { type: 'image/*' });
+        const imageUrl = URL.createObjectURL(imageBlob);
+        console.log("blob file ya: ", imageBlob);
+        console.log("url: ", imageUrl);
+        setShowImg(imageBlob);
         //setDataFormulary(productModelCreateFormulary);
       } catch (error) {
         console.log("errors: ", error);
@@ -428,6 +436,9 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct }) => {
                 </div>
                 <div className="buttom-create">
                   <input type="submit" value={"GUARDAR"} />
+                  <div>
+                    <img src={showImg} alt="" />
+                  </div>
                 </div>
               </div>
             </div>
