@@ -22,6 +22,16 @@ const configurationFile = () => {
   };
 };
 
+const configurationImg = () => {
+  const token = sessionStorage.getItem("token");
+  return {
+    headers: {
+      Authorization: token,
+    },
+    responseType: 'arraybuffer',
+  };
+};
+
 
 export const getAllProduct = async () => {
   try {
@@ -73,19 +83,14 @@ export const createNewProduct = async (product, img) => {
   }
 };
 
-export const arrayBufferToBase64 = (buffer) => {
-  let binary = "";
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
+export const getImgProductById = async (id) => {
+  try {
+    const data = await axios.get(`http://localhost:9090/product/getImgProductById/${id}`, configurationImg());
+    return data.data;
+  } catch (error) {
+    throw error;
   }
-  return window.btoa(binary);
 }
-
-
-
-
 
 
 

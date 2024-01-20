@@ -184,7 +184,7 @@ export const SenaApp = () => {
       case state.activeDataProduct:
         return <SectionDataProduct showDataProduct={showDataProduct} />;
       case state.activeFormularyCreateProduct:
-        return <SectionCreateProduct showFormularyCreateProduct={showFormularyCreateProduct} />;
+        return <SectionCreateProduct showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
       default:
         return null;
     }
