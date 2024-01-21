@@ -30,3 +30,12 @@ export const productModelCreateFormulary = {
   status: true,
   code: "",
 };
+
+export const initialStateFormularyCreateProduct = {
+  dataFormulary: productModelCreateFormulary,
+  errors: {},
+  activeSectionColor: false,
+  messageSuccesing: "",
+  optionsModel: [],
+  optionsProductType: [],
+}
