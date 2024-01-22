@@ -9,12 +9,13 @@ import {
     initialStateFormularyCreateProduct
 } from "../models/productModel";
 import {
-    createNewProduct
+    createNewProduct, updateProductById
 } from "../services/productsService";
 
-export const useStateCreateProduct = (updateMainAdmin) => {
+export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProduct) => {
     const [state, dispatch] = useReducer(createProductReducer, initialStateFormularyCreateProduct);
     const {
+        dataFormularyUpdate,
         dataFormulary,
         errors,
         activeSectionColor,
@@ -23,104 +24,171 @@ export const useStateCreateProduct = (updateMainAdmin) => {
         optionsProductType,
     } = state;
 
-    const {
-        name,
-        description,
-        price,
-        stock,
-        productType,
-        mark,
-        model,
-        sizes,
-        color,
-        gender,
-        img,
-        status,
-        code
-    } = dataFormulary;
+    const updateDataFormulary = () => {
+        dispatch({
+            type: "SET_FORM_UPDATE_DATA",
+            payload: dataProduct
+        })
+    }
 
     const handlerOnChangeImage = (event) => {
-        dispatch({
-            type: "SET_FORM_DATA_IMG",
-            payload: event.target.files[0]
-        });
+        if (showDataProduct) {
+            dispatch({
+                type: "SET_FORM_DATA_IMG_UPDATE",
+                payload: event.target.files[0]
+            });
+        } else {
+            dispatch({
+                type: "SET_FORM_DATA_IMG",
+                payload: event.target.files[0]
+            });
+        }
     };
 
     const handlerOnChange = (event) => {
-        const {
-            name,
-            value
-        } = event.target;
-        dispatch({
-            type: "SET_FORM_DATA",
-            payload: {
-                ...dataFormulary,
-                [name]: value
-            }
-        });
+        if (showDataProduct) {
+            const {
+                name,
+                value
+            } = event.target;
+            dispatch({
+                type: "SET_FORM_UPDATE_DATA",
+                payload: {
+                    ...dataFormularyUpdate,
+                    [name]: value
+                }
+            });
+        } else {
+            const {
+                name,
+                value
+            } = event.target;
+            dispatch({
+                type: "SET_FORM_DATA",
+                payload: {
+                    ...dataFormulary,
+                    [name]: value
+                }
+            });
+        }
     };
 
     const handlerSelectGenderOnChange = (event) => {
-        const {
-            name,
-            value
-        } = event.target;
-        dispatch({
-            type: "SET_FORM_DATA_SELECT",
-            payload: {
+        if (showDataProduct) {
+            const {
                 name,
                 value
-            }
-        });
+            } = event.target;
+            dispatch({
+                type: "SET_FORM_DATA_SELECT_UPDATE",
+                payload: {
+                    name,
+                    value
+                }
+            });
+        } else {
+            const {
+                name,
+                value
+            } = event.target;
+            dispatch({
+                type: "SET_FORM_DATA_SELECT",
+                payload: {
+                    name,
+                    value
+                }
+            });
+        }
     };
 
     const handlerResetFormulary = () => {
         dispatch({
             type: "SET_FORM_DATA",
-            payload: initialStateFormularyCreateProduct.dataFormulary
+            payload: initialStateFormularyCreateProduct.dataFormulary,
         })
     };
 
     const dataListColorAndListSize = (data) => {
-        dispatch({
-            type: "SET_FORM_DATA",
-            payload: {
-                ...dataFormulary,
-                color: data.colors,
-                sizes: data.sizes
-            }
-        })
+        if (showDataProduct) {
+            dispatch({
+                type: "SET_FORM_UPDATE_DATA",
+                payload: {
+                    ...dataFormularyUpdate,
+                    color: data.colors,
+                    sizes: data.sizes
+                }
+            })
+        } else {
+            dispatch({
+                type: "SET_FORM_DATA",
+                payload: {
+                    ...dataFormulary,
+                    color: data.colors,
+                    sizes: data.sizes
+                }
+            })
+        }
     }
 
     const showSectionColor = () => {
         dispatch({
             type: "TOGGLE_SECTION_COLOR"
         });
-      };
+    };
 
     const handlerOnsubmit = async (event) => {
         event.preventDefault();
-        if (validateProductFields(dataFormulary)) {
-            try {
-                dispatch({
-                    type: "SET_SUCCESS_MESSAGE",
-                    payload: "Se Creo Correctamente El Producto"
-                })
-                await createNewProduct(dataFormulary, dataFormulary.img);
-                updateMainAdmin();
-                dispatch({
-                    type: "SET_FORM_DATA",
-                    payload: initialStateFormularyCreateProduct.dataFormulary
-                })
-            } catch (error) {
-                const errors = error.response.data;
-                console.log("errors: ", errors);
-                console.log(errors.message);
-                if (errors.code === 400) {
+        if (showDataProduct) {
+            console.log("dataFormularyUpdate: ", dataFormularyUpdate);
+            if (validateProductFields(dataFormularyUpdate)) {
+                try {
                     dispatch({
                         type: "SET_SUCCESS_MESSAGE",
-                        payload: errors.message
+                        payload: "Se Actualizo Correctamente El Producto"
                     })
+                    const dataUpdate = await updateProductById(dataFormularyUpdate, dataFormularyUpdate.img, dataFormularyUpdate.id);
+                    updateMainAdmin();
+                    const dataUpdateNormalized = normalizeProductData(dataUpdate);
+                    console.log("data actualizada: ", dataUpdateNormalized);
+                    dispatch({
+                        type: "SET_FORM_UPDATE_DATA",
+                        payload: dataUpdateNormalized
+                    })
+                } catch (error) {
+                    const errors = error.response.data;
+                    console.log("errors: ", errors);
+                    console.log(errors.message);
+                    if (errors.code === 400) {
+                        dispatch({
+                            type: "SET_SUCCESS_MESSAGE",
+                            payload: errors.message
+                        })
+                    }
+                }
+            }
+        } else {
+            if (validateProductFields(dataFormulary)) {
+                try {
+                    dispatch({
+                        type: "SET_SUCCESS_MESSAGE",
+                        payload: "Se Creo Correctamente El Producto"
+                    })
+                    await createNewProduct(dataFormulary, dataFormulary.img);
+                    updateMainAdmin();
+                    dispatch({
+                        type: "SET_FORM_DATA",
+                        payload: initialStateFormularyCreateProduct.dataFormulary
+                    })
+                } catch (error) {
+                    const errors = error.response.data;
+                    console.log("errors: ", errors);
+                    console.log(errors.message);
+                    if (errors.code === 400) {
+                        dispatch({
+                            type: "SET_SUCCESS_MESSAGE",
+                            payload: errors.message
+                        })
+                    }
                 }
             }
         }
@@ -190,160 +258,343 @@ export const useStateCreateProduct = (updateMainAdmin) => {
     };
 
     const updateModelOptions = () => {
-        if (dataFormulary.gender === "DAMA" || dataFormulary.gender === "NIÑA") {
-            dispatch({
-                type: "SET_OPTIONS_MODEL",
-                payload: [{
+        if (showDataProduct) {
+            if (dataFormularyUpdate.gender === "DAMA" || dataFormularyUpdate.gender === "NIÑA") {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ZAPATOS",
+                            label: "ZAPATOS"
+                        },
+                        {
+                            value: "TENIS",
+                            label: "TENIS"
+                        },
+                        {
+                            value: "SANDALIAS",
+                            label: "SANDALIAS"
+                        },
+                        {
+                            value: "TACONES",
+                            label: "TACONES"
+                        },
+                    ],
+                })
+            } else if (
+                dataFormularyUpdate.gender === "CABALLERO" ||
+                dataFormularyUpdate.gender === "NIÑO"
+            ) {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ZAPATOS",
+                            label: "ZAPATOS"
+                        },
+                        {
+                            value: "TENIS",
+                            label: "TENIS"
+                        },
+                        {
+                            value: "SANDALIAS",
+                            label: "SANDALIAS"
+                        },
+                    ],
+                })
+            } else {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
                         value: "",
                         label: "SELECCIONA"
-                    },
-                    {
-                        value: "ZAPATOS",
-                        label: "ZAPATOS"
-                    },
-                    {
-                        value: "TENIS",
-                        label: "TENIS"
-                    },
-                    {
-                        value: "SANDALIAS",
-                        label: "SANDALIAS"
-                    },
-                ],
-            })
-        } else if (
-            dataFormulary.gender === "CABALLERO" ||
-            dataFormulary.gender === "NIÑO"
-        ) {
-            dispatch({
-                type: "SET_OPTIONS_MODEL",
-                payload: [{
-                        value: "",
-                        label: "SELECCIONA"
-                    },
-                    {
-                        value: "ZAPATOS",
-                        label: "ZAPATOS"
-                    },
-                    {
-                        value: "TENIS",
-                        label: "TENIS"
-                    },
-                    {
-                        value: "SANDALIAS",
-                        label: "SANDALIAS"
-                    },
-                ],
-            })
+                    }],
+                })
+            }
         } else {
-            dispatch({
-                type: "SET_OPTIONS_MODEL",
-                payload: [{
-                    value: "",
-                    label: "SELECCIONA"
-                }],
-            })
+            if (dataFormulary.gender === "DAMA" || dataFormulary.gender === "NIÑA") {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ZAPATOS",
+                            label: "ZAPATOS"
+                        },
+                        {
+                            value: "TENIS",
+                            label: "TENIS"
+                        },
+                        {
+                            value: "SANDALIAS",
+                            label: "SANDALIAS"
+                        },
+                        {
+                            value: "TACONES",
+                            label: "TACONES"
+                        },
+                    ],
+                })
+            } else if (
+                dataFormulary.gender === "CABALLERO" ||
+                dataFormulary.gender === "NIÑO"
+            ) {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ZAPATOS",
+                            label: "ZAPATOS"
+                        },
+                        {
+                            value: "TENIS",
+                            label: "TENIS"
+                        },
+                        {
+                            value: "SANDALIAS",
+                            label: "SANDALIAS"
+                        },
+                    ],
+                })
+            } else {
+                dispatch({
+                    type: "SET_OPTIONS_MODEL",
+                    payload: [{
+                        value: "",
+                        label: "SELECCIONA"
+                    }],
+                })
+            }
         }
     };
 
     const updateProductTypeOptions = () => {
-        if (dataFormulary.model === "ZAPATOS") {
-            dispatch({
-                type: "SET_OPTIONS_PRODUCT_TYPE",
-                payload: [{
+        if (showDataProduct) {
+            if (dataFormularyUpdate.model === "ZAPATOS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "BOTAS",
+                            label: "BOTAS"
+                        },
+                        {
+                            value: "BOTINES",
+                            label: "BOTINES"
+                        },
+                    ],
+                })
+            } else if (dataFormularyUpdate.model === "SANDALIAS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "PLANAS",
+                            label: "PLANAS"
+                        },
+                        {
+                            value: "PLATAFORMAS",
+                            label: "PLATAFORMAS"
+                        },
+                        {
+                            value: "MEDIANAS",
+                            label: "MEDIANAS"
+                        },
+                    ],
+                })
+            } else if (dataFormularyUpdate.model === "TENIS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "SNEAKERS",
+                            label: "SNEAKERS"
+                        },
+                        {
+                            value: "PLATAFORMAS",
+                            label: "PLATAFORMAS"
+                        },
+                        {
+                            value: "SIN CORDONES",
+                            label: "SIN CORDONES"
+                        },
+                        {
+                            value: "DEPORTIVOS",
+                            label: "DEPORTIVOS"
+                        },
+                    ],
+                })
+            } else if (
+                (dataFormularyUpdate.model === "TACONES" &&
+                    (dataFormularyUpdate.gender === "DAMA" || dataFormularyUpdate.gender === "NIÑA"))
+            ) {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ALTOS",
+                            label: "ALTOS"
+                        },
+                        {
+                            value: "BAJOS",
+                            label: "BAJOS"
+                        },
+                        {
+                            value: "MEDIOS",
+                            label: "MEDIOS"
+                        },
+                    ],
+                })
+            } else {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
                         value: "",
                         label: "SELECCIONA"
-                    },
-                    {
-                        value: "BOTAS",
-                        label: "BOTAS"
-                    },
-                    {
-                        value: "BOTINES",
-                        label: "BOTINES"
-                    },
-                ],
-            })
-        } else if (dataFormulary.model === "SANDALIAS") {
-            dispatch({
-                type: "SET_OPTIONS_PRODUCT_TYPE",
-                payload: [{
-                        value: "",
-                        label: "SELECCIONA"
-                    },
-                    {
-                        value: "PLANAS",
-                        label: "PLANAS"
-                    },
-                    {
-                        value: "PLATAFORMAS",
-                        label: "PLATAFORMAS"
-                    },
-                    {
-                        value: "MEDIANAS",
-                        label: "MEDIANAS"
-                    },
-                ],
-            })
-        } else if (dataFormulary.model === "TENIS") {
-            dispatch({
-                type: "SET_OPTIONS_PRODUCT_TYPE",
-                payload: [{
-                        value: "",
-                        label: "SELECCIONA"
-                    },
-                    {
-                        value: "SNEAKERS",
-                        label: "SNEAKERS"
-                    },
-                    {
-                        value: "PLATAFORMAS",
-                        label: "PLATAFORMAS"
-                    },
-                    {
-                        value: "SIN CORDONES",
-                        label: "SIN CORDONES"
-                    },
-                    {
-                        value: "DEPORTIVOS",
-                        label: "DEPORTIVOS"
-                    },
-                ],
-            })
-        } else if (
-            (dataFormulary.model === "TACONES" &&
-                (dataFormulary.gender === "DAMA" || dataFormulary.gender === "NIÑA"))
-        ) {
-            dispatch({
-                type: "SET_OPTIONS_PRODUCT_TYPE",
-                payload: [{
-                        value: "",
-                        label: "SELECCIONA"
-                    },
-                    {
-                        value: "ALTOS",
-                        label: "ALTOS"
-                    },
-                    {
-                        value: "BAJOS",
-                        label: "BAJOS"
-                    },
-                    {
-                        value: "MEDIOS",
-                        label: "MEDIOS"
-                    },
-                ],
-            })
+                    }],
+                })
+            }
         } else {
-            dispatch({
-                type: "SET_OPTIONS_PRODUCT_TYPE",
-                payload: [{
-                    value: "",
-                    label: "SELECCIONA"
-                }],
-            })
+            if (dataFormulary.model === "ZAPATOS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "BOTAS",
+                            label: "BOTAS"
+                        },
+                        {
+                            value: "BOTINES",
+                            label: "BOTINES"
+                        },
+                    ],
+                })
+            } else if (dataFormulary.model === "SANDALIAS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "PLANAS",
+                            label: "PLANAS"
+                        },
+                        {
+                            value: "PLATAFORMAS",
+                            label: "PLATAFORMAS"
+                        },
+                        {
+                            value: "MEDIANAS",
+                            label: "MEDIANAS"
+                        },
+                    ],
+                })
+            } else if (dataFormulary.model === "TENIS") {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "SNEAKERS",
+                            label: "SNEAKERS"
+                        },
+                        {
+                            value: "PLATAFORMAS",
+                            label: "PLATAFORMAS"
+                        },
+                        {
+                            value: "SIN CORDONES",
+                            label: "SIN CORDONES"
+                        },
+                        {
+                            value: "DEPORTIVOS",
+                            label: "DEPORTIVOS"
+                        },
+                    ],
+                })
+            } else if (
+                (dataFormulary.model === "TACONES" &&
+                    (dataFormulary.gender === "DAMA" || dataFormulary.gender === "NIÑA"))
+            ) {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                            value: "",
+                            label: "SELECCIONA"
+                        },
+                        {
+                            value: "ALTOS",
+                            label: "ALTOS"
+                        },
+                        {
+                            value: "BAJOS",
+                            label: "BAJOS"
+                        },
+                        {
+                            value: "MEDIOS",
+                            label: "MEDIOS"
+                        },
+                    ],
+                })
+            } else {
+                dispatch({
+                    type: "SET_OPTIONS_PRODUCT_TYPE",
+                    payload: [{
+                        value: "",
+                        label: "SELECCIONA"
+                    }],
+                })
+            }
         }
+
     };
+
+    const normalizeProductData = (backendData) => {
+        return {
+          name: backendData.nameProductDto || "",
+          description: backendData.descriptionProductDto || "",
+          price: backendData.priceProductDto || 0.0,
+          stock: backendData.stockProductDto || 0,
+          productType: backendData.productTypeProductDto || "",
+          mark: backendData.markProductDto || "",
+          model: backendData.modelProductDto || "",
+          sizes: backendData.sizesProductDto || [],
+          color: backendData.colorProductDto || [],
+          gender: backendData.genderProductDto || "",
+          img: "",
+          status: backendData.statusProductDto || true,
+          code: backendData.codeProductDto || "",
+        };
+      };
 
     return {
         state,
@@ -356,10 +607,12 @@ export const useStateCreateProduct = (updateMainAdmin) => {
         updateModelOptions,
         handlerResetFormulary,
         dataListColorAndListSize,
+        updateDataFormulary,
         errors,
         messageSuccesing,
         optionsModel,
         optionsProductType,
         dataFormulary,
+        dataFormularyUpdate,
     };
 };

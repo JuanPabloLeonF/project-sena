@@ -38,4 +38,5 @@ export const initialStateFormularyCreateProduct = {
   messageSuccesing: "",
   optionsModel: [],
   optionsProductType: [],
+  dataFormularyUpdate: productModelCreateFormulary,
 }

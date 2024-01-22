@@ -25,7 +25,6 @@ import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
 import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
-import { SectionDataProduct } from "../components/mainProductsSales/SectionDataProduct";
 import { SectionCreateProduct } from "../components/mainProductsSales/SectionCreateProduct";
 
 export const SenaApp = () => {
@@ -182,9 +181,10 @@ export const SenaApp = () => {
           />
         );
       case state.activeDataProduct:
-        return <SectionDataProduct showDataProduct={showDataProduct} />;
+        //showDataProduct={showDataProduct}
+        return <SectionCreateProduct dataProduct={state.dataProduct} showDataProduct={showDataProduct} showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
       case state.activeFormularyCreateProduct:
-        return <SectionCreateProduct showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
+        return <SectionCreateProduct dataProduct={undefined} showDataProduct={undefined} showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
       default:
         return null;
     }

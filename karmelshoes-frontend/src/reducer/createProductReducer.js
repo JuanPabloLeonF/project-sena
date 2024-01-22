@@ -9,6 +9,11 @@ export const createProductReducer = (state = initialStateFormularyCreateProduct,
                 ...state,
                 dataFormulary: action.payload,
             };
+        case "SET_FORM_UPDATE_DATA":
+            return {
+                ...state,
+                dataFormularyUpdate: action.payload,
+            };
         case "SET_FORM_DATA_IMG":
             return {
                 ...state,
@@ -17,11 +22,27 @@ export const createProductReducer = (state = initialStateFormularyCreateProduct,
                     img: action.payload,
                 },
             };
+        case "SET_FORM_DATA_IMG_UPDATE":
+            return {
+                ...state,
+                dataFormularyUpdate: {
+                    ...state.dataFormularyUpdate,
+                    img: action.payload,
+                },
+            };
         case "SET_FORM_DATA_SELECT":
             return {
                 ...state,
                 dataFormulary: {
                     ...state.dataFormulary,
+                    [action.payload.name]: action.payload.value,
+                }
+            };
+        case "SET_FORM_DATA_SELECT_UPDATE":
+            return {
+                ...state,
+                dataFormularyUpdate: {
+                    ...state.dataFormularyUpdate,
                     [action.payload.name]: action.payload.value,
                 }
             };

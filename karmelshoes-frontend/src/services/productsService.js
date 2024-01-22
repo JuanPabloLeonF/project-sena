@@ -83,6 +83,35 @@ export const createNewProduct = async (product, img) => {
   }
 };
 
+export const updateProductById = async (product, img, id) => {
+  try {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('description', product.description);
+    formData.append('price', product.price);
+    formData.append('status', product.status);
+    formData.append('stock', product.stock);
+    formData.append('productType', product.productType);
+    formData.append('mark', product.mark);
+    formData.append('model', product.model);
+    formData.append('sizes', product.sizes);
+    formData.append('color', product.color);
+    formData.append('gender', product.gender);
+    formData.append('code', product.code);
+    formData.append('img', img);
+
+    const response = await axios.put(
+      `http://localhost:9090/product/update/${id}`,
+      formData,
+      configurationFile()
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getImgProductById = async (id) => {
   try {
     const data = await axios.get(`http://localhost:9090/product/getImgProductById/${id}`, configurationImg());
