@@ -121,5 +121,12 @@ export const getImgProductById = async (id) => {
   }
 }
 
-
+export const getProductById = async (id) => {
+  try {
+    const data = await axios.get(`http://localhost:9090/product/getById/${id}`)
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+}
 

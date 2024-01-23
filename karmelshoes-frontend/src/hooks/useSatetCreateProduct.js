@@ -9,10 +9,11 @@ import {
     initialStateFormularyCreateProduct
 } from "../models/productModel";
 import {
-    createNewProduct, updateProductById
+    createNewProduct,
+    updateProductById
 } from "../services/productsService";
 
-export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProduct) => {
+export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
     const [state, dispatch] = useReducer(createProductReducer, initialStateFormularyCreateProduct);
     const {
         dataFormularyUpdate,
@@ -24,11 +25,13 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProd
         optionsProductType,
     } = state;
 
-    const updateDataFormulary = () => {
+    const updateDataFormulary = (dataProduct) => {
+        console.log("dataProduct: ", dataProduct.id);
         dispatch({
             type: "SET_FORM_UPDATE_DATA",
             payload: dataProduct
         })
+
     }
 
     const handlerOnChangeImage = (event) => {
@@ -139,7 +142,6 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProd
     const handlerOnsubmit = async (event) => {
         event.preventDefault();
         if (showDataProduct) {
-            console.log("dataFormularyUpdate: ", dataFormularyUpdate);
             if (validateProductFields(dataFormularyUpdate)) {
                 try {
                     dispatch({
@@ -256,6 +258,7 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProd
         })
         return Object.keys(errors).length === 0;
     };
+
 
     const updateModelOptions = () => {
         if (showDataProduct) {
@@ -580,21 +583,21 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct, dataProd
 
     const normalizeProductData = (backendData) => {
         return {
-          name: backendData.nameProductDto || "",
-          description: backendData.descriptionProductDto || "",
-          price: backendData.priceProductDto || 0.0,
-          stock: backendData.stockProductDto || 0,
-          productType: backendData.productTypeProductDto || "",
-          mark: backendData.markProductDto || "",
-          model: backendData.modelProductDto || "",
-          sizes: backendData.sizesProductDto || [],
-          color: backendData.colorProductDto || [],
-          gender: backendData.genderProductDto || "",
-          img: "",
-          status: backendData.statusProductDto || true,
-          code: backendData.codeProductDto || "",
+            name: backendData.nameProductDto || "",
+            description: backendData.descriptionProductDto || "",
+            price: backendData.priceProductDto || 0.0,
+            stock: backendData.stockProductDto || 0,
+            productType: backendData.productTypeProductDto || "",
+            mark: backendData.markProductDto || "",
+            model: backendData.modelProductDto || "",
+            sizes: backendData.sizesProductDto || [],
+            color: backendData.colorProductDto || [],
+            gender: backendData.genderProductDto || "",
+            img: "",
+            status: backendData.statusProductDto || true,
+            code: backendData.codeProductDto || "",
         };
-      };
+    };
 
     return {
         state,

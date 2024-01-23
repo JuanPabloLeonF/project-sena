@@ -20,8 +20,6 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
     handlerOnChangeImage,
     handlerSelectGenderOnChange,
     showSectionColor,
-    updateProductTypeOptions,
-    updateModelOptions,
     handlerResetFormulary,
     dataListColorAndListSize,
     updateDataFormulary,
@@ -31,13 +29,18 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
     optionsProductType,
     dataFormulary,
     dataFormularyUpdate,
-  } = useStateCreateProduct(updateMainAdmin, showDataProduct, dataProduct);
+    updateModelOptions,
+    updateProductTypeOptions,
+  } = useStateCreateProduct(updateMainAdmin, showDataProduct);
 
   useEffect(() => {
     updateModelOptions();
     updateProductTypeOptions();
-    updateDataFormulary();
-  }, [dataFormulary.gender, dataFormulary.model]);
+  }, [dataFormulary?.gender, dataFormulary?.model, dataFormularyUpdate?.gender, dataFormularyUpdate?.model]);
+
+  useEffect(()=>{
+    updateDataFormulary(dataProduct);
+  }, [])
 
   const renderSectionColorOrSize = () => {
     if (state.activeSectionColor) {
