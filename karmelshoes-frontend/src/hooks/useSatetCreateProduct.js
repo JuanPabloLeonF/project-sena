@@ -10,6 +10,7 @@ import {
 } from "../models/productModel";
 import {
     createNewProduct,
+    deleteProductById,
     updateProductById
 } from "../services/productsService";
 
@@ -25,8 +26,28 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
         optionsProductType,
     } = state;
 
+    const handlerDeleteProductById = async () => {
+        try {
+            console.log("id para eliminar: ",dataFormularyUpdate.id);
+            await deleteProductById(dataFormularyUpdate.id);
+            dispatch({
+                type: "SET_SUCCESS_MESSAGE",
+                payload: "Se Elimino Correctamente El Producto"
+            })
+            updateMainAdmin();
+        } catch (error) {
+            const errors = error.response.data;
+            console.log(error)
+            if(errors.code === 404) {
+                dispatch({
+                    type: "SET_SUCCESS_MESSAGE",
+                    payload: errors.message
+                })
+            }
+        }
+    }
+
     const updateDataFormulary = (dataProduct) => {
-        console.log("dataProduct: ", dataProduct.id);
         dispatch({
             type: "SET_FORM_UPDATE_DATA",
             payload: dataProduct
@@ -151,15 +172,12 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
                     const dataUpdate = await updateProductById(dataFormularyUpdate, dataFormularyUpdate.img, dataFormularyUpdate.id);
                     updateMainAdmin();
                     const dataUpdateNormalized = normalizeProductData(dataUpdate);
-                    console.log("data actualizada: ", dataUpdateNormalized);
                     dispatch({
                         type: "SET_FORM_UPDATE_DATA",
                         payload: dataUpdateNormalized
                     })
                 } catch (error) {
                     const errors = error.response.data;
-                    console.log("errors: ", errors);
-                    console.log(errors.message);
                     if (errors.code === 400) {
                         dispatch({
                             type: "SET_SUCCESS_MESSAGE",
@@ -183,8 +201,6 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
                     })
                 } catch (error) {
                     const errors = error.response.data;
-                    console.log("errors: ", errors);
-                    console.log(errors.message);
                     if (errors.code === 400) {
                         dispatch({
                             type: "SET_SUCCESS_MESSAGE",
@@ -617,5 +633,6 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
         optionsProductType,
         dataFormulary,
         dataFormularyUpdate,
+        handlerDeleteProductById,
     };
 };

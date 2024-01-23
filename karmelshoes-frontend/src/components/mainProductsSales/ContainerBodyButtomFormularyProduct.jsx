@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-export const ContainerBodyButtomFormularyProduct = ({ handlerResetFormulary, showDataProduct }) => {
+export const ContainerBodyButtomFormularyProduct = ({ handlerResetFormulary, showDataProduct, handlerDeleteProductById, showFormularyCreateProduct }) => {
+
+    const closeFormularyCreateProduct = () => {
+        handlerDeleteProductById();
+        showFormularyCreateProduct();
+        showDataProduct();
+    }
 
     const renderIfShowDataProductIsFalse = () => {
         if (!showDataProduct) {
@@ -16,7 +22,7 @@ export const ContainerBodyButtomFormularyProduct = ({ handlerResetFormulary, sho
             return (
                 <div className="buttom-delete">
                     <input
-                        //onClick={handlerResetFormulary}
+                        onClick={closeFormularyCreateProduct}
                         type="button"
                         value="ELIMINAR"
                     />

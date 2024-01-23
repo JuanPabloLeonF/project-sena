@@ -31,6 +31,7 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
     dataFormularyUpdate,
     updateModelOptions,
     updateProductTypeOptions,
+    handlerDeleteProductById,
   } = useStateCreateProduct(updateMainAdmin, showDataProduct);
 
   useEffect(() => {
@@ -38,8 +39,10 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
     updateProductTypeOptions();
   }, [dataFormulary?.gender, dataFormulary?.model, dataFormularyUpdate?.gender, dataFormularyUpdate?.model]);
 
-  useEffect(()=>{
-    updateDataFormulary(dataProduct);
+  useEffect(() => {
+    if (showDataProduct) {
+      updateDataFormulary(dataProduct);
+    }
   }, [])
 
   const renderSectionColorOrSize = () => {
@@ -114,6 +117,8 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
             <ContainerBodyButtomFormularyProduct
               showDataProduct={showDataProduct}
               handlerResetFormulary={handlerResetFormulary}
+              showFormularyCreateProduct={showFormularyCreateProduct}
+              handlerDeleteProductById={handlerDeleteProductById}
             />
           </div>
         </form>
@@ -143,6 +148,8 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
               handlerOnChange={handlerOnChange}
             />
             <ContainerBodyButtomFormularyProduct
+              showFormularyCreateProduct={undefined}
+              handlerDeleteProductById={undefined}
               showDataProduct={showDataProduct}
               handlerResetFormulary={handlerResetFormulary}
             />

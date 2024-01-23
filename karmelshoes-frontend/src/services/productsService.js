@@ -130,3 +130,10 @@ export const getProductById = async (id) => {
   }
 }
 
+export const deleteProductById = (id) => {
+  try {
+    return axios.patch(`http://localhost:9090/product/delete/${id}`,null, configuration());
+  } catch (error) {
+    throw error;
+  }
+}
