@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { FilterComponente } from "./FilterComponente";
 
 export const ContainerNavThree = ({
   showShoppingCart,
@@ -13,19 +15,14 @@ export const ContainerNavThree = ({
         </Link>
       );
     } else {
-      return null;
+      return <div></div>;
     }
   };
 
   return (
     <>
       <div className="container-nav-3">
-        <div className="input-search">
-          <input type="text" name="" id="" placeholder="Buscar Producto" />
-          <button>
-            <img src="/src/assets/imgs/busqueda.svg" alt="" />
-          </button>
-        </div>
+        <FilterComponente name={"nameProduct"} handlerOnChange={undefined} handlerOnSubmit={undefined} />
         {renderImgUser()}
         <Link onClick={showShoppingCart} className="enlace">
           <img src="/src/assets/imgs/cart-shopping-solid.svg" alt="" />

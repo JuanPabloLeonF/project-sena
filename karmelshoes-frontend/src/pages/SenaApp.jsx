@@ -15,17 +15,17 @@ import { NavPerfil } from "../components/senaApp/NavPefil";
 import { MainPerfil } from "../components/senaApp/MainPerfil";
 import { useStateSenaApp } from "../hooks/useStateSenaApp";
 import { useEffect } from "react";
-
-import "/src/css/styleSenaApp.css";
-import "/src/css/index.css";
-import "/src/css/styleShop.css";
-
 import { MainAdmin } from "../components/mainAdmin/MainAdmin";
 import { FooterAdmin } from "../components/mainAdmin/FooterAdmin";
 import { SectionAdmin } from "../components/mainAdmin/SectionAdmin";
 import { NavConfiguration } from "../components/senaApp/NavConfiguration";
 import { SectionDataAdmin } from "../components/mainAdmin/SectionDataAdmin";
 import { SectionCreateProduct } from "../components/mainProductsSales/SectionCreateProduct";
+
+import "/src/css/styleSenaApp.css";
+import "/src/css/index.css";
+import "/src/css/styleShop.css";
+
 
 export const SenaApp = () => {
   const {
@@ -123,6 +123,8 @@ export const SenaApp = () => {
     } else if (state.activeMainAdmin || state.activeMainProductsSales) {
       return (
         <SectionAdmin
+          currentPageProduct={state.currentPageProduct}
+          currentPage={state.currentPage}
           showRegistrer={showRegistrer}
           activeMainProductsSales={state.activeMainProductsSales}
           showFormularyCreateProduct={showFormularyCreateProduct}
@@ -181,10 +183,19 @@ export const SenaApp = () => {
           />
         );
       case state.activeDataProduct:
-        //showDataProduct={showDataProduct}
-        return <SectionCreateProduct dataProduct={state.dataProduct} showDataProduct={showDataProduct} showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
+        return <SectionCreateProduct
+          dataProduct={state.dataProduct}
+          showDataProduct={showDataProduct}
+          showFormularyCreateProduct={showFormularyCreateProduct}
+          updateMainAdmin={updateMainAdmin}
+        />;
       case state.activeFormularyCreateProduct:
-        return <SectionCreateProduct dataProduct={undefined} showDataProduct={undefined} showFormularyCreateProduct={showFormularyCreateProduct} updateMainAdmin={updateMainAdmin} />;
+        return <SectionCreateProduct
+          dataProduct={undefined}
+          showDataProduct={undefined}
+          showFormularyCreateProduct={showFormularyCreateProduct}
+          updateMainAdmin={updateMainAdmin}
+        />;
       default:
         return null;
     }

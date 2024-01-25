@@ -182,15 +182,13 @@ export const useStateSenaApp = () => {
     return [];
   };
 
-  const dataTableAdmin = async () => {
-    const data = await getAllClientAdmin(state.currentPage - 1, 10);
+  const dataTableAdmin = (data) => {
     const arrayData = normalizeClientDataArray(data);
     setTotalPages(data.totalPages);
     dispatch({ type: "DATA_TABLE_ADMIN", payload: arrayData });
   };
 
-  const dataTableProduct = async () => {
-    const data = await getAllProductPages(state.currentPageProduct - 1, 10);
+  const dataTableProduct = (data) => {
     const arrayData = normalizeClientDataArrayProduct(data.content);
     setTotalPagesProduct(data.totalPages);
     dispatch({ type: "DATA_TABLE_PRODUCT", payload: arrayData });

@@ -137,3 +137,15 @@ export const deleteProductById = (id) => {
     throw error;
   }
 }
+
+export const getAllProductPageByName = async (currentPage, itemsPerPage, name) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByName/${currentPage}/${itemsPerPage}/${name}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

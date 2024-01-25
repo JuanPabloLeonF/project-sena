@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { TableAdmin } from "./TableAdmin";
 import { TableProduct } from "../mainProductsSales/TableProduct";
 import "/src/css/styleMainAdmin.css";
+import { getAllProductPages } from "../../services/productsService";
+import { getAllClientAdmin } from "../../services/clientServices";
 
 export const MainAdmin = ({
   currentPage,
@@ -22,10 +24,12 @@ export const MainAdmin = ({
     getAllData();
   }, [currentPage, forcerRender, currentPageProduct]);
 
-  const getAllData = () => {
+  const getAllData = async () => {
     try {
-      dataTableAdmin();
-      dataTableProduct();
+      const dataProduct = await getAllProductPages(currentPageProduct - 1, 10);
+      const dataAdmin = await getAllClientAdmin(currentPage - 1, 10);
+      dataTableAdmin(dataAdmin);
+      dataTableProduct(dataProduct);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +49,10 @@ export const MainAdmin = ({
     <>
       <main className="main-admin">
         {activeMainProductsSales ? (
-          <TableProduct dataTableProductElement={dataTableProductElement} handlerDataProduct={handlerDataProduct}/>
+          <TableProduct
+            dataTableProductElement={dataTableProductElement}
+            handlerDataProduct={handlerDataProduct}
+          />
         ) : (
           <TableAdmin
             dataTable={dataTable}

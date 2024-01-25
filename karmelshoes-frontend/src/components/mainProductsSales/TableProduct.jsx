@@ -12,6 +12,7 @@ export const TableProduct = ({dataTableProductElement, handlerDataProduct}) => {
             <th>Precio</th>
             <th>Categoria</th>
             <th>Codigo</th>
+            <th>Eliminado</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@ export const TableProduct = ({dataTableProductElement, handlerDataProduct}) => {
               <td>${product.price}</td>
               <td>{product.productType}</td>
               <td>{product.code}</td>
+              <td>{product.status ? "NO" : "SI"}</td>
               <td>
                 <img
                   onClick={() => handlerDataProduct(product)}
