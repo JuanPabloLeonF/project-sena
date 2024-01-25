@@ -123,6 +123,8 @@ export const SenaApp = () => {
     } else if (state.activeMainAdmin || state.activeMainProductsSales) {
       return (
         <SectionAdmin
+          dataTableProduct={dataTableProduct}
+          dataTableAdmin={dataTableAdmin}
           currentPageProduct={state.currentPageProduct}
           currentPage={state.currentPage}
           showRegistrer={showRegistrer}
@@ -176,7 +178,6 @@ export const SenaApp = () => {
         return (
           <SectionDataAdmin
             updateMainAdmin={updateMainAdmin}
-            dataTableAdmin={dataTableAdmin}
             showDataAdmin={showDataAdmin}
             dataAdmin={state.dataAdmin}
             id={id}

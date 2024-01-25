@@ -8,7 +8,7 @@ export const TableAdmin = ({ dataTable, handlerDataAdmin }) => {
             <th>Correo</th>
             <th>Telefono</th>
             <th>Direccion</th>
-            <th>Eliminado-Estado</th>
+            <th>Eliminado</th>
             <th>Identificacion</th>
             <th>Editar</th>
           </tr>

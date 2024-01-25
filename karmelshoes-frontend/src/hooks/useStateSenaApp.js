@@ -176,7 +176,7 @@ export const useStateSenaApp = () => {
         identification: client.identificationDto || "",
         admin: client.adminClientDto || false,
         password: client.passwordClientDto || "",
-        status: client.statusClientDto || true,
+        status: client.statusClientDto,
       }));
     }
     return [];
@@ -209,7 +209,7 @@ export const useStateSenaApp = () => {
         color: data.colorProductDto || "",
         gender: data.genderProductDto || "",
         img: data.imgProductDto || "",
-        status: data.statusProductDto || true,
+        status: data.statusProductDto,
         code: data.codeProductDto || "",
       }));
     }

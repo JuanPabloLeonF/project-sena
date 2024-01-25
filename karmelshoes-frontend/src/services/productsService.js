@@ -132,7 +132,7 @@ export const getProductById = async (id) => {
 
 export const deleteProductById = (id) => {
   try {
-    return axios.patch(`http://localhost:9090/product/delete/${id}`,null, configuration());
+    return axios.patch(`http://localhost:9090/product/delete/${id}`, null, configuration());
   } catch (error) {
     throw error;
   }
@@ -142,6 +142,90 @@ export const getAllProductPageByName = async (currentPage, itemsPerPage, name) =
   try {
     const response = await axios.get(
       `http://localhost:9090/product/getAllProductPageByName/${currentPage}/${itemsPerPage}/${name}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByMark = async (currentPage, itemsPerPage, mark) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByMark/${currentPage}/${itemsPerPage}/${mark}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByModel = async (currentPage, itemsPerPage, model) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByModel/${currentPage}/${itemsPerPage}/${model}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByGender = async (currentPage, itemsPerPage, gender) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByGender/${currentPage}/${itemsPerPage}/${gender}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByPrice = async (currentPage, itemsPerPage, price) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByPrice/${currentPage}/${itemsPerPage}/${price}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByProductType = async (currentPage, itemsPerPage, productType) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByProductType/${currentPage}/${itemsPerPage}/${productType}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByCode = async (currentPage, itemsPerPage, code) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByCode/${currentPage}/${itemsPerPage}/${code}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const getAllProductPageByStatusFalse = async (currentPage, itemsPerPage) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByStatusFalse/${currentPage}/${itemsPerPage}`,
       configuration()
     );
     return response.data;

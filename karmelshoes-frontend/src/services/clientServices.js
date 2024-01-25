@@ -133,3 +133,75 @@ export const getAllClientAdmin = async (currentPage, itemsPerPage) => {
     throw error;
   }
 };
+
+export const getAllClientAdminByName = async (currentPage, itemsPerPage, name) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByName/${currentPage}/${itemsPerPage}/${name}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClientAdminByAddress = async (currentPage, itemsPerPage, address) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByAddress/${currentPage}/${itemsPerPage}/${address}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClientAdminByPhone = async (currentPage, itemsPerPage, phone) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByPhone/${currentPage}/${itemsPerPage}/${phone}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClientAdminByEmail = async (currentPage, itemsPerPage, email) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByEmail/${currentPage}/${itemsPerPage}/${email}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClientAdminByStatus = async (currentPage, itemsPerPage, status) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByStatus/${currentPage}/${itemsPerPage}/${status}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllClientAdminByIdentificaction = async (currentPage, itemsPerPage, identificaction) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllAdminByIdentification/${currentPage}/${itemsPerPage}/${identificaction}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

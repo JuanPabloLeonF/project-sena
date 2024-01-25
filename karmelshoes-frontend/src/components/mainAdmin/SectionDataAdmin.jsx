@@ -9,7 +9,6 @@ import { DivButtomFormAdmin } from "./DivButtomFormAdmin";
 export const SectionDataAdmin = ({
   showDataAdmin,
   dataAdmin,
-  dataTableAdmin,
   updateMainAdmin,
   id,
 }) => {
@@ -30,17 +29,14 @@ export const SectionDataAdmin = ({
 
   const handlerDataAdminDelete = () => {
     handlerDeleteAdmin(dataAdmin);
-    dataTableAdmin();
     updateMainAdmin();
   };
 
   const handlerDataAdmin = () => {
-    dataTableAdmin();
     updateMainAdmin();
   };
 
   const handlerDataAdminClose = () => {
-    dataTableAdmin();
     updateMainAdmin();
     showDataAdmin();
   };
