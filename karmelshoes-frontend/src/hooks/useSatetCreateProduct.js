@@ -178,6 +178,7 @@ export const useStateCreateProduct = (updateMainAdmin, showDataProduct) => {
                     })
                 } catch (error) {
                     const errors = error.response.data;
+                    console.log("errros: ", errors);
                     if (errors.code === 400) {
                         dispatch({
                             type: "SET_SUCCESS_MESSAGE",

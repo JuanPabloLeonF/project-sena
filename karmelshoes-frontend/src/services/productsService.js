@@ -23,11 +23,7 @@ const configurationFile = () => {
 };
 
 const configurationImg = () => {
-  const token = sessionStorage.getItem("token");
   return {
-    headers: {
-      Authorization: token,
-    },
     responseType: 'arraybuffer',
   };
 };
@@ -45,8 +41,7 @@ export const getAllProduct = async () => {
 export const getAllProductPages = async (currentPage, itemsPerPage) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPage/${currentPage}/${itemsPerPage}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPage/${currentPage}/${itemsPerPage}`
     );
     return response.data;
   } catch (error) {
@@ -141,8 +136,7 @@ export const deleteProductById = (id) => {
 export const getAllProductPageByName = async (currentPage, itemsPerPage, name) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByName/${currentPage}/${itemsPerPage}/${name}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByName/${currentPage}/${itemsPerPage}/${name}`
     );
     return response.data;
   } catch (error) {
@@ -153,8 +147,7 @@ export const getAllProductPageByName = async (currentPage, itemsPerPage, name) =
 export const getAllProductPageByMark = async (currentPage, itemsPerPage, mark) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByMark/${currentPage}/${itemsPerPage}/${mark}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByMark/${currentPage}/${itemsPerPage}/${mark}`
     );
     return response.data;
   } catch (error) {
@@ -165,8 +158,7 @@ export const getAllProductPageByMark = async (currentPage, itemsPerPage, mark) =
 export const getAllProductPageByModel = async (currentPage, itemsPerPage, model) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByModel/${currentPage}/${itemsPerPage}/${model}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByModel/${currentPage}/${itemsPerPage}/${model}`
     );
     return response.data;
   } catch (error) {
@@ -177,8 +169,7 @@ export const getAllProductPageByModel = async (currentPage, itemsPerPage, model)
 export const getAllProductPageByGender = async (currentPage, itemsPerPage, gender) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByGender/${currentPage}/${itemsPerPage}/${gender}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByGender/${currentPage}/${itemsPerPage}/${gender}`
     );
     return response.data;
   } catch (error) {
@@ -189,8 +180,7 @@ export const getAllProductPageByGender = async (currentPage, itemsPerPage, gende
 export const getAllProductPageByPrice = async (currentPage, itemsPerPage, price) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByPrice/${currentPage}/${itemsPerPage}/${price}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByPrice/${currentPage}/${itemsPerPage}/${price}`
     );
     return response.data;
   } catch (error) {
@@ -201,8 +191,7 @@ export const getAllProductPageByPrice = async (currentPage, itemsPerPage, price)
 export const getAllProductPageByProductType = async (currentPage, itemsPerPage, productType) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByProductType/${currentPage}/${itemsPerPage}/${productType}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByProductType/${currentPage}/${itemsPerPage}/${productType}`
     );
     return response.data;
   } catch (error) {
@@ -213,8 +202,7 @@ export const getAllProductPageByProductType = async (currentPage, itemsPerPage, 
 export const getAllProductPageByCode = async (currentPage, itemsPerPage, code) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByCode/${currentPage}/${itemsPerPage}/${code}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByCode/${currentPage}/${itemsPerPage}/${code}`
     );
     return response.data;
   } catch (error) {
@@ -225,8 +213,7 @@ export const getAllProductPageByCode = async (currentPage, itemsPerPage, code) =
 export const getAllProductPageByStatusFalse = async (currentPage, itemsPerPage) => {
   try {
     const response = await axios.get(
-      `http://localhost:9090/product/getAllProductPageByStatusFalse/${currentPage}/${itemsPerPage}`,
-      configuration()
+      `http://localhost:9090/product/getAllProductPageByStatusFalse/${currentPage}/${itemsPerPage}`
     );
     return response.data;
   } catch (error) {

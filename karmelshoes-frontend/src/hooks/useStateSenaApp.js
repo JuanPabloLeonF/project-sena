@@ -194,6 +194,12 @@ export const useStateSenaApp = () => {
     dispatch({ type: "DATA_TABLE_PRODUCT", payload: arrayData });
   };
 
+  const dataTableProductAvailable = (data) => {
+    const arrayData = normalizeClientDataArrayProduct(data.content);
+    setTotalPagesProduct(data.totalPages);
+    dispatch({ type: "DATA_TABLE_PRODUCT_AVAILABLE", payload: arrayData });
+  }
+
   const normalizeClientDataArrayProduct = (dataArray) => {
     if (dataArray && Array.isArray(dataArray)) {
       return dataArray.map((data) => ({
@@ -246,5 +252,6 @@ export const useStateSenaApp = () => {
     setCurrentPageProduct,
     showDataProduct,
     showFormularyCreateProduct,
+    dataTableProductAvailable,
   };
 };

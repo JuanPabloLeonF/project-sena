@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { ContainerNavOne } from "./ContainerNavOne";
 import { ContainerNavTwo } from "./ContainerNavTwo";
@@ -5,6 +6,7 @@ import { ContainerNavThree } from "./ContainerNavThree";
 import "/src/css/styleNav.css";
 
 export const Nav = ({
+  dataTableProductAvailable,
   showShoppingCart,
   showLady,
   showGentleman,
@@ -36,20 +38,21 @@ export const Nav = ({
           activeWhoWeAre={activeWhoWeAre}
           activeShop={activeShop}
           activePurchaseHistory={activePurchaseHistory}
-        ></ContainerNavOne>
+        />
         <ContainerNavTwo
+          dataTableProductAvailable={dataTableProductAvailable}
           showLady={showLady}
           showGentleman={showGentleman}
           showBoy={showBoy}
           activeChild={activeChild}
           activeLady={activeLady}
           activeGentleman={activeGentleman}
-        ></ContainerNavTwo>
+        />
         <ContainerNavThree
           showShoppingCart={showShoppingCart}
           showNavPerfil={showNavPerfil}
           login={login}
-        ></ContainerNavThree>
+        />
       </nav>
     </>
   );

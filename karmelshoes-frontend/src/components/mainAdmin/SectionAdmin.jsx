@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import "/src/css/styleSectionAdmin.css";
 import { useStateSectionAdminFilter } from "../../hooks/useStateSectionAdminFilter";
+import { DivSelectSearch } from "./DivSelectSearch";
+import { DivInputTextSearch } from "./DivInputTextSearch";
 
 export const SectionAdmin = ({
   showRegistrer,
@@ -32,39 +34,16 @@ export const SectionAdmin = ({
     <>
       <section className="section-admin">
         <form onSubmit={handlerOnSubmit} className="div-search-product">
-          <div className="select-search">
-            <select
-              style={{ width: "150px", height: "25px", borderRadius: "3px" }}
-              required
-              name="selectText"
-              value={selectText}
-              className="select-1"
-              id="selectText"
-              onChange={handlerOnChange}
-            >
-              {optionSelect.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="input-search-configuration">
-            <div className="input-search">
-              <input
-                type="text"
-                value={inputText}
-                name="inputText"
-                placeholder={selectText ? selectText : "BUSCAR PRODUCTO"}
-                className="input-1"
-                id="inputText"
-                required={selectText}
-                onChange={handlerOnChange} />
-              <button type="submit">
-                <img src="/src/assets/imgs/busqueda.svg" alt="Buscar" />
-              </button>
-            </div>
-          </div>
+          <DivSelectSearch
+            selectText={selectText}
+            optionSelect={optionSelect}
+            handlerOnChange={handlerOnChange}
+          />
+          <DivInputTextSearch
+            inputText={inputText}
+            handlerOnChange={handlerOnChange}
+            selectText={selectText}
+          />
         </form>
         {activeMainProductsSales ? (
           <h2 className="h2-admin-section">PRODUCTOS</h2>

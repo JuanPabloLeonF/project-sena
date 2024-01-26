@@ -236,7 +236,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataAdmin: false,
         activeFormularyCreateProduct: false,
       };
-      case "SHOW_FORMULARY_CREATE_PRODUCT":
+    case "SHOW_FORMULARY_CREATE_PRODUCT":
       return {
         ...state,
         activeFormularyCreateProduct: !state.activeFormularyCreateProduct,
@@ -278,6 +278,11 @@ export const senaAppReducer = (state = {}, action) => {
       return {
         ...state,
         dataTableProduct: action.payload,
+      };
+    case "DATA_TABLE_PRODUCT_AVAILABLE":
+      return {
+        ...state,
+        dataTableProductAvailable: action.payload,
       };
     case "DATA_ADMIN":
       return {

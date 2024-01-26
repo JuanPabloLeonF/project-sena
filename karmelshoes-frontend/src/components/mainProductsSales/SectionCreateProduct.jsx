@@ -73,22 +73,6 @@ export const SectionCreateProduct = ({ showFormularyCreateProduct, updateMainAdm
     }
   };
 
-  // const handlerShowImg = async () => {
-  //   try {
-  //     const responseImg = await getImgProductById(10);
-  //       console.log("responseImg: ", responseImg);
-  //       if (responseImg instanceof ArrayBuffer) {
-  //         const blob = new Blob([responseImg], { type: 'image/*' });
-  //         const imageUrl = URL.createObjectURL(blob);
-  //         setShowImg(imageUrl);
-  //       } else {
-  //         console.log("No se pudo obtener la imagen");
-  //       }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   const renderFormularyCreateOrUpdateProduct = () => {
     if (showDataProduct) {
       return (

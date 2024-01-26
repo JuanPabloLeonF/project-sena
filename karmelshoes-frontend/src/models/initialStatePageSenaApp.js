@@ -28,4 +28,5 @@ export const initialStatePageSenaApp = {
   dataProduct: productModel,
   dataAdmin: clientModelId,
   updateMainAdmin: false,
+  dataTableProductAvailable: [],
 };

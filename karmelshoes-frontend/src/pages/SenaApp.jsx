@@ -57,6 +57,7 @@ export const SenaApp = () => {
     setCurrentPageProduct,
     showDataProduct,
     showFormularyCreateProduct,
+    dataTableProductAvailable,
   } = useStateSenaApp();
 
   const {
@@ -169,7 +170,7 @@ export const SenaApp = () => {
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}
             />
-            <DivShowProduct />
+            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} />
           </>
         );
       case state.activePurchaseHistory:
@@ -244,6 +245,7 @@ export const SenaApp = () => {
     } else {
       return (
         <Nav
+          dataTableProductAvailable={dataTableProductAvailable}
           initPage={initPage}
           showShoppingCart={showShoppingCart}
           showLady={showLady}
