@@ -40,3 +40,13 @@ export const initialStateFormularyCreateProduct = {
   optionsProductType: [],
   dataFormularyUpdate: productModelCreateFormulary,
 }
+
+export const initialDataFormularyFilter = {
+  selectText: "",
+  inputText: "",
+}
+
+export const initialStateSectionAdminFilter = {
+  dataFormulary: initialDataFormularyFilter,
+  optionSelect: [],
+}
