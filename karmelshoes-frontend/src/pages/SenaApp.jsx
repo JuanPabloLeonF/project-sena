@@ -166,6 +166,7 @@ export const SenaApp = () => {
         return (
           <>
             <SectionProduct
+              dataTableProductAvailable={dataTableProductAvailable}
               activeChild={state.activeChild}
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}

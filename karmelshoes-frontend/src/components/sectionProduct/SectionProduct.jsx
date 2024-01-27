@@ -6,7 +6,7 @@ import "/src/css/styleLady.css";
 import "/src/css/styleGentleman.css";
 import "/src/css/styleChild.css";
 
-export const SectionProduct = ({activeLady, activeGentleman, activeChild}) => {
+export const SectionProduct = ({activeLady, activeGentleman, activeChild, dataTableProductAvailable}) => {
 
   const sectionClassName = () => {
     if (activeLady || activeGentleman) {
@@ -20,7 +20,7 @@ export const SectionProduct = ({activeLady, activeGentleman, activeChild}) => {
 
   const renderProductContainer = () => {
     if (activeLady) {
-      return <ContainerMenuProductLady />;
+      return <ContainerMenuProductLady dataTableProductAvailable={dataTableProductAvailable} />;
     } else if (activeGentleman) {
       return <ContainerMenuProductGentleman />;
     } else if (activeChild) {

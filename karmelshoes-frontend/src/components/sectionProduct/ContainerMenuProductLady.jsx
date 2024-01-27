@@ -1,23 +1,98 @@
-export const ContainerMenuProductLady = () => {
+import { getAllProductPageByGenderByModelAndProductType } from "../../services/productsService";
+
+/* eslint-disable react/prop-types */
+export const ContainerMenuProductLady = ({ dataTableProductAvailable }) => {
+
+  const handlerShowAllProductsShoe = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "ZAPATOS", "BO");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductsCategoryBootes = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "ZAPATOS", "BOTINES");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const handlerShowProductCategoryBoots = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "ZAPATOS", "BOTAS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductCategorySneakers = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TENIS", "SNEAKERS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductsCategoryPlatforms = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TENIS", "PLATAFORMAS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
+  const handlerShowProductsCategoryWithoutCords = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TENIS", "SIN CORDONES");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductsCategorySports = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TENIS", "DEPORTIVOS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowAllProductsTennis = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TENIS", "S");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
   return (
     <>
       <div className="container-menu-product">
         <div className="container">
           <h2>Zapatos</h2>
           <ul>
-            <li>Botines</li>
-            <li>Botas</li>
-            <li>Ver todo</li>
+            <li onClick={handlerShowProductsCategoryBootes}>Botines</li>
+            <li onClick={handlerShowProductCategoryBoots}>Botas</li>
+            <li onClick={handlerShowAllProductsShoe}>Ver todo</li>
           </ul>
         </div>
         <div className="container">
           <h2>Tenis</h2>
           <ul>
-            <li>Sneakers</li>
-            <li>Plataformas</li>
-            <li>Sin cordones</li>
-            <li>Deportivos</li>
-            <li>Ver todo</li>
+            <li onClick={handlerShowProductCategorySneakers}>Sneakers</li>
+            <li onClick={handlerShowProductsCategoryPlatforms}>Plataformas</li>
+            <li onClick={handlerShowProductsCategoryWithoutCords}>Sin cordones</li>
+            <li onClick={handlerShowProductsCategorySports}>Deportivos</li>
+            <li onClick={handlerShowAllProductsTennis}>Ver todo</li>
           </ul>
         </div>
         <div className="container">

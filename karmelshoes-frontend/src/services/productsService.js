@@ -220,3 +220,14 @@ export const getAllProductPageByStatusFalse = async (currentPage, itemsPerPage) 
     throw error;
   }
 }
+
+export const getAllProductPageByGenderByModelAndProductType = async (currentPage, itemsPerPage, gender, model, productType) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/product/getAllProductPageByGenderByModelAndProductType/${currentPage}/${itemsPerPage}/${gender}/${model}/${productType}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
