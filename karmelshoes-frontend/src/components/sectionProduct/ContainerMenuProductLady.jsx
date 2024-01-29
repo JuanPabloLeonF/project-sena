@@ -74,6 +74,78 @@ export const ContainerMenuProductLady = ({ dataTableProductAvailable }) => {
     }
   } 
 
+  const handlerShowProductsSandalsFlats = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "SANDALIAS", "PLANAS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductSandalsPlatform = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "SANDALIAS", "PLATAFORMAS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowAllProductSandals = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "SANDALIAS", "S");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductsSandalsMedium = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "SANDALIAS", "MEDIANAS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductHeelsHigh = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TACONES", "ALTOS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductHeelsLow = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TACONES", "BAJOS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowProductHeelsMedium = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TACONES", "MEDIOS");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerShowAllProductHeels = async () => {
+    try {
+      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "DAMA", "TACONES", "S");
+      dataTableProductAvailable(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div className="container-menu-product">
@@ -98,19 +170,19 @@ export const ContainerMenuProductLady = ({ dataTableProductAvailable }) => {
         <div className="container">
           <h2>Sandalias</h2>
           <ul>
-            <li>Planas</li>
-            <li>Plataformas</li>
-            <li>Medianas</li>
-            <li>Ver todo</li>
+            <li onClick={handlerShowProductsSandalsFlats}>Planas</li>
+            <li onClick={handlerShowProductSandalsPlatform}>Plataformas</li>
+            <li onClick={handlerShowProductsSandalsMedium}>Medianas</li>
+            <li onClick={handlerShowAllProductSandals}>Ver todo</li>
           </ul>
         </div>
         <div className="container">
           <h2>Tacones</h2>
           <ul>
-            <li>Altos</li>
-            <li>Bajo</li>
-            <li>Medios</li>
-            <li>Ver todo</li>
+            <li onClick={handlerShowProductHeelsHigh}>Altos</li>
+            <li onClick={handlerShowProductHeelsLow}>Bajo</li>
+            <li onClick={handlerShowProductHeelsMedium}>Medios</li>
+            <li onClick={handlerShowAllProductHeels}>Ver todo</li>
           </ul>
         </div>
       </div>

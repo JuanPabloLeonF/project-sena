@@ -22,9 +22,9 @@ export const SectionProduct = ({activeLady, activeGentleman, activeChild, dataTa
     if (activeLady) {
       return <ContainerMenuProductLady dataTableProductAvailable={dataTableProductAvailable} />;
     } else if (activeGentleman) {
-      return <ContainerMenuProductGentleman />;
+      return <ContainerMenuProductGentleman dataTableProductAvailable={dataTableProductAvailable} />;
     } else if (activeChild) {
-      return <ContainerMenuProductChild />;
+      return <ContainerMenuProductChild dataTableProductAvailable={dataTableProductAvailable} />;
     } else {
       return null;
     }

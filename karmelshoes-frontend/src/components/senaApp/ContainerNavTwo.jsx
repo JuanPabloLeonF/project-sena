@@ -61,7 +61,7 @@ export const ContainerNavTwo = ({
           className={activeChild ? "active-link-people" : null}
           onClick={handlerOnClickLinkThree}
         >
-          <h3>Niño</h3>
+          <h3>Niños</h3>
         </NavLink>
       </div>
     </>
