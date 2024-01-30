@@ -2,12 +2,12 @@
 import { DivProduct } from "./DivProduct";
 import "/src/css/styleDivShowProduct.css";
 
-export const DivShowProduct = ({ dataTableProductAvailable }) => {
+export const DivShowProduct = ({ dataTableProductAvailable, showDetailsProduct, setDataDetailsProduct }) => {
   return (
     <>
       <div className="show-product">
         {dataTableProductAvailable.map((product, index) => (
-          <DivProduct key={index} product={product} />
+          <DivProduct showDetailsProduct={showDetailsProduct} key={index} product={product} setDataDetailsProduct={setDataDetailsProduct} />
         ))}
       </div>
     </>

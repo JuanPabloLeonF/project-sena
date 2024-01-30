@@ -1,5 +1,5 @@
 import { clientModelId } from "./clientModel";
-import { productModel } from "./productModel";
+import { productDetailsModel, productModel, setDataDetailsProduct } from "./productModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
@@ -29,4 +29,6 @@ export const initialStatePageSenaApp = {
   dataAdmin: clientModelId,
   updateMainAdmin: false,
   dataTableProductAvailable: [],
+  activeDetailsProduct: false,
+  dataDetailsProduct: setDataDetailsProduct,
 };

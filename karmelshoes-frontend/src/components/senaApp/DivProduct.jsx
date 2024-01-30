@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getImgProductById } from "../../services/productsService";
 
 /* eslint-disable react/prop-types */
-export const DivProduct = ({ product }) => {
+export const DivProduct = ({ product, showDetailsProduct, setDataDetailsProduct }) => {
 
   const [imageSrc, setImageSrc] = useState("");
 
@@ -25,18 +25,20 @@ export const DivProduct = ({ product }) => {
     }
   }
 
+  const handlerAddToShoppingCart = () => {
+    showDetailsProduct();
+    const data = {
+      product: product,
+      imageUrl: imageSrc,
+    };
+    setDataDetailsProduct(data);
+  }
+
   return (
     <div className="div-product">
       <div className="div-head">
         <div>
-          <img className="img-1" src={imageSrc} alt="iagen del poruducto" />
-        </div>
-        <div>
-          <img
-            className="img-2"
-            src="/src/assets/imgs/carrito-de-compra-anadir.svg"
-            alt=""
-          />
+          <img onClick={handlerAddToShoppingCart} className="img-1" src={imageSrc} alt="imagen del poruducto" />
         </div>
       </div>
       <div className="div-description">

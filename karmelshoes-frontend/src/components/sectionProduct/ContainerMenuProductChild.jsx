@@ -31,7 +31,7 @@ export const ContainerMenuProductChild = ({ dataTableProductAvailable }) => {
     <>
       <section className={`container-girl ${selectedCategory === "boy" && "inactive"}`}>
         <h2 onClick={handlerOnClickGirl}>Niña</h2>
-        {selectedCategory === "girl" && <ContainerGirld />}
+        {selectedCategory === "girl" && <ContainerGirld dataTableProductAvailable={dataTableProductAvailable} />}
       </section>
       <section className={`container-boy ${selectedCategory === "girl" && "inactive"}`}>
         <h2 onClick={handlerOnClickBoy}>Niño</h2>

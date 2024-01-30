@@ -25,6 +25,7 @@ import { SectionCreateProduct } from "../components/mainProductsSales/SectionCre
 import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
+import { SectionDetailsProduct } from "../components/senaApp/SectionDetailsProduct";
 
 
 export const SenaApp = () => {
@@ -58,6 +59,8 @@ export const SenaApp = () => {
     showDataProduct,
     showFormularyCreateProduct,
     dataTableProductAvailable,
+    showDetailsProduct,
+    setDataDetailsProduct,
   } = useStateSenaApp();
 
   const {
@@ -162,7 +165,7 @@ export const SenaApp = () => {
             login={login}
           />
         );
-      case state.activeLady || state.activeGentleman || state.activeChild:
+      case state.activeLady || state.activeGentleman || state.activeChild || state.activeDetailsProduct:
         return (
           <>
             <SectionProduct
@@ -171,7 +174,8 @@ export const SenaApp = () => {
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}
             />
-            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} />
+            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} showDetailsProduct={showDetailsProduct} setDataDetailsProduct={setDataDetailsProduct}/>
+            {state.activeDetailsProduct && <SectionDetailsProduct showDetailsProduct={showDetailsProduct} dataDetailsProduct={state.dataDetailsProduct}/>}
           </>
         );
       case state.activePurchaseHistory:

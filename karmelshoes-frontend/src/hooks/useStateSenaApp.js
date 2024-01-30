@@ -2,8 +2,7 @@ import { senaAppReducer } from "../reducer/senaAppReducer";
 import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
-import { getAllClientAdmin, getClientById } from "../services/clientServices";
-import { getAllProductPages } from "../services/productsService";
+import { getClientById } from "../services/clientServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
@@ -108,6 +107,17 @@ export const useStateSenaApp = () => {
     dispatch({ type: "SHOW_MAIN_PRODUCTS_SALES" });
     showSection("MainAdmin");
   };
+
+  const showDetailsProduct = () => {
+    dispatch({ type: "SHOW_DETAILS_PRODUCT" });
+  }
+
+  const setDataDetailsProduct = (data) => {
+    dispatch({
+      type: "SET_DATA_DETAILS_PRODUCT",
+      payload: data
+    });
+  }
 
   const setTotalPages = (totalPages) => {
     dispatch({
@@ -253,5 +263,7 @@ export const useStateSenaApp = () => {
     showDataProduct,
     showFormularyCreateProduct,
     dataTableProductAvailable,
+    showDetailsProduct,
+    setDataDetailsProduct,
   };
 };
