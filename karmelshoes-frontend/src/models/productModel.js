@@ -72,3 +72,9 @@ export const initialStateSectionAdminFilter = {
   dataFormulary: initialDataFormularyFilter,
   optionSelect: [],
 }
+
+export const initialFormularyDetailsProduct = {
+  color: "",
+  sizes: "",
+  quantity: 0,
+}
