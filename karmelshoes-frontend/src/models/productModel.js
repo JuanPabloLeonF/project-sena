@@ -78,3 +78,10 @@ export const initialFormularyDetailsProduct = {
   sizes: "",
   quantity: 0,
 }
+
+export const stateInitialDetailsProductsReducer = {
+  dataFormulary: initialFormularyDetailsProduct,
+  optionRenderColor: [],
+  optionRenderSize: [],
+  activateMessage: false,
+}

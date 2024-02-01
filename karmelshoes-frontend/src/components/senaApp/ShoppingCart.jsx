@@ -1,14 +1,19 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { ItemShoppingCart } from "./ItemShoppingCart";
 import "/src/css/styleShoppingCart.css";
 
-export const ShoppingCart = ({ showShoppingCart }) => {
+export const ShoppingCart = ({ showShoppingCart, arrayProductsShoppingCart, removeProductFromShoppingCart }) => {
+
+  const [priceTotalShoppingCart, setPriceTotalShoppingCart] = useState(0);
+
   return (
     <>
       <div className="div-showShoppingCart">
         <div className="div-ShoopingCart">
           <div className="div-header">
             <h2>Carrito De Compras</h2>
-            <img 
+            <img
               className="img"
               onClick={showShoppingCart}
               src="/src/assets/imgs/circulo-marca-x.png"
@@ -16,16 +21,16 @@ export const ShoppingCart = ({ showShoppingCart }) => {
             />
           </div>
           <div className="div-body">
-            <ItemShoppingCart></ItemShoppingCart>
-            <ItemShoppingCart></ItemShoppingCart>
-            <ItemShoppingCart></ItemShoppingCart>
+            {arrayProductsShoppingCart.map((product, index) => (
+              <ItemShoppingCart key={index} product={product} removeProductFromShoppingCart={removeProductFromShoppingCart} />
+            ))}
           </div>
           <div className="div-footer">
             <div>
               <h2>Total:</h2>
-              <h2>150.000$</h2>
+              <h2>{priceTotalShoppingCart}</h2>
             </div>
-            <button>Realizar Comprar</button>
+            <button>Realizar Compra</button>
           </div>
         </div>
       </div>

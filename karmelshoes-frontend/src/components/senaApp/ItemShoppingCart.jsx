@@ -1,21 +1,21 @@
-export const ItemShoppingCart = () => {
-
-    let counter = 3;
-    let price = 150.99;
+/* eslint-disable react/prop-types */
+export const ItemShoppingCart = ({product, removeProductFromShoppingCart}) => {
     return (
         <>
         <div className="div-item">
             <div className="div-img">
-                <img className="img" src="/src/assets/imgs/zapato1.jpg" alt="" />
+                <img className="img" src={product.imageUrl} alt="imagen del producto" />
             </div>
             <div className="div-name">
-                <h2>Nombre del producto</h2>
-                <img className="img" src="/src/assets/imgs/circulo-marca-x.svg" alt="" />
+                <h2>{product.name}</h2>
+                <img onClick={() => removeProductFromShoppingCart(product.id)} className="img" src="/src/assets/imgs/circulo-marca-x.svg" alt="quitar producto" />
             </div>
             <div className="div-price">
                 <h2>Cantidad:</h2>
-                <h2>{counter}</h2>
-                <h2>{price}$</h2>
+                <h2>{product.quantity}</h2>
+                <h2>{product.priceTotalProduct}$</h2>
+                <h2>Color:</h2>
+                <h2>{product.color}</h2>
             </div>
         </div>
         </>

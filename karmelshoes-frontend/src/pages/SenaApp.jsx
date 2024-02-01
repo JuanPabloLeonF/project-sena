@@ -61,6 +61,8 @@ export const SenaApp = () => {
     dataTableProductAvailable,
     showDetailsProduct,
     setDataDetailsProduct,
+    setArrarProductsShoppingCart,
+    removeProductFromShoppingCart,
   } = useStateSenaApp();
 
   const {
@@ -80,6 +82,8 @@ export const SenaApp = () => {
       dataClientById(login.user.clientId);
     }
   }, [login.user]);
+
+  
 
   const renderComponentMain = () => {
     switch (state.activeSection) {
@@ -152,7 +156,7 @@ export const SenaApp = () => {
   const renderComponentForSectionMain = () => {
     switch (true) {
       case state.activeShoppingCart:
-        return <ShoppingCart showShoppingCart={showShoppingCart} />;
+        return <ShoppingCart removeProductFromShoppingCart={removeProductFromShoppingCart} arrayProductsShoppingCart={state.arrayProductsShoppingCart}  showShoppingCart={showShoppingCart} />;
       case state.activeLoging:
         return (
           <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />
@@ -174,8 +178,8 @@ export const SenaApp = () => {
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}
             />
-            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} showDetailsProduct={showDetailsProduct} setDataDetailsProduct={setDataDetailsProduct}/>
-            {state.activeDetailsProduct && <SectionDetailsProduct showDetailsProduct={showDetailsProduct} dataDetailsProduct={state.dataDetailsProduct}/>}
+            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} showDetailsProduct={showDetailsProduct} setDataDetailsProduct={setDataDetailsProduct} />
+            {state.activeDetailsProduct && <SectionDetailsProduct setArrarProductsShoppingCart={setArrarProductsShoppingCart} showDetailsProduct={showDetailsProduct} dataDetailsProduct={state.dataDetailsProduct} />}
           </>
         );
       case state.activePurchaseHistory:

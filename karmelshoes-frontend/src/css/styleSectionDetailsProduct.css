@@ -107,7 +107,7 @@
   padding-bottom: 10px;
 }
 
-.details-product-container-size-color h3{
+.details-product-container-size-color h3 {
   margin: 0;
   padding: 0;
 }
@@ -151,7 +151,7 @@
   justify-items: center;
 }
 
-.body-body-details-product p{
+.body-body-details-product p {
   padding: 0;
   margin: 0;
   text-align: justify;
@@ -164,4 +164,45 @@
   padding-bottom: 10px;
   width: 90%;
   height: auto;
+}
+
+.message-add-to-shoppingCart {
+  grid-column: 2/3;
+  grid: 1/2;
+  display: grid;
+  justify-items: center;
+  align-items: end;
+  padding-bottom: 10px;
+}
+
+.message-add {
+  background-color: rgb(113, 255, 175);
+  width: 250px;
+  height: 30px;
+  border-radius: 5px;
+  font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
+.message-add h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  margin-top: 5px;
+}
+
+.scale-up-vertical-top {
+  animation: scale-up-vertical-top 0.6s linear;
+}
+@keyframes scale-up-vertical-top {
+  0% {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: center top;
+  }
 }

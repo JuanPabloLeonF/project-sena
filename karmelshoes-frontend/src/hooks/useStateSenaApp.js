@@ -175,6 +175,21 @@ export const useStateSenaApp = () => {
     });
   };
 
+  const setArrarProductsShoppingCart = (data) => {
+    dispatch({
+      type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
+      payload: data,
+    });
+  }
+
+  const removeProductFromShoppingCart = (productId) => {
+    dispatch({
+      type: "REMOVE_PRODUCT_FROM_SHOPPING_CART",
+      payload: productId,
+    });
+  };
+  
+
   const normalizeClientDataArray = (data) => {
     if (data && data.content && Array.isArray(data.content)) {
       return data.content.map((client) => ({
@@ -265,5 +280,7 @@ export const useStateSenaApp = () => {
     dataTableProductAvailable,
     showDetailsProduct,
     setDataDetailsProduct,
+    setArrarProductsShoppingCart,
+    removeProductFromShoppingCart,
   };
 };

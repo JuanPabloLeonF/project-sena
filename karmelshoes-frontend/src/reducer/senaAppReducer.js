@@ -347,6 +347,37 @@ export const senaAppReducer = (state = {}, action) => {
         ...state,
         updateMainAdmin: !state.updateMainAdmin,
       };
+    case "SET_ARRAY_PRODUCTS_SHOPPING_CART": {
+      const { payload } = action;
+      const { product } = payload;
+
+      const existingProductIndex = state.arrayProductsShoppingCart.findIndex(
+        (item) => item.product?.id === product?.id
+      );
+
+      if (existingProductIndex !== -1) {
+        const updatedArrayProductsShoppingCart = [...state.arrayProductsShoppingCart];
+        const existingProduct = updatedArrayProductsShoppingCart[existingProductIndex];
+        existingProduct.quantity += product?.quantity || 0;
+        existingProduct.totalPrice += product?.totalPrice || 0;
+
+        return {
+          ...state,
+          arrayProductsShoppingCart: updatedArrayProductsShoppingCart,
+        };
+      } else {
+        return {
+          ...state,
+          arrayProductsShoppingCart: [...state.arrayProductsShoppingCart, payload],
+        };
+      }
+    }
+
+    case "REMOVE_PRODUCT_FROM_SHOPPING_CART":
+      return {
+        ...state,
+        arrayProductsShoppingCart: state.arrayProductsShoppingCart.filter((product) => product.id !== action.payload),
+      };
     default:
       return state;
   }
