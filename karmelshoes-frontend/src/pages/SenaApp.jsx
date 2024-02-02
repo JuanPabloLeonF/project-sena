@@ -61,8 +61,7 @@ export const SenaApp = () => {
     dataTableProductAvailable,
     showDetailsProduct,
     setDataDetailsProduct,
-    setArrarProductsShoppingCart,
-    removeProductFromShoppingCart,
+    setModelProductsShoppingCart
   } = useStateSenaApp();
 
   const {
@@ -83,7 +82,7 @@ export const SenaApp = () => {
     }
   }, [login.user]);
 
-  
+
 
   const renderComponentMain = () => {
     switch (state.activeSection) {
@@ -156,10 +155,10 @@ export const SenaApp = () => {
   const renderComponentForSectionMain = () => {
     switch (true) {
       case state.activeShoppingCart:
-        return <ShoppingCart removeProductFromShoppingCart={removeProductFromShoppingCart} arrayProductsShoppingCart={state.arrayProductsShoppingCart}  showShoppingCart={showShoppingCart} />;
+        return <ShoppingCart arrayProductsShoppingCart={state.arrayProductsShoppingCart} showShoppingCart={showShoppingCart} />;
       case state.activeLoging:
         return (
-          <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} />
+          <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} showRegistrer={showRegistrer} />
         );
       case state.activeRegistrer:
         return (
@@ -179,7 +178,13 @@ export const SenaApp = () => {
               activeGentleman={state.activeGentleman}
             />
             <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} showDetailsProduct={showDetailsProduct} setDataDetailsProduct={setDataDetailsProduct} />
-            {state.activeDetailsProduct && <SectionDetailsProduct setArrarProductsShoppingCart={setArrarProductsShoppingCart} showDetailsProduct={showDetailsProduct} dataDetailsProduct={state.dataDetailsProduct} />}
+            {state.activeDetailsProduct && <SectionDetailsProduct
+              setModelProductsShoppingCart={setModelProductsShoppingCart}
+              showDetailsProduct={showDetailsProduct}
+              dataDetailsProduct={state.dataDetailsProduct}
+              login={login}
+              showLoging={showLoging}
+            />}
           </>
         );
       case state.activePurchaseHistory:

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export const ItemShoppingCart = ({product, removeProductFromShoppingCart}) => {
+export const ItemShoppingCart = ({product}) => {
     return (
         <>
         <div className="div-item">
@@ -8,7 +8,7 @@ export const ItemShoppingCart = ({product, removeProductFromShoppingCart}) => {
             </div>
             <div className="div-name">
                 <h2>{product.name}</h2>
-                <img onClick={() => removeProductFromShoppingCart(product.id)} className="img" src="/src/assets/imgs/circulo-marca-x.svg" alt="quitar producto" />
+                <img className="img" src="/src/assets/imgs/circulo-marca-x.svg" alt="quitar producto" />
             </div>
             <div className="div-price">
                 <h2>Cantidad:</h2>

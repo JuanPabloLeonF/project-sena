@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { logingModel } from "../../models/logingModel";
 import { useState } from "react";
 
-export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLoging }) => {
+export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLoging, showRegistrer }) => {
   const [dataFormulary, setDataFormulary] = useState(logingModel);
   const {name, password} = dataFormulary;
 
@@ -62,9 +63,8 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLo
         </div>
         <div className="input-save-password">
           <label htmlFor="save-password">
-            <h5>Recordar Contraseña</h5>
+            <h5 onClick={showRegistrer}>Registrarse</h5>
           </label>
-          <input className="input-loging" type="checkbox" id="save-password" />
           <Link onClick={showForgotPassword}>
             <h5>¿Has olvidado tu contraseña?</h5>
           </Link>

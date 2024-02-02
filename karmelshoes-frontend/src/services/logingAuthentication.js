@@ -13,8 +13,3 @@ export const logingAuthentication = async ({name, password}) => {
         throw error;
     }
 } 
-
-const admin = {
-    name: "gabriel garcia marquez",
-    password: "Papo123",
-}

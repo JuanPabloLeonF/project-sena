@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { sectionDetailsProductReducer } from "../reducer/sectionDetailsProductReducer";
 import { initialFormularyDetailsProduct, stateInitialDetailsProductsReducer } from "../models/productModel";
 
-export const useStateSectionDetailsProduct = (setArrarProductsShoppingCart, product, imageUrl) => {
+export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, product, imageUrl) => {
 
     const [state, dispatch] = useReducer(sectionDetailsProductReducer, stateInitialDetailsProductsReducer);
 
@@ -68,22 +68,22 @@ export const useStateSectionDetailsProduct = (setArrarProductsShoppingCart, prod
     const handlerOnSubmit = (event) => {
         event.preventDefault();
         try {
-            console.log(state.dataFormulary);
             let priceTotalProduct = state.dataFormulary.quantity * product.price;
             const newProduct = {
                 id: product.id,
                 name: product.name,
                 imageUrl: imageUrl,
-                color: state.dataFormulary.color,
+                color: state.colors,
                 quantity: state.dataFormulary.quantity,
-                sizes: state.dataFormulary.sizes,
+                sizes: state.sizes,
                 price: product.price,
                 priceTotalProduct: priceTotalProduct,
             }
 
+            console.log("state: ", state);
             console.log("newProduct: ", newProduct);
 
-            setArrarProductsShoppingCart(newProduct);
+            setModelProductsShoppingCart(newProduct);
             dispatch({
                 type: "SET_FORM_DATA",
                 payload: initialFormularyDetailsProduct

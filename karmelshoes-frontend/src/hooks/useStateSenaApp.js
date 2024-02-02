@@ -3,6 +3,7 @@ import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
 import { getClientById } from "../services/clientServices";
+import { addProductToShoppingCart } from "../services/shoppingCartServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
@@ -175,20 +176,20 @@ export const useStateSenaApp = () => {
     });
   };
 
-  const setArrarProductsShoppingCart = (data) => {
-    dispatch({
-      type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
-      payload: data,
-    });
+  const setModelProductsShoppingCart = async (product) => {
+    try {
+      const shoppingCartId = 1;
+      const data = await addProductToShoppingCart(shoppingCartId, product.id);
+      console.log("data: ", data);
+      dispatch({
+        type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const removeProductFromShoppingCart = (productId) => {
-    dispatch({
-      type: "REMOVE_PRODUCT_FROM_SHOPPING_CART",
-      payload: productId,
-    });
-  };
-  
 
   const normalizeClientDataArray = (data) => {
     if (data && data.content && Array.isArray(data.content)) {
@@ -280,7 +281,6 @@ export const useStateSenaApp = () => {
     dataTableProductAvailable,
     showDetailsProduct,
     setDataDetailsProduct,
-    setArrarProductsShoppingCart,
-    removeProductFromShoppingCart,
+    setModelProductsShoppingCart,
   };
 };

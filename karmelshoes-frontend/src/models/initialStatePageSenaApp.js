@@ -31,5 +31,5 @@ export const initialStatePageSenaApp = {
   dataTableProductAvailable: [],
   activeDetailsProduct: false,
   dataDetailsProduct: setDataDetailsProduct,
-  arrayProductsShoppingCart: [],
+  modelProductsShoppingCart: {},
 };

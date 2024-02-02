@@ -29,6 +29,7 @@ export const useLoging = () => {
       );
 
       console.log("Todo bien incio sesion: " + user.name + "Bienvenido")
+      
 
       sessionStorage.setItem("token", `Bearer ${token}`);
     } catch (error) {

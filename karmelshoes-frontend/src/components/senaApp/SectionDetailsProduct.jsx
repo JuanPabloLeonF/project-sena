@@ -6,7 +6,7 @@ import { HeadDivSectionDetailsProduct } from "./HeadDivSectionDetailsProduct";
 import { HeadDetailsProductForm } from "./HeadDetailsProductForm";
 import { BodyHeadDetailsProduct } from "./BodyHeadDetailsProduct";
 
-export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, setArrarProductsShoppingCart }) => {
+export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, setModelProductsShoppingCart, login, showLoging }) => {
 
     const { product, imageUrl } = dataDetailsProduct;
     const {
@@ -19,7 +19,7 @@ export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, 
         optionRenderColor,
         optionRenderSize,
         setActivateMessage,
-    } = useStateSectionDetailsProduct(setArrarProductsShoppingCart, product, imageUrl);
+    } = useStateSectionDetailsProduct(setModelProductsShoppingCart, product, imageUrl);
 
     useEffect(() => {
         handlerSetOptionRenderColor(product);
@@ -48,6 +48,22 @@ export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, 
         }
     }
 
+    const renderLoginsIsAythnetication = () => {
+        if (login.isAuth) {
+            return (
+                <div className="body-footer-details-product padding-top-body-head border-top-body-body-details-product" >
+                    <button type="submit">AÑADIR AL CARRITO</button>
+                </div>
+            )
+        } else {
+            return (
+                <div className="body-footer-details-product padding-top-body-head border-top-body-body-details-product" >
+                    <button onClick={showLoging} type="button">INICA SESION</button>
+                </div>
+            )
+        }
+    }
+
 
     return (
         <>
@@ -60,9 +76,7 @@ export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, 
                         <div className="body-body-details-product padding-top-body-head" >
                             <p>{product.description}</p>
                         </div>
-                        <div className="body-footer-details-product padding-top-body-head border-top-body-body-details-product" >
-                            <button type="submit">AÑADIR AL CARRITO</button>
-                        </div>
+                        {renderLoginsIsAythnetication()}
                     </div>
                 </form>
                 {renderSectionMessageAddToShoppingCart()}

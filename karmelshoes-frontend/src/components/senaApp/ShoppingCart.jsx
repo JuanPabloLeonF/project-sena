@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ItemShoppingCart } from "./ItemShoppingCart";
 import "/src/css/styleShoppingCart.css";
 
-export const ShoppingCart = ({ showShoppingCart, arrayProductsShoppingCart, removeProductFromShoppingCart }) => {
+export const ShoppingCart = ({ showShoppingCart, arrayProductsShoppingCart }) => {
 
   const [priceTotalShoppingCart, setPriceTotalShoppingCart] = useState(0);
 
@@ -22,7 +22,7 @@ export const ShoppingCart = ({ showShoppingCart, arrayProductsShoppingCart, remo
           </div>
           <div className="div-body">
             {arrayProductsShoppingCart.map((product, index) => (
-              <ItemShoppingCart key={index} product={product} removeProductFromShoppingCart={removeProductFromShoppingCart} />
+              <ItemShoppingCart key={index} product={product} />
             ))}
           </div>
           <div className="div-footer">
