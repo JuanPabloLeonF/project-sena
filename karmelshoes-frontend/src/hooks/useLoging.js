@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { useReducer } from "react";
 import { logingReducer } from "../reducer/logingReducer";
 import { logingAuthentication } from "/src/services/logingAuthentication";
@@ -24,26 +25,12 @@ export const useLoging = () => {
         JSON.stringify({
           isAuth: true,
           user: user,
-          isAdmin: claims.isAdmin, 
+          isAdmin: claims.isAdmin,
         })
       );
-
-      console.log("Todo bien incio sesion: " + user.name + "Bienvenido")
-      
-
       sessionStorage.setItem("token", `Bearer ${token}`);
     } catch (error) {
-      if (error.response?.status == 401) {
-        console.log("Error Login", "Username o Password invalidos", "error");
-      } else if (error.response?.status == 403) {
-        console.log(
-          "Error Login",
-          "No tiene permisos al recursos o permisos",
-          "error"
-        );
-      } else {
-        throw error;
-      }
+      throw error;
     }
   };
 

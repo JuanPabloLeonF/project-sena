@@ -205,3 +205,33 @@ export const getAllClientAdminByIdentificaction = async (currentPage, itemsPerPa
     throw error;
   }
 };
+
+export const getAllUser = async (currentPage, itemsPerPage) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:9090/client/getAllUser/${currentPage}/${itemsPerPage}`,
+      configuration()
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePasswordByEmail = async (email, identification, newPassword) => {
+  try {
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("identification ", identification);
+    formData.append("newPassword", newPassword);
+
+    const response = await axios.patch(
+      `http://localhost:9090/client/updatePassword`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

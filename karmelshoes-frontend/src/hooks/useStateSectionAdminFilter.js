@@ -1,7 +1,7 @@
 import { useReducer } from "react"
 import { sectionAdminFilterReducer } from "../reducer/sectionAdminFilterReducer";
 import { initialStateSectionAdminFilter } from "../models/productModel";
-import { getAllClientAdmin, getAllClientAdminByAddress, getAllClientAdminByEmail, getAllClientAdminByIdentificaction, getAllClientAdminByName, getAllClientAdminByPhone, getAllClientAdminByStatus } from "../services/clientServices";
+import { getAllClientAdmin, getAllClientAdminByAddress, getAllClientAdminByEmail, getAllClientAdminByIdentificaction, getAllClientAdminByName, getAllClientAdminByPhone, getAllClientAdminByStatus, getAllUser } from "../services/clientServices";
 import { getAllProductPageByCode, getAllProductPageByGender, getAllProductPageByMark, getAllProductPageByModel, getAllProductPageByName, getAllProductPageByPrice, getAllProductPageByProductType, getAllProductPageByStatusFalse, getAllProductPages } from "../services/productsService";
 
 export const useStateSectionAdminFilter = (activeMainProductsSales, dataTableProduct, dataTableAdmin, currentPage, currentPageProduct) => {
@@ -40,6 +40,7 @@ export const useStateSectionAdminFilter = (activeMainProductsSales, dataTablePro
                     { value: "DIRECCION", label: "DIRECCION" },
                     { value: "ELIMINADO", label: "ELIMINADO" },
                     { value: "IDENTIFICACION", label: "IDENTIFICACION" },
+                    { value: "USUARIOS", label: "USUARIOS" },
                 ],
             })
         }
@@ -50,6 +51,12 @@ export const useStateSectionAdminFilter = (activeMainProductsSales, dataTablePro
         if (name === "selectText" && value === "TODOS") {
             dispatch({
                 type: "SET_DATA_ALL"
+            })
+            return;
+        }
+        if(name === "selectText" && value === "USUARIOS"){
+            dispatch({
+                type: "SET_DATA_ALL_USER"
             })
             return;
         }
@@ -114,6 +121,10 @@ export const useStateSectionAdminFilter = (activeMainProductsSales, dataTablePro
                 }
                 case "TODOS": {
                     const data = await getAllClientAdmin(currentPage - 1, 10);
+                    return data;
+                }
+                case "USUARIOS": {
+                    const data = await getAllUser(currentPage - 1, 10);
                     return data;
                 }
                 default: {

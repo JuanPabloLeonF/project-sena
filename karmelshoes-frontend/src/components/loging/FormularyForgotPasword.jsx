@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import "/src/css/styleFormularyForgotPassword.css"
 import { useState } from "react";
+import { updatePasswordByEmail } from "../../services/clientServices";
 
 const initialStateFormularyForgotPassword = {
   newPassword: "",
@@ -23,13 +24,22 @@ export const FormularyForgotPasword = ({ showForgotPassword }) => {
     }));
   };
 
-  const handlerOnSubmit = (event) => {
+  const handlerOnSubmit = async (event) => {
     event.preventDefault();
     if (validateFormulary(dataFormulary)) {
       try {
-        console.log(dataFormulary);
+        await updatePasswordByEmail(dataFormulary.email, dataFormulary.identification, dataFormulary.newPassword );
+        setErrors({
+          message: "Se ha reestablecido correctamente la contraseña",
+        })
+        setDataFormulary(initialStateFormularyForgotPassword);
       } catch (error) {
-        console.log(error);
+        const errors = error.response.data;
+        if(errors.code === 404) {
+          setErrors({
+            message: errors.message,
+          })
+        }
       }
     }
   }
@@ -71,10 +81,10 @@ export const FormularyForgotPasword = ({ showForgotPassword }) => {
   }
 
   const renderMainErrorMessage = () => {
-    if (errors.newPassword || errors.identification || errors.email) {
+    if (errors.newPassword || errors.identification || errors.email || errors.message) {
       return (
         <main className="div-message-error scale-up-vertical-top">
-          <h4>{errors.newPassword || errors.identification || errors.email}</h4>
+          <h4>{errors.newPassword || errors.identification || errors.email || errors.message}</h4>
         </main>
       );
     } else {
@@ -97,7 +107,7 @@ export const FormularyForgotPasword = ({ showForgotPassword }) => {
           <input
             required
             name="newPassword"
-            value={dataFormulary.newPasword}
+            value={dataFormulary.newPassword}
             onChange={handlerOnChange}
             type={"password"}
             id="new-password"
@@ -106,9 +116,9 @@ export const FormularyForgotPasword = ({ showForgotPassword }) => {
         </div>
         <div className="input-password">
           <label htmlFor="repeat-password">
-            <img src="/src/assets/imgs/cerrar.svg" alt="" />
+            <img src="/src/assets/imgs/icons8-user-48.png" alt="" />
           </label>
-          <input required name="identification" value={dataFormulary.repeatPasword} onChange={handlerOnChange} type="text" id="repeat-password" placeholder="# Identificacion" />
+          <input required name="identification" value={dataFormulary.identification} onChange={handlerOnChange} type="text" id="repeat-password" placeholder="# Identificacion" />
         </div>
         <div className="input-password-email">
           <label>

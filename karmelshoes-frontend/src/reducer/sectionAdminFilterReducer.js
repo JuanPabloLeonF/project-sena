@@ -19,6 +19,15 @@ export const sectionAdminFilterReducer = (state = initialStateSectionAdminFilter
                     inputText: "TODOS",
                 }
             };
+        case "SET_DATA_ALL_USER":
+            return {
+                ...state,
+                dataFormulary: {
+                    ...state.dataFormulary,
+                    selectText: "USUARIOS",
+                    inputText: "USUARIOS",
+                }
+            };
         case "SET_DATA_RESET":
             return {
                 ...state,

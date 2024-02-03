@@ -61,7 +61,7 @@ export const SenaApp = () => {
     dataTableProductAvailable,
     showDetailsProduct,
     setDataDetailsProduct,
-    setModelProductsShoppingCart
+    setModelProductsShoppingCart,
   } = useStateSenaApp();
 
   const {

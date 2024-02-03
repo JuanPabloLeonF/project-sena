@@ -5,7 +5,8 @@ import { useState } from "react";
 
 export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLoging, showRegistrer }) => {
   const [dataFormulary, setDataFormulary] = useState(logingModel);
-  const {name, password} = dataFormulary;
+  const { name, password } = dataFormulary;
+  const [errors, setErrors] = useState({});
 
   const handlerOnChange = (event) => {
     const { name, value } = event.target;
@@ -15,12 +16,62 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLo
     }));
   };
 
-  const handlerOnSubmit = (event) => {
+  const handlerOnSubmit = async (event) => {
     event.preventDefault();
-    handlerLoging(dataFormulary);
-    showLoging();
-    setDataFormulary(logingModel);
+    if (validateFormulary(dataFormulary)) {
+      try {
+        await handlerLoging(dataFormulary);
+        showLoging();
+        setDataFormulary(logingModel);
+      } catch (error) {
+        if (error.response.status === 401) {
+          setErrors({
+            message: "Error en la autenticacion nombre o contraseña incorrectos"
+          })
+        }
+      }
+    }
   };
+
+  const validateFormulary = (data) => {
+    const newErrors = {};
+
+    if (data.password && !/[A-Z]/.test(data.password)) {
+      newErrors.password = "La contraseña debe contener al menos una letra mayúscula";
+    }
+
+    if (data.password && !/[a-z]/.test(data.password)) {
+      newErrors.password = "La contraseña debe contener al menos una letra minuscula";
+    }
+
+    if (data.password && !/[0-9]/.test(data.password)) {
+      newErrors.password = "La contraseña debe contener al menos un numero";
+    }
+
+    if (data.password.length < 4) {
+      newErrors.password = "La contraseña debe tener 4 o mas caracteres";
+    }
+
+    if (data.name.length < 4) {
+      newErrors.name = "El nombre debe tener 4 o mas caracteres";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  }
+
+  const renderMainErrorMessage = () => {
+    if (errors.password || errors.message || errors.name) {
+      return (
+        <main className="div-message-error scale-up-vertical-top">
+          <h4>{errors.password || errors.message || errors.name}</h4>
+        </main>
+      );
+    } else {
+      return null;
+    }
+  }
 
 
   return (
@@ -71,6 +122,7 @@ export const FormularyLogingOrigy = ({ showLoging, showForgotPassword, handlerLo
         </div>
         <input className="input-submit" type="submit" value="Iniciar" />
       </form>
+      {renderMainErrorMessage()}
     </>
   );
 };
