@@ -1,4 +1,6 @@
-export const logingReducer = (state= {}, action) => {
+import { initialLogin } from "../models/initialLogin";
+
+export const logingReducer = (state= initialLogin, action) => {
   switch (action.type) {
     case "login":
       return {

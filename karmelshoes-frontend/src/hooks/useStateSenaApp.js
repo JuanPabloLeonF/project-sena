@@ -3,13 +3,25 @@ import { initialStatePageSenaApp } from "../models/initialStatePageSenaApp";
 import { useContext, useReducer } from "react";
 import { AuthenticationContext } from "../context/AuthenticationProvider";
 import { getClientById } from "../services/clientServices";
-import { addProductToShoppingCart } from "../services/shoppingCartServices";
+import { getByIdShoppingCart } from "../services/shoppingCartServices";
 
 export const useStateSenaApp = () => {
   const [state, dispatch] = useReducer(senaAppReducer, initialStatePageSenaApp);
   const { login, handlerLogout, handlerLoging } = useContext(
     AuthenticationContext
   );
+
+  const setDataShoppingCartModel = async (shoppingCartId) => {
+    try {
+      const data = await getByIdShoppingCart(shoppingCartId);
+      dispatch({
+        type: "SET_DATA_SHOPPING_CART_MODEL",
+        payload: data
+      })
+    } catch (error) {
+      console.log("error: ".error);
+    }
+  }
 
   const normalizeClientData = (data) => {
     return {
@@ -176,11 +188,23 @@ export const useStateSenaApp = () => {
     });
   };
 
-  const setModelProductsShoppingCart = async (product) => {
+  const setModelProductsShoppingCart = async (shoppingCartId, color, sizes) => {
     try {
-      const shoppingCartId = 1;
-      const data = await addProductToShoppingCart(shoppingCartId, product.id);
-      console.log("data: ", data);
+      console.log("color elegido: ", color);
+      console.log("talla elegida: ", sizes);
+      const data = await getByIdShoppingCart(shoppingCartId);
+      dispatch({
+        type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeProductShoppingCart = async (shoppingCartId) => {
+    try {
+      const data = await getByIdShoppingCart(shoppingCartId);
       dispatch({
         type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
         payload: data,
@@ -282,5 +306,7 @@ export const useStateSenaApp = () => {
     showDetailsProduct,
     setDataDetailsProduct,
     setModelProductsShoppingCart,
+    setDataShoppingCartModel,
+    removeProductShoppingCart,
   };
 };

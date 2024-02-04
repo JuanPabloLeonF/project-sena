@@ -1,5 +1,5 @@
 import { clientModelId } from "./clientModel";
-import { productDetailsModel, productModel, setDataDetailsProduct } from "./productModel";
+import { productModel, setDataDetailsProduct } from "./productModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
@@ -32,4 +32,13 @@ export const initialStatePageSenaApp = {
   activeDetailsProduct: false,
   dataDetailsProduct: setDataDetailsProduct,
   modelProductsShoppingCart: {},
+  shoppingCartModel: {
+    modelShoppingCart: {
+      cartItemsShoppingCartDto: [],
+      idShoppingCartDto: 0,
+      productEntitiesShoppingCartDto: [],
+      totalPriceShoppingCartDto: 0,
+    },
+    purcharse: false,
+  },
 };

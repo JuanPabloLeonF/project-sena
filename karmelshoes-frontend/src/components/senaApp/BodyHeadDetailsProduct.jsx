@@ -10,18 +10,6 @@ export const BodyHeadDetailsProduct = ({ dataFormulary, handlerOnChange, product
                     <FormDataInputSelectMap span={""} optionsRender={optionRenderColor} name={"color"} value={dataFormulary.color} handlerSelectGenderOnChange={handlerOnChange} />
                 </div>
                 <div className="details-product-container-size-color">
-                    <h3>CANTIDAD</h3>
-                    <input
-                        className="input-numer-details-product"
-                        type="number"
-                        min="1"
-                        max={product.stock}
-                        value={dataFormulary.quantity}
-                        onChange={handlerOnChange}
-                        name="quantity"
-                    />
-                </div>
-                <div className="details-product-container-size-color">
                     <h3>TALLA</h3>
                     <FormDataInputSelectMap span={""} optionsRender={optionRenderSize} name={"sizes"} value={dataFormulary.sizes} handlerSelectGenderOnChange={handlerOnChange} />
                 </div>

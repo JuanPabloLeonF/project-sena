@@ -6,7 +6,7 @@ import { HeadDivSectionDetailsProduct } from "./HeadDivSectionDetailsProduct";
 import { HeadDetailsProductForm } from "./HeadDetailsProductForm";
 import { BodyHeadDetailsProduct } from "./BodyHeadDetailsProduct";
 
-export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, setModelProductsShoppingCart, login, showLoging }) => {
+export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, setModelProductsShoppingCart, login, showLoging, shoppingCartModel }) => {
 
     const { product, imageUrl } = dataDetailsProduct;
     const {
@@ -19,7 +19,7 @@ export const SectionDetailsProduct = ({ showDetailsProduct, dataDetailsProduct, 
         optionRenderColor,
         optionRenderSize,
         setActivateMessage,
-    } = useStateSectionDetailsProduct(setModelProductsShoppingCart, product, imageUrl);
+    } = useStateSectionDetailsProduct(setModelProductsShoppingCart, product, imageUrl, shoppingCartModel);
 
     useEffect(() => {
         handlerSetOptionRenderColor(product);

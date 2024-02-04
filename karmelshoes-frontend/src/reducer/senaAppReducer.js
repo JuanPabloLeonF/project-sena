@@ -272,9 +272,6 @@ export const senaAppReducer = (state = {}, action) => {
         ...state,
         activeDetailsProduct: !state.activeDetailsProduct,
         activeRegistrer: false,
-        // activeGentleman: false,
-        // activeChild: false,
-        // activeLady: false,
         activeShop: false,
         activeWhoWeAre: false,
         activePurchaseHistory: false,
@@ -289,6 +286,15 @@ export const senaAppReducer = (state = {}, action) => {
       return {
         ...state,
         dataDetailsProduct: action.payload,
+      }
+
+    case "SET_DATA_SHOPPING_CART_MODEL":
+      return {
+        ...state,
+        shoppingCartModel: {
+          ...state.shoppingCartModel,
+          modelShoppingCart: action.payload
+        }
       }
     case "INIT_DATA_CLIENT":
       return {
@@ -354,11 +360,6 @@ export const senaAppReducer = (state = {}, action) => {
         modelProductsShoppingCart: action.payload,
       }
     }
-    // case "REMOVE_PRODUCT_FROM_SHOPPING_CART":
-    //   return {
-    //     ...state,
-    //     arrayProductsShoppingCart: state.arrayProductsShoppingCart.filter((product) => product.id !== action.payload),
-    //   };
     default:
       return state;
   }

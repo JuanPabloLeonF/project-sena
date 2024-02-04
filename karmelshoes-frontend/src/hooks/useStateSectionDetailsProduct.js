@@ -1,8 +1,9 @@
 import { useReducer } from "react";
 import { sectionDetailsProductReducer } from "../reducer/sectionDetailsProductReducer";
 import { initialFormularyDetailsProduct, stateInitialDetailsProductsReducer } from "../models/productModel";
+import { addProductToShoppingCart } from "../services/shoppingCartServices";
 
-export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, product, imageUrl) => {
+export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, product, imageUrl, shoppingCartModel) => {
 
     const [state, dispatch] = useReducer(sectionDetailsProductReducer, stateInitialDetailsProductsReducer);
 
@@ -33,7 +34,6 @@ export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, prod
 
     const handlerSetOptionRenderSize = (product) => {
         const defaultOption = { value: "", label: "SELECCIONA" };
-
         if (product && Array.isArray(product.sizes)) {
             const options = [
                 defaultOption,
@@ -65,25 +65,14 @@ export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, prod
         })
     }
 
-    const handlerOnSubmit = (event) => {
+    const handlerOnSubmit = async (event) => {
         event.preventDefault();
         try {
-            let priceTotalProduct = state.dataFormulary.quantity * product.price;
-            const newProduct = {
-                id: product.id,
-                name: product.name,
-                imageUrl: imageUrl,
-                color: state.colors,
-                quantity: state.dataFormulary.quantity,
-                sizes: state.sizes,
-                price: product.price,
-                priceTotalProduct: priceTotalProduct,
-            }
-
-            console.log("state: ", state);
-            console.log("newProduct: ", newProduct);
-
-            setModelProductsShoppingCart(newProduct);
+            // console.log("shoppingCartModel: ", shoppingCartModel.modelShoppingCart.idShoppingCartDto);
+            // console.log("product: ", product.id);
+            // console.log("dataFormulary: ", dataFormulary);
+            await addProductToShoppingCart(shoppingCartModel.modelShoppingCart.idShoppingCartDto, product.id);
+            setModelProductsShoppingCart(shoppingCartModel.modelShoppingCart.idShoppingCartDto, dataFormulary.color, dataFormulary.sizes);
             dispatch({
                 type: "SET_FORM_DATA",
                 payload: initialFormularyDetailsProduct

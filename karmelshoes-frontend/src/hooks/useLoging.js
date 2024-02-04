@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { logingReducer } from "../reducer/logingReducer";
 import { logingAuthentication } from "/src/services/logingAuthentication";
 import { initialLogin } from "../models/initialLogin";
+import { createByIdClientOneShoppingCart, getByIdShoppingCart } from "../services/shoppingCartServices";
 
 export const useLoging = () => {
   const [login, dispach] = useReducer(logingReducer, initialLogin);
@@ -28,19 +29,39 @@ export const useLoging = () => {
           isAdmin: claims.isAdmin,
         })
       );
+
       sessionStorage.setItem("token", `Bearer ${token}`);
+      const idShoppingCartDto = await handlerCreateShoppingCart(user.clientId);
+      sessionStorage.setItem("shoppingCartId", idShoppingCartDto);
     } catch (error) {
       throw error;
     }
   };
 
-  const handlerLogout = () => {
-    dispach({
-      type: "logout",
-    });
-    sessionStorage.removeItem("login");
-    sessionStorage.removeItem("token");
-    sessionStorage.clear();
+  const handlerCreateShoppingCart = async (clientId) => {
+    try {
+      const data = await createByIdClientOneShoppingCart(clientId);
+      return data.idShoppingCartDto;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlerLogout = async () => {
+    try {
+      const shoppingCartId = sessionStorage.getItem("shoppingCartId");
+      console.log("id carriro: ", shoppingCartId);
+      const data = getByIdShoppingCart(shoppingCartId);
+      dispach({
+        type: "logout",
+      });
+      sessionStorage.removeItem("login");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("shoppingCartId");
+      sessionStorage.clear();
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   return {
