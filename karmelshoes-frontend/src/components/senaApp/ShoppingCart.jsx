@@ -2,7 +2,8 @@
 import { ItemShoppingCart } from "./ItemShoppingCart";
 import "/src/css/styleShoppingCart.css";
 
-export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, removeProductShoppingCart }) => {
+export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, removeProductShoppingCart, showMainPayment }) => {
+
 
   const renderListProductsShoppingCart = () => {
     if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
@@ -15,23 +16,37 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
         return false;
       });
 
+      if (uniqueProducts.length === 0) {
+        return (
+          <div className="div-body">
+            <div className="container-null-body">
+              <img src="/src/assets/imgs/fondo-carro-compras -sin-fondo.png" alt="imagen fondo carrito compras" />
+            </div>
+          </div>
+        );
+      }
+
       return (
-        <div className="div-body">
-          {uniqueProducts.map((product, index) => (
-            <ItemShoppingCart
-            removeProductShoppingCart={removeProductShoppingCart}
-              key={index}
-              product={product}
-              quantity={getProductQuantity(product.id, modelProductsShoppingCart.productEntitiesShoppingCartDto)}
-              modelProductsShoppingCart={modelProductsShoppingCart}
-            />
-          ))}
+        <div className="div-body" >
+          {
+            uniqueProducts.map((product, index) => (
+              <ItemShoppingCart
+                removeProductShoppingCart={removeProductShoppingCart}
+                key={index}
+                product={product}
+                quantity={getProductQuantity(product.id, modelProductsShoppingCart.productEntitiesShoppingCartDto)}
+                modelProductsShoppingCart={modelProductsShoppingCart}
+              />
+            ))
+          }
         </div>
       )
     } else {
       return (
         <div className="div-body">
-          VACIOS
+          <div className="container-null-body">
+            <img src="/src/assets/imgs/fondo-carro-compras -sin-fondo.png" alt="imagen fondo carrito compras" />
+          </div>
         </div>
       );
     }
@@ -59,7 +74,7 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
             <h2>Total:</h2>
             <h2>{modelProductsShoppingCart.totalPriceShoppingCartDto}</h2>
           </div>
-          <button>Realizar Compra</button>
+          <button type="button" onClick={showMainPayment}>Realizar Compra</button>
         </div>
       </div>
     </div>

@@ -68,11 +68,8 @@ export const useStateSectionDetailsProduct = (setModelProductsShoppingCart, prod
     const handlerOnSubmit = async (event) => {
         event.preventDefault();
         try {
-            // console.log("shoppingCartModel: ", shoppingCartModel.modelShoppingCart.idShoppingCartDto);
-            // console.log("product: ", product.id);
-            // console.log("dataFormulary: ", dataFormulary);
             await addProductToShoppingCart(shoppingCartModel.modelShoppingCart.idShoppingCartDto, product.id);
-            setModelProductsShoppingCart(shoppingCartModel.modelShoppingCart.idShoppingCartDto, dataFormulary.color, dataFormulary.sizes);
+            setModelProductsShoppingCart(shoppingCartModel.modelShoppingCart.idShoppingCartDto, dataFormulary.color, dataFormulary.sizes, product.id);
             dispatch({
                 type: "SET_FORM_DATA",
                 payload: initialFormularyDetailsProduct

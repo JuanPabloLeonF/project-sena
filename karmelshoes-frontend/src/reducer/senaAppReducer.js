@@ -4,6 +4,7 @@ export const senaAppReducer = (state = {}, action) => {
       return {
         ...state,
         activeSection: action.payload,
+        activatePayment: false,
       };
     case "SHOW_SHOPPING_CART":
       return {
@@ -26,6 +27,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_LADY":
       return {
@@ -43,6 +45,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_GENTLEMAN":
       return {
@@ -60,6 +63,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_REGISTRER":
       return {
@@ -79,6 +83,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
         activeLoging: false,
+        activatePayment: false,
       };
     case "SHOW_LOGING":
       return {
@@ -98,6 +103,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_WHO_WE_ARE":
       return {
@@ -115,6 +121,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_PURCHARSE_HISTORY":
       return {
@@ -132,6 +139,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_SHOP":
       return {
@@ -149,6 +157,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_NAV_PERFIL":
       return {
@@ -166,6 +175,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_MAIN_ADMIN":
       return {
@@ -183,6 +193,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_DATA_ADMIN":
       return {
@@ -200,6 +211,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainProductsSales: false,
         activeDataProduct: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_DATA_PRODUCT":
       return {
@@ -217,6 +229,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeShop: false,
         activeMainProductsSales: true,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "INIT_PAGE":
       return {
@@ -234,6 +247,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeDataProduct: false,
         activeMainProductsSales: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_MAIN_PRODUCTS_SALES":
       return {
@@ -250,6 +264,7 @@ export const senaAppReducer = (state = {}, action) => {
         activeMainAdmin: false,
         activeDataAdmin: false,
         activeFormularyCreateProduct: false,
+        activatePayment: false,
       };
     case "SHOW_FORMULARY_CREATE_PRODUCT":
       return {
@@ -266,11 +281,30 @@ export const senaAppReducer = (state = {}, action) => {
         activeNavPerfil: false,
         activeMainAdmin: false,
         activeDataAdmin: false,
+        activatePayment: false,
       };
     case "SHOW_DETAILS_PRODUCT":
       return {
         ...state,
         activeDetailsProduct: !state.activeDetailsProduct,
+        activeRegistrer: false,
+        activeShop: false,
+        activeWhoWeAre: false,
+        activePurchaseHistory: false,
+        activeNavPerfil: false,
+        activeMainAdmin: false,
+        activeDataAdmin: false,
+        activeMainProductsSales: false,
+        activeDataProduct: false,
+        activeFormularyCreateProduct: false,
+        activatePayment: false,
+      };
+    case "SHOW_MAIN_PAYMENT":
+      return {
+        ...state,
+        activatePayment: !state.activatePayment,
+        activeShoppingCart: false,
+        activeDetailsProduct: false,
         activeRegistrer: false,
         activeShop: false,
         activeWhoWeAre: false,
@@ -359,6 +393,12 @@ export const senaAppReducer = (state = {}, action) => {
         ...state,
         modelProductsShoppingCart: action.payload,
       }
+    }
+    case "SET_LIST_MODEL_PRODUCT_COLORS_SIZES": {
+      return {
+        ...state,
+        listModelProductWithColorsAndSizes: [...state.listModelProductWithColorsAndSizes, action.payload],
+      };
     }
     default:
       return state;

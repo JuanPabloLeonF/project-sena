@@ -197,3 +197,10 @@
   width: 202px;
   height: 32px;
 }
+
+.container-null-body {
+  display: grid;
+  width: 100%;
+  height: 80%;
+  padding-top: 30px;
+}

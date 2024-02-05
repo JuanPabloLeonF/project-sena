@@ -3,6 +3,7 @@ import { productModel, setDataDetailsProduct } from "./productModel";
 
 export const initialStatePageSenaApp = {
   activeSection: "Main",
+  activatePayment: false,
   activeFormularyCreateProduct: false,
   activeMainProductsSales: false,
   activeDataAdmin: false,
@@ -41,4 +42,5 @@ export const initialStatePageSenaApp = {
     },
     purcharse: false,
   },
+  listModelProductWithColorsAndSizes: [],
 };

@@ -62,6 +62,12 @@ export const useStateSenaApp = () => {
     showSection("Main");
   };
 
+  const showMainPayment = () => {
+    dispatch({
+      type: "SHOW_MAIN_PAYMENT"
+    })
+  }
+
   const showLady = () => {
     dispatch({ type: "SHOW_LADY" });
     showSection("Main");
@@ -188,14 +194,22 @@ export const useStateSenaApp = () => {
     });
   };
 
-  const setModelProductsShoppingCart = async (shoppingCartId, color, sizes) => {
+  const setModelProductsShoppingCart = async (shoppingCartId, color, sizes, productId) => {
     try {
-      console.log("color elegido: ", color);
-      console.log("talla elegida: ", sizes);
+      const modelProductWithColorsAndSizes = {
+        color: color,
+        sizes: sizes,
+        productId: productId,
+      }
       const data = await getByIdShoppingCart(shoppingCartId);
       dispatch({
         type: "SET_ARRAY_PRODUCTS_SHOPPING_CART",
         payload: data,
+      });
+
+      dispatch({
+        type: "SET_LIST_MODEL_PRODUCT_COLORS_SIZES",
+        payload: modelProductWithColorsAndSizes,
       });
     } catch (error) {
       console.log(error);
@@ -308,5 +322,6 @@ export const useStateSenaApp = () => {
     setModelProductsShoppingCart,
     setDataShoppingCartModel,
     removeProductShoppingCart,
+    showMainPayment,
   };
 };

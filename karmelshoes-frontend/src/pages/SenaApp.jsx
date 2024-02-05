@@ -26,6 +26,7 @@ import "/src/css/styleSenaApp.css";
 import "/src/css/index.css";
 import "/src/css/styleShop.css";
 import { SectionDetailsProduct } from "../components/senaApp/SectionDetailsProduct";
+import { SectionMainPayment } from "../components/senaApp/SectionMainPayment";
 
 
 export const SenaApp = () => {
@@ -64,6 +65,7 @@ export const SenaApp = () => {
     setModelProductsShoppingCart,
     setDataShoppingCartModel,
     removeProductShoppingCart,
+    showMainPayment,
   } = useStateSenaApp();
 
   const {
@@ -155,9 +157,15 @@ export const SenaApp = () => {
   };
 
   const renderComponentForSectionMain = () => {
+    console.log("listModelProductWithColorsAndSizes: ", state.listModelProductWithColorsAndSizes);
     switch (true) {
       case state.activeShoppingCart:
-        return <ShoppingCart modelProductsShoppingCart={state.modelProductsShoppingCart} showShoppingCart={showShoppingCart} removeProductShoppingCart={removeProductShoppingCart} />;
+        return <ShoppingCart
+          modelProductsShoppingCart={state.modelProductsShoppingCart}
+          showShoppingCart={showShoppingCart}
+          removeProductShoppingCart={removeProductShoppingCart}
+          showMainPayment={showMainPayment}
+        />;
       case state.activeLoging:
         return (
           <MainLoging handlerLoging={handlerLoging} showLoging={showLoging} showRegistrer={showRegistrer} />
@@ -215,6 +223,11 @@ export const SenaApp = () => {
           showFormularyCreateProduct={showFormularyCreateProduct}
           updateMainAdmin={updateMainAdmin}
         />;
+      case state.activatePayment:
+        console.log("si ando aqui: ", state.activatePayment)
+        return <>
+          <SectionMainPayment showMainPayment={showMainPayment} />
+        </>;
       default:
         return null;
     }
