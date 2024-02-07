@@ -224,9 +224,13 @@ export const SenaApp = () => {
           updateMainAdmin={updateMainAdmin}
         />;
       case state.activatePayment:
-        console.log("si ando aqui: ", state.activatePayment)
         return <>
-          <SectionMainPayment showMainPayment={showMainPayment} />
+          <SectionMainPayment
+            showMainPayment={showMainPayment}
+            clienteOrAdmin={state.clienteOrAdmin}
+            listModelProductWithColorsAndSizes={state.listModelProductWithColorsAndSizes}
+            modelProductsShoppingCart={state.modelProductsShoppingCart}
+          />
         </>;
       default:
         return null;

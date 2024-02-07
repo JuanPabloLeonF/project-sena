@@ -303,6 +303,9 @@ export const senaAppReducer = (state = {}, action) => {
       return {
         ...state,
         activatePayment: !state.activatePayment,
+        activeChild: false,
+        activeLady: false,
+        activeGentleman: false,
         activeShoppingCart: false,
         activeDetailsProduct: false,
         activeRegistrer: false,
