@@ -2,17 +2,19 @@
 import { useState } from "react";
 import { ItemProductPayment } from "./ItemProductPayment";
 import "/src/css/styleSectionMainPayment.css"
+import { FormularyPaymentInformation } from "./FormularyPaymentInformation";
+import { FormularyPaymentDelivery } from "./FormularyPaymentDelivery";
 
 export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelProductWithColorsAndSizes, modelProductsShoppingCart }) => {
 
     const [dataFormulary, setDataFormulary] = useState(clienteOrAdmin);
     const [errors, setErrors] = useState({});
-    console.log("listModelProductWithColorsAndSizes: ", listModelProductWithColorsAndSizes);
-    console.log("modelProductsShoppingCart: ", modelProductsShoppingCart);
+    const [activeFormularyPayment, setActiveFormularyPayment] = useState(true);
+    // console.log("listModelProductWithColorsAndSizes: ", listModelProductWithColorsAndSizes);
+    // console.log("modelProductsShoppingCart: ", modelProductsShoppingCart);
 
     function interval() {
         setTimeout(() => {
-            console.log("estoy en el intervalo");
             setErrors({});
         }, 5000);
     }
@@ -31,6 +33,7 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
             try {
                 console.log(dataFormulary);
                 setErrors({});
+                setActiveFormularyPayment(false);
             } catch (error) {
                 console.log("erros: ", error);
             }
@@ -91,86 +94,38 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
         return productEntities.filter(product => product.id === productId).length;
     };
 
+    const renderFormularyPaymentOrFormularyInformation = () => {
+        if (activeFormularyPayment) {
+            return <FormularyPaymentInformation
+                handlerOnSubmit={handlerOnSubmit}
+                handlerOnChange={handlerOnChange}
+                errors={errors}
+                dataFormulary={dataFormulary}
+            />
+        } else {
+
+
+            return (
+                <FormularyPaymentDelivery backArrow={backArrow} dataFormulary={dataFormulary} />
+            )
+        }
+    }
+
+    const backArrow = () => {
+        setActiveFormularyPayment(true);
+    }
+
     return (
         <>
             <section className="section-main-payment">
                 <div className="section-main-payment-div">
                     <div className="section-payment-head">
-                        <h2>PASARELA DE PAGO</h2>
+                        <img onClick={backArrow} src="/src/assets/imgs/icons8-back-arrow-30.png" alt="Cerrar" />
+                        <h2>{activeFormularyPayment ? "DATOS DE ENVIO" : "METODO DE PAGO"}</h2>
                         <img onClick={showMainPayment} src="/src/assets/imgs/circulo-marca-x.png" alt="Cerrar" />
                     </div>
                     <div className="section-payment-body">
-                        <form onSubmit={handlerOnSubmit} className="section-body-form-one-payment">
-                            <div className="form-payment-container-one">
-                                <div className="payment-input">
-                                    <label htmlFor="name">NOMBRE</label>
-                                    <input
-                                        required
-                                        onChange={handlerOnChange}
-                                        className={errors.name ? "error-input-payment" : null}
-                                        value={errors.name ? errors.name : dataFormulary.name}
-                                        name="name"
-                                        id="name"
-                                        type="text"
-                                    />
-                                </div>
-                                <div className="payment-input">
-                                    <label htmlFor="city">CIUDAD</label>
-                                    <input
-                                        required
-                                        onChange={handlerOnChange}
-                                        style={errors.city ? { color: "red" } : null}
-                                        value={errors.city ? errors.city : dataFormulary.city}
-                                        name="city"
-                                        id="city"
-                                        type="text"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-payment-container-two">
-                                <div className="payment-input">
-                                    <label htmlFor="address">DIRECCION & NUMERO</label>
-                                    <input
-                                        required
-                                        onChange={handlerOnChange}
-                                        style={errors.address ? { color: "red" } : null}
-                                        value={errors.address ? errors.address : dataFormulary.address}
-                                        id="address"
-                                        type="text"
-                                        name="address"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-payment-container-three">
-                                <div className="payment-input">
-                                    <label htmlFor="email">CORRREO</label>
-                                    <input
-                                        required
-                                        onChange={handlerOnChange}
-                                        style={errors.email ? { color: "red" } : null}
-                                        value={errors.email ? errors.email : dataFormulary.email}
-                                        name="email"
-                                        id="email"
-                                        type="email"
-                                    />
-                                </div>
-                                <div className="payment-input">
-                                    <label htmlFor="phone">TELEFONO</label>
-                                    <input
-                                        required
-                                        onChange={handlerOnChange}
-                                        style={errors.phone ? { color: "red" } : null}
-                                        value={errors.phone ? errors.phone : dataFormulary.phone}
-                                        id="phone"
-                                        type="text"
-                                        name="phone"
-                                    />
-                                </div>
-                            </div>
-                            <div className="form-payment-container-fourt">
-                                <button type="submit">GUARDAR Y CONTINUAR</button>
-                            </div>
-                        </form>
+                        {renderFormularyPaymentOrFormularyInformation()}
                         <div className="setion-body-div-payment">
                             <div className="section-body-container-one-div-payment">
                                 <h3>TU CESTA</h3>
@@ -178,7 +133,6 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
                             <div className="section-body-container-two-div-payment">
                                 {renderListOrEmpty()}
                             </div>
-
                             <div className="section-body-container-three-div-payment">
                                 <h3>TOTAL:</h3>
                                 <h3>{modelProductsShoppingCart.totalPriceShoppingCartDto}</h3>

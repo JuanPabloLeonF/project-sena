@@ -24,7 +24,7 @@
   font-size: 20px;
   font-weight: bold;
   display: grid;
-  grid-template-columns: 90% auto;
+  grid-template-columns: 10% 80% auto;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
@@ -42,10 +42,21 @@
   padding-right: 10px;
 }
 
+.section-payment-head img:nth-child(1) {
+  padding: 0;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  align-self: start;
+  justify-self: start;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
 .section-payment-head h2 {
   padding: 0;
   margin: 0;
-  padding-left: 50px;
 }
 
 .section-payment-body {
@@ -206,7 +217,8 @@
   grid-template-rows: 1fr;
 }
 
-.item-producto-body-container-one h4,h5:nth-child(1) {
+.item-producto-body-container-one h4,
+h5:nth-child(1) {
   padding: 0;
   margin: 0;
   padding-top: 10px;
@@ -267,4 +279,118 @@
 .payment-input input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s !important;
   -webkit-text-fill-color: #000000 !important;
+}
+
+.section-body-form-one-payment-two {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50% auto;
+}
+
+.information-delivery {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% repeat(5, auto);
+  border-bottom: 1px solid black;
+}
+
+.information-delivery-container-head {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 80% auto;
+  justify-items: center;
+  align-items: center;
+  padding-left: 100px;
+}
+
+.information-delivery-container-head h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.information-delivery-container-head label {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  border-bottom: 2px solid black;
+  justify-self: end;
+  cursor: pointer;
+}
+
+.information-delivery-container-head label:hover {
+  border-bottom: 2px solid rgb(117, 117, 117);
+  color: rgb(117, 117, 117);
+}
+
+.information-delivery h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.information-delivery-container-body {
+  display: grid;
+  grid-template-columns: 40% auto;
+  grid-template-rows: 1fr;
+  justify-items: start;
+  align-items: center;
+  font-size: 12px;
+  color: rgb(117, 117, 117);
+  padding-left: 150px;
+  font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
+.section-body-form-two {
+  /* background-color: aquamarine; */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% auto;
+}
+
+.section-formulary-delivery {
+  display: grid;
+  grid-template-columns: 50% auto;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.items-radious-select {
+  width: 100%;
+  height: 36px;
+  display: grid;
+  grid-template-columns: 5% auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.input-radio-delivery {
+  margin-left: 200px;
+}
+
+.items-radious-select input,label {
+  cursor: pointer;
+}
+
+.img-paypal-logo img {
+  padding-top: 5px;
+  width: 60px;
+  height: auto;
+  cursor: pointer;
+}
+
+.section-formulary-delivery-body {
+  display: grid;
+  grid-template-columns: 60% auto;
+  grid-template-rows: 80% auto;
+  justify-items: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.aligtn-items {
+  margin-left: 250px;
 }
