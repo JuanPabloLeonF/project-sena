@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { ItemShoppingCart } from "./ItemShoppingCart";
 import "/src/css/styleShoppingCart.css";
 
 export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, removeProductShoppingCart, showMainPayment }) => {
-
 
   const renderListProductsShoppingCart = () => {
     if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
@@ -55,6 +55,17 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
   const getProductQuantity = (productId, productEntities) => {
     return productEntities.filter(product => product.id === productId).length;
   };
+  const renderButtomIfNotEmpty = () => {
+    if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
+      return (
+        <button onClick={showMainPayment}>Realizar Compra</button>
+      );
+    } else {
+      return (
+        <button disabled>Sin Productos</button>
+      );
+    }
+  }
 
   return (
     <div className="div-showShoppingCart">
@@ -74,7 +85,7 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
             <h2>Total:</h2>
             <h2>{modelProductsShoppingCart.totalPriceShoppingCartDto}</h2>
           </div>
-          <button type="button" onClick={showMainPayment}>Realizar Compra</button>
+          {renderButtomIfNotEmpty()}
         </div>
       </div>
     </div>

@@ -10,8 +10,6 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
     const [dataFormulary, setDataFormulary] = useState(clienteOrAdmin);
     const [errors, setErrors] = useState({});
     const [activeFormularyPayment, setActiveFormularyPayment] = useState(true);
-    // console.log("listModelProductWithColorsAndSizes: ", listModelProductWithColorsAndSizes);
-    // console.log("modelProductsShoppingCart: ", modelProductsShoppingCart);
 
     function interval() {
         setTimeout(() => {
@@ -96,17 +94,18 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
 
     const renderFormularyPaymentOrFormularyInformation = () => {
         if (activeFormularyPayment) {
-            return <FormularyPaymentInformation
-                handlerOnSubmit={handlerOnSubmit}
-                handlerOnChange={handlerOnChange}
-                errors={errors}
-                dataFormulary={dataFormulary}
-            />
+            return (
+                <FormularyPaymentInformation
+                    handlerOnSubmit={handlerOnSubmit}
+                    handlerOnChange={handlerOnChange}
+                    errors={errors}
+                    dataFormulary={dataFormulary}
+                />)
         } else {
 
 
             return (
-                <FormularyPaymentDelivery backArrow={backArrow} dataFormulary={dataFormulary} />
+                <FormularyPaymentDelivery backArrow={backArrow} dataFormulary={dataFormulary} modelProductsShoppingCart={modelProductsShoppingCart} />
             )
         }
     }

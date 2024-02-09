@@ -299,9 +299,9 @@ h5:nth-child(1) {
   margin: 0;
   display: grid;
   grid-template-columns: 80% auto;
-  justify-items: center;
+  justify-items: start;
   align-items: center;
-  padding-left: 100px;
+  padding-left: 50px;
 }
 
 .information-delivery-container-head h3 {
@@ -336,13 +336,12 @@ h5:nth-child(1) {
   align-items: center;
   font-size: 12px;
   color: rgb(117, 117, 117);
-  padding-left: 150px;
+  padding-left: 50px;
   font-family: "Fredoka", sans-serif, "Courier New", Courier, monospace;
   font-weight: bold;
 }
 
 .section-body-form-two {
-  /* background-color: aquamarine; */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 20% auto;
@@ -371,7 +370,8 @@ h5:nth-child(1) {
   margin-left: 200px;
 }
 
-.items-radious-select input,label {
+.items-radious-select input,
+label {
   cursor: pointer;
 }
 
@@ -393,4 +393,44 @@ h5:nth-child(1) {
 
 .aligtn-items {
   margin-left: 250px;
+}
+
+.section-formulary-delivery-body-container-two {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30% auto;
+}
+
+.section-formulary-delivery-body-container-two h4 {
+  padding: 0;
+  margin: 0;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  justify-self: center;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.section-formulary-delivery-body-container-two div {
+  padding: 0;
+  margin: 0;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  margin-top: 10px;
+}
+
+.a-payemt-paypal {
+  text-decoration: none;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  width: 180px;
+  height: 25px;
+  text-align: center;
+  padding-top: 8px;
+  border-radius: 20px;
+}
+
+.a-payemt-paypal:hover {
+  color: rgb(117, 117, 117);
+  background-color: rgb(0, 0, 0);
 }
