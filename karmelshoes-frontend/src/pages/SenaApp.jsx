@@ -230,6 +230,7 @@ export const SenaApp = () => {
             clienteOrAdmin={state.clienteOrAdmin}
             listModelProductWithColorsAndSizes={state.listModelProductWithColorsAndSizes}
             modelProductsShoppingCart={state.modelProductsShoppingCart}
+            setDataShoppingCartModel={setDataShoppingCartModel}
           />
         </>;
       default:

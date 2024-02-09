@@ -5,7 +5,7 @@ import "/src/css/styleSectionMainPayment.css"
 import { FormularyPaymentInformation } from "./FormularyPaymentInformation";
 import { FormularyPaymentDelivery } from "./FormularyPaymentDelivery";
 
-export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelProductWithColorsAndSizes, modelProductsShoppingCart }) => {
+export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelProductWithColorsAndSizes, modelProductsShoppingCart, setDataShoppingCartModel }) => {
 
     const [dataFormulary, setDataFormulary] = useState(clienteOrAdmin);
     const [errors, setErrors] = useState({});
@@ -105,7 +105,12 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
 
 
             return (
-                <FormularyPaymentDelivery backArrow={backArrow} dataFormulary={dataFormulary} modelProductsShoppingCart={modelProductsShoppingCart} />
+                <FormularyPaymentDelivery
+                    backArrow={backArrow}
+                    dataFormulary={dataFormulary}
+                    modelProductsShoppingCart={modelProductsShoppingCart}
+                    setDataShoppingCartModel={setDataShoppingCartModel}
+                />
             )
         }
     }

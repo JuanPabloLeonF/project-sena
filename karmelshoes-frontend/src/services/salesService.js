@@ -24,9 +24,12 @@ export const createSalesByIdShoppingCart = async (shoppingCartId, sale) => {
 
 export const generatePDFInvoice = async (idShoppingCart) => {
   try {
-    const response = await axios.get(`http://localhost:9090/sales/invoiceGeneratedPDF/${idShoppingCart}`);
+    const response = await axios.get(`http://localhost:9090/sales/invoiceGeneratedPDF/${idShoppingCart}`, {
+      responseType: 'blob'
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 }
+

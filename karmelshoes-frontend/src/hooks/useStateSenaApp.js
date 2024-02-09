@@ -18,6 +18,9 @@ export const useStateSenaApp = () => {
         type: "SET_DATA_SHOPPING_CART_MODEL",
         payload: data
       })
+      dispatch({
+        type: "SET_LIST_MODEL_PRODUCT_COLORS_SIZES_INITIAL"
+      })
     } catch (error) {
       console.log("error: ".error);
     }

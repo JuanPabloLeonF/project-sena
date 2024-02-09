@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { createSalesByIdShoppingCart, generatePDFInvoice } from "../../services/salesService";
+import { createByIdClientOneShoppingCart } from "../../services/shoppingCartServices";
 
 /* eslint-disable react/prop-types */
-export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProductsShoppingCart }) => {
+export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProductsShoppingCart, setDataShoppingCartModel }) => {
 
     const [activatePaypal, setActivatePaypal] = useState(true);
     const [dataFormularyTarget, setDataFormularyTarget] = useState({
@@ -36,13 +37,9 @@ export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProduc
     }
 
     const handlerOnSubmit = async (event) => {
-        const paypal = "Paypal";
-        const card = "Tarjeta credito o debito";
+        const card = "Tarjeta";
         event.preventDefault();
         try {
-            console.log("dataFormulary: ", dataFormulary.id);
-            console.log("dataFormularyTarget: ", dataFormularyTarget);
-            console.log("modelProductsShoppingCart: ", modelProductsShoppingCart.idShoppingCartDto);
             const currentDate = new Date();
             const year = currentDate.getFullYear();
             const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
@@ -56,21 +53,32 @@ export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProduc
                 }
             }
             event.target.removeEventListener('submit', handlerOnSubmit);
-            //const dataSale = await createSalesByIdShoppingCart(modelProductsShoppingCart.idShoppingCartDto, sale);
-            //console.log("dataSale: ", dataSale);
+            await createSalesByIdShoppingCart(modelProductsShoppingCart.idShoppingCartDto, sale);
             try {
                 const PDFInvoice = await generatePDFInvoice(modelProductsShoppingCart.idShoppingCartDto);
                 const blob = new Blob([PDFInvoice], { type: 'application/pdf' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'invoice.pdf';
+                a.download = 'factura.pdf';
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
             } catch (error) {
                 console.log(error);
             }
+
+            try {
+                const data = await createByIdClientOneShoppingCart(dataFormulary.id);
+                setDataShoppingCartModel(data.idShoppingCartDto);
+            } catch (error) {
+                console.log(error);
+            }
+
+            setDataFormularyTarget({
+                target: "",
+                date: "",
+            });
         } catch (error) {
             console.log("erros: ", error);
         }
