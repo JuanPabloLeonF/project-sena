@@ -33,3 +33,11 @@ export const generatePDFInvoice = async (idShoppingCart) => {
   }
 }
 
+export const getAllSalesByIdClient = async (clientId) => {
+  try {
+    const response = await axios.get(`http://localhost:9090/sales/getByIdClient/${clientId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

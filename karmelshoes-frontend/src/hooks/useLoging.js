@@ -49,9 +49,6 @@ export const useLoging = () => {
 
   const handlerLogout = async () => {
     try {
-      const shoppingCartId = sessionStorage.getItem("shoppingCartId");
-      console.log("id carriro: ", shoppingCartId);
-      const data = getByIdShoppingCart(shoppingCartId);
       dispach({
         type: "logout",
       });

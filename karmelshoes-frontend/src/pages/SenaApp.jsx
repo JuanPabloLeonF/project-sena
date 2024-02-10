@@ -80,6 +80,8 @@ export const SenaApp = () => {
     password,
   } = state.clienteOrAdmin;
 
+  
+
   useEffect(() => {
     if (login.user) {
       dataClientById(login.user.clientId);
@@ -157,14 +159,14 @@ export const SenaApp = () => {
   };
 
   const renderComponentForSectionMain = () => {
-    console.log("listModelProductWithColorsAndSizes: ", state.listModelProductWithColorsAndSizes);
     switch (true) {
       case state.activeShoppingCart:
         return <ShoppingCart
-          modelProductsShoppingCart={state.modelProductsShoppingCart}
           showShoppingCart={showShoppingCart}
+          shoppingCartModel={state.shoppingCartModel}
           removeProductShoppingCart={removeProductShoppingCart}
           showMainPayment={showMainPayment}
+          setDataShoppingCartModel={setDataShoppingCartModel}
         />;
       case state.activeLoging:
         return (
@@ -199,7 +201,7 @@ export const SenaApp = () => {
           </>
         );
       case state.activePurchaseHistory:
-        return <PurchaseHistory initPage={initPage} />;
+        return <PurchaseHistory initPage={initPage} clientOrAdmin={state.clienteOrAdmin}/>;
       case state.activeDataAdmin:
         return (
           <SectionDataAdmin
@@ -229,7 +231,7 @@ export const SenaApp = () => {
             showMainPayment={showMainPayment}
             clienteOrAdmin={state.clienteOrAdmin}
             listModelProductWithColorsAndSizes={state.listModelProductWithColorsAndSizes}
-            modelProductsShoppingCart={state.modelProductsShoppingCart}
+            shoppingCartModel={state.shoppingCartModel}
             setDataShoppingCartModel={setDataShoppingCartModel}
           />
         </>;

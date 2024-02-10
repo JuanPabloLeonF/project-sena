@@ -1,14 +1,27 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect } from "react";
 import { ItemShoppingCart } from "./ItemShoppingCart";
 import "/src/css/styleShoppingCart.css";
 
-export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, removeProductShoppingCart, showMainPayment }) => {
+export const ShoppingCart = ({
+  showShoppingCart,
+  removeProductShoppingCart,
+  showMainPayment,
+  shoppingCartModel,
+  setDataShoppingCartModel
+}) => {
+
+
+
+  useEffect(() => {
+    setDataShoppingCartModel(shoppingCartModel.modelShoppingCart.idShoppingCartDto);
+  }, [shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto]);
+
 
   const renderListProductsShoppingCart = () => {
-    if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
+    if (shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto) {
       const uniqueProductIds = new Set();
-      const uniqueProducts = Object.values(modelProductsShoppingCart.productEntitiesShoppingCartDto).filter(product => {
+      const uniqueProducts = Object.values(shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto).filter(product => {
         if (!uniqueProductIds.has(product.id)) {
           uniqueProductIds.add(product.id);
           return true;
@@ -34,8 +47,8 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
                 removeProductShoppingCart={removeProductShoppingCart}
                 key={index}
                 product={product}
-                quantity={getProductQuantity(product.id, modelProductsShoppingCart.productEntitiesShoppingCartDto)}
-                modelProductsShoppingCart={modelProductsShoppingCart}
+                quantity={getProductQuantity(product.id, shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto)}
+                modelProductsShoppingCart={shoppingCartModel.modelShoppingCart}
               />
             ))
           }
@@ -56,7 +69,7 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
     return productEntities.filter(product => product.id === productId).length;
   };
   const renderButtomIfNotEmpty = () => {
-    if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
+    if (shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto.length > 0) {
       return (
         <button onClick={showMainPayment}>Realizar Compra</button>
       );
@@ -83,7 +96,7 @@ export const ShoppingCart = ({ showShoppingCart, modelProductsShoppingCart, remo
         <div className="div-footer">
           <div>
             <h2>Total:</h2>
-            <h2>{modelProductsShoppingCart.totalPriceShoppingCartDto}</h2>
+            <h2>{shoppingCartModel.modelShoppingCart.totalPriceShoppingCartDto}</h2>
           </div>
           {renderButtomIfNotEmpty()}
         </div>

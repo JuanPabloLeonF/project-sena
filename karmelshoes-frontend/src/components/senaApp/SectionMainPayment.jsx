@@ -5,11 +5,16 @@ import "/src/css/styleSectionMainPayment.css"
 import { FormularyPaymentInformation } from "./FormularyPaymentInformation";
 import { FormularyPaymentDelivery } from "./FormularyPaymentDelivery";
 
-export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelProductWithColorsAndSizes, modelProductsShoppingCart, setDataShoppingCartModel }) => {
+export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelProductWithColorsAndSizes, shoppingCartModel, setDataShoppingCartModel }) => {
 
     const [dataFormulary, setDataFormulary] = useState(clienteOrAdmin);
     const [errors, setErrors] = useState({});
     const [activeFormularyPayment, setActiveFormularyPayment] = useState(true);
+    const [activateRenderMessage, setActivateRenderMessage] = useState(false);
+
+    const renderActivateMessage = () => {
+        setActivateRenderMessage(true);
+    }
 
     function interval() {
         setTimeout(() => {
@@ -49,9 +54,9 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
     }
 
     const renderListOrEmpty = () => {
-        if (modelProductsShoppingCart.productEntitiesShoppingCartDto) {
+        if (shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto) {
             const uniqueProductIds = new Set();
-            const uniqueProducts = Object.values(modelProductsShoppingCart.productEntitiesShoppingCartDto).filter(product => {
+            const uniqueProducts = Object.values(shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto).filter(product => {
                 if (!uniqueProductIds.has(product.id)) {
                     uniqueProductIds.add(product.id);
                     return true;
@@ -73,7 +78,7 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
                 <ItemProductPayment
                     key={index}
                     product={product}
-                    quantity={getProductQuantity(product.id, modelProductsShoppingCart.productEntitiesShoppingCartDto)}
+                    quantity={getProductQuantity(product.id, shoppingCartModel.modelShoppingCart.productEntitiesShoppingCartDto)}
                 />
             ));
 
@@ -100,7 +105,8 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
                     handlerOnChange={handlerOnChange}
                     errors={errors}
                     dataFormulary={dataFormulary}
-                />)
+                />
+            )
         } else {
 
 
@@ -108,8 +114,9 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
                 <FormularyPaymentDelivery
                     backArrow={backArrow}
                     dataFormulary={dataFormulary}
-                    modelProductsShoppingCart={modelProductsShoppingCart}
+                    modelProductsShoppingCart={shoppingCartModel.modelShoppingCart}
                     setDataShoppingCartModel={setDataShoppingCartModel}
+                    renderActivateMessage={renderActivateMessage}
                 />
             )
         }
@@ -139,12 +146,18 @@ export const SectionMainPayment = ({ showMainPayment, clienteOrAdmin, listModelP
                             </div>
                             <div className="section-body-container-three-div-payment">
                                 <h3>TOTAL:</h3>
-                                <h3>{modelProductsShoppingCart.totalPriceShoppingCartDto}</h3>
+                                <h3>{shoppingCartModel.modelShoppingCart.totalPriceShoppingCartDto}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
+                {activateRenderMessage &&
+                    <section className="activate-message-payment scale-up-vertical-top">
+                        <h4>Compra Exitosa</h4>
+                    </section>
+                }
             </section>
+
         </>
     );
 }

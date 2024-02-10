@@ -3,7 +3,13 @@ import { createSalesByIdShoppingCart, generatePDFInvoice } from "../../services/
 import { createByIdClientOneShoppingCart } from "../../services/shoppingCartServices";
 
 /* eslint-disable react/prop-types */
-export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProductsShoppingCart, setDataShoppingCartModel }) => {
+export const FormularyPaymentDelivery = ({
+    dataFormulary,
+    backArrow,
+    modelProductsShoppingCart,
+    setDataShoppingCartModel,
+    renderActivateMessage
+}) => {
 
     const [activatePaypal, setActivatePaypal] = useState(true);
     const [dataFormularyTarget, setDataFormularyTarget] = useState({
@@ -74,6 +80,8 @@ export const FormularyPaymentDelivery = ({ dataFormulary, backArrow, modelProduc
             } catch (error) {
                 console.log(error);
             }
+
+            renderActivateMessage();
 
             setDataFormularyTarget({
                 target: "",

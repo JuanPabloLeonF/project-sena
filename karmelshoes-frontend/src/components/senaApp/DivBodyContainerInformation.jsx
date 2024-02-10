@@ -1,10 +1,11 @@
-export const DivBodyContainerInformation = () => {
+/* eslint-disable react/prop-types */
+export const DivBodyContainerInformation = ({totalProducts}) => {
   return (
     <>
       <div className="body-container-information">
         <div className="left-container">
           <h2>Total De Productos</h2>
-          <h2>{4}</h2>
+          <h2>{totalProducts}</h2>
           <h2>Direccion Mas Usada</h2>
           <h2>{"No se una calle cualquiera"}</h2>
         </div>

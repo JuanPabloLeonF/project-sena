@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { DivTheProduct } from "./DivTheProduct";
