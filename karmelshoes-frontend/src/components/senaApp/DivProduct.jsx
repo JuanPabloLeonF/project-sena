@@ -35,24 +35,17 @@ export const DivProduct = ({ product, showDetailsProduct, setDataDetailsProduct 
   }
 
   return (
-    <div className="div-product">
-      <div className="div-head">
-        <div>
-          <img onClick={handlerAddToShoppingCart} className="img-1" src={imageSrc} alt="imagen del poruducto" />
+    <>
+      <div className="div-product">
+        <div className="div-head">
+          <div>
+            <img style={{width: "100px", height: "80px"}} onClick={handlerAddToShoppingCart} className="img-1" src={imageSrc} alt="imagen del poruducto" />
+          </div>
+        </div>
+        <div className="div-color">
+          <p>{product.name}</p>
         </div>
       </div>
-      <div className="div-description">
-        <h4>Tipo:</h4>
-        <p>{product.description}</p>
-      </div>
-      <div className="div-price">
-        <h4>Precio:</h4>
-        <p>{product.price}</p>
-      </div>
-      <div className="div-color">
-        <h4>Nombre:</h4>
-        <p>{product.name}</p>
-      </div>
-    </div>
+    </>
   );
 };

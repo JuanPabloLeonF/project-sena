@@ -10,7 +10,7 @@ export const ContainerMenuProductChild = ({ dataTableProductAvailable }) => {
   const handlerOnClickBoy = async () => {
     setSelectedCategory("boy");
     try {
-      const data = await getAllProductPageByGender(0, 9, "NIÑO");
+      const data = await getAllProductPageByGender(0, 8, "NIÑO");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -20,7 +20,7 @@ export const ContainerMenuProductChild = ({ dataTableProductAvailable }) => {
   const handlerOnClickGirl = async () => {
     setSelectedCategory("girl");
     try {
-      const data = await getAllProductPageByGender(0, 9, "NIÑA");
+      const data = await getAllProductPageByGender(0, 8, "NIÑA");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);

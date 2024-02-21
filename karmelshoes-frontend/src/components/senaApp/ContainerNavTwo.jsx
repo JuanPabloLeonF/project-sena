@@ -15,7 +15,7 @@ export const ContainerNavTwo = ({
   const handlerOnClickLinkOne = async () => {
     showLady();
     try {
-      const data = await getAllProductPageByGender(0, 9, "DAMA");
+      const data = await getAllProductPageByGender(0, 8, "DAMA");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -25,7 +25,7 @@ export const ContainerNavTwo = ({
   const handlerOnClickLinkTwo = async () => {
     showGentleman();
     try {
-      const data = await getAllProductPageByGender(0, 9, "CABALLERO");
+      const data = await getAllProductPageByGender(0, 8, "CABALLERO");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ export const ContainerNavTwo = ({
   const handlerOnClickLinkThree = async () => {
     showBoy();
     try {
-      const data = await getAllProductPageByGender(0, 9, "NIÑ");
+      const data = await getAllProductPageByGender(0, 8, "NIÑ");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);

@@ -32,9 +32,9 @@ export const DivTheProduct = ({ isAutoScrollEnabled, products = [] }) => {
         drag="x"
         dragConstraints={{
           right: 0,
-          left: -(uniqueProducts.length * 180 * repetitions) // Ajusta el ancho del producto según tu diseño
+          left: -(uniqueProducts.length * 180 * repetitions)
         }}
-        animate={{ x: -(currentIndex % uniqueProducts.length) * 180 }} // Ajusta el ancho del producto según tu diseño
+        animate={{ x: -(currentIndex % uniqueProducts.length) * 180 }}
       >
         {Array.from({ length: repetitions }, (_, i) => (
           <React.Fragment key={i}>

@@ -80,7 +80,7 @@ export const SenaApp = () => {
     password,
   } = state.clienteOrAdmin;
 
-  
+
 
   useEffect(() => {
     if (login.user) {
@@ -189,7 +189,11 @@ export const SenaApp = () => {
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}
             />
-            <DivShowProduct dataTableProductAvailable={state.dataTableProductAvailable} showDetailsProduct={showDetailsProduct} setDataDetailsProduct={setDataDetailsProduct} />
+            <DivShowProduct
+              dataTableProductAvailable={state.dataTableProductAvailable}
+              showDetailsProduct={showDetailsProduct}
+              setDataDetailsProduct={setDataDetailsProduct}
+            />
             {state.activeDetailsProduct && <SectionDetailsProduct
               shoppingCartModel={state.shoppingCartModel}
               setModelProductsShoppingCart={setModelProductsShoppingCart}
@@ -201,7 +205,7 @@ export const SenaApp = () => {
           </>
         );
       case state.activePurchaseHistory:
-        return <PurchaseHistory initPage={initPage} clientOrAdmin={state.clienteOrAdmin}/>;
+        return <PurchaseHistory initPage={initPage} clientOrAdmin={state.clienteOrAdmin} />;
       case state.activeDataAdmin:
         return (
           <SectionDataAdmin
