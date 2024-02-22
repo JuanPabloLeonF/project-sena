@@ -66,6 +66,7 @@ export const SenaApp = () => {
     setDataShoppingCartModel,
     removeProductShoppingCart,
     showMainPayment,
+    setCurrentPageProductAvalable,
   } = useStateSenaApp();
 
   const {
@@ -193,6 +194,9 @@ export const SenaApp = () => {
               dataTableProductAvailable={state.dataTableProductAvailable}
               showDetailsProduct={showDetailsProduct}
               setDataDetailsProduct={setDataDetailsProduct}
+              setCurrentPageProductAvalable={setCurrentPageProductAvalable}
+              currentPageProductAvalable={state.currentPageProductAvalable}
+              totalPagesProductAvailable={state.totalPagesProductAvailable}
             />
             {state.activeDetailsProduct && <SectionDetailsProduct
               shoppingCartModel={state.shoppingCartModel}
@@ -303,6 +307,7 @@ export const SenaApp = () => {
           activePurchaseHistory={state.activePurchaseHistory}
           showNavPerfil={showNavPerfil}
           login={login}
+          currentPageProductAvalable={state.currentPageProductAvalable}
         />
       );
     }

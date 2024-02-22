@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getAllProductPageByGender } from "../../services/productsService";
 
 export const ContainerNavTwo = ({
+  currentPageProductAvalable,
   dataTableProductAvailable,
   showLady,
   showGentleman,
@@ -15,7 +16,7 @@ export const ContainerNavTwo = ({
   const handlerOnClickLinkOne = async () => {
     showLady();
     try {
-      const data = await getAllProductPageByGender(0, 8, "DAMA");
+      const data = await getAllProductPageByGender( currentPageProductAvalable-1 , 8, "DAMA");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);

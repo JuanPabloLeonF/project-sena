@@ -92,7 +92,6 @@ export const useStateSenaApp = () => {
 
   const showLoging = () => {
     dispatch({ type: "SHOW_LOGING" });
-    //state.ac;
   };
 
   const showShoppingCart = () => {
@@ -168,6 +167,20 @@ export const useStateSenaApp = () => {
       payload: currentPageProduct,
     });
   };
+
+  const setCurrentPageProductAvalable = (currentPageProduct) => {
+    dispatch({
+      type: "SET_CURRENT_PAGE_TABLE_PRODUCT_AVAILABLE",
+      payload: currentPageProduct,
+    })
+  }
+
+  const setTotalPageProductAvalible = (totalPagesProduct) => {
+    dispatch({
+      type: "SET_TOTAL_PAGE_TABLE_PRODUCT_AVAILABLE",
+      payload: totalPagesProduct,
+    })
+  }
 
   const showDataAdmin = () => {
     dispatch({ type: "SHOW_DATA_ADMIN" });
@@ -263,7 +276,7 @@ export const useStateSenaApp = () => {
 
   const dataTableProductAvailable = (data) => {
     const arrayData = normalizeClientDataArrayProduct(data.content);
-    setTotalPagesProduct(data.totalPages);
+    setTotalPageProductAvalible(data.totalPages);
     dispatch({ type: "DATA_TABLE_PRODUCT_AVAILABLE", payload: arrayData });
   }
 
@@ -326,5 +339,6 @@ export const useStateSenaApp = () => {
     setDataShoppingCartModel,
     removeProductShoppingCart,
     showMainPayment,
+    setCurrentPageProductAvalable,
   };
 };

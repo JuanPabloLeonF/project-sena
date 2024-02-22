@@ -6,6 +6,7 @@ import { ContainerNavThree } from "./ContainerNavThree";
 import "/src/css/styleNav.css";
 
 export const Nav = ({
+  currentPageProductAvalable,
   dataTableProductAvailable,
   showShoppingCart,
   showLady,
@@ -40,6 +41,7 @@ export const Nav = ({
           activePurchaseHistory={activePurchaseHistory}
         />
         <ContainerNavTwo
+          currentPageProductAvalable={currentPageProductAvalable}
           dataTableProductAvailable={dataTableProductAvailable}
           showLady={showLady}
           showGentleman={showGentleman}

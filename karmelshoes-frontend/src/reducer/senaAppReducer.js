@@ -403,13 +403,22 @@ export const senaAppReducer = (state = {}, action) => {
         listModelProductWithColorsAndSizes: [...state.listModelProductWithColorsAndSizes, action.payload],
       };
     }
-
     case "SET_LIST_MODEL_PRODUCT_COLORS_SIZES_INITIAL": {
       return {
         ...state,
         listModelProductWithColorsAndSizes: [],
       };
     }
+    case "SET_CURRENT_PAGE_PRODUCT_AVALABLE":
+      return {
+        ...state,
+        currentPageProductAvalable: action.payload,
+      };
+    case "SET_TOTAL_PAGE_PRODUCT_AVALABLE":
+      return {
+        ...state,
+        totalPagesProductAvailable: action.payload,
+      }
     default:
       return state;
   }

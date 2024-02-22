@@ -20,6 +20,8 @@ export const initialStatePageSenaApp = {
   activePurchaseHistory: false,
   activeNavPerfil: false,
   clienteOrAdmin: clientModelId,
+  currentPageProductAvalable: 1,
+  totalPagesProductAvailable: 0,
   currentPage: 1,
   currentPageProduct: 1,
   totalPages: 0,

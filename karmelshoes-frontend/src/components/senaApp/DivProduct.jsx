@@ -38,9 +38,7 @@ export const DivProduct = ({ product, showDetailsProduct, setDataDetailsProduct 
     <>
       <div className="div-product">
         <div className="div-head">
-          <div>
-            <img style={{width: "100px", height: "80px"}} onClick={handlerAddToShoppingCart} className="img-1" src={imageSrc} alt="imagen del poruducto" />
-          </div>
+          <img onClick={handlerAddToShoppingCart} className="img-1" src={imageSrc} alt="imagen del poruducto" />
         </div>
         <div className="div-color">
           <p>{product.name}</p>
