@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { getAllProductPageByGenderByModelAndProductType } from "../../services/productsService";
 
-export const ContainerBoy = ({dataTableProductAvailable}) => {
+export const ContainerBoy = ({dataTableProductAvailable, currentPageProductAvalable}) => {
 
   const handlerShowAllProductsShoe = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "ZAPATOS", "BO");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "ZAPATOS", "BO");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -14,7 +14,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsCategoryBootes = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "ZAPATOS", "BOTINES");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "ZAPATOS", "BOTINES");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -22,7 +22,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
   }
   const handlerShowProductCategoryBoots = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "ZAPATOS", "BOTAS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "ZAPATOS", "BOTAS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductCategorySneakers = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "TENIS", "SNEAKERS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "TENIS", "SNEAKERS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -40,7 +40,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsCategoryPlatforms = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "TENIS", "PLATAFORMAS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "TENIS", "PLATAFORMAS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsCategoryWithoutCords = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "TENIS", "SIN CORDONES");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "TENIS", "SIN CORDONES");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -58,7 +58,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsCategorySports = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "TENIS", "DEPORTIVOS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "TENIS", "DEPORTIVOS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowAllProductsTennis = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "TENIS", "S");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "TENIS", "S");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -76,7 +76,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsSandalsFlats = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "SANDALIAS", "PLANAS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "SANDALIAS", "PLANAS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -85,7 +85,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductSandalsPlatform = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "SANDALIAS", "PLATAFORMAS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "SANDALIAS", "PLATAFORMAS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -94,7 +94,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowAllProductSandals = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "SANDALIAS", "S");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "SANDALIAS", "S");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);
@@ -103,7 +103,7 @@ export const ContainerBoy = ({dataTableProductAvailable}) => {
 
   const handlerShowProductsSandalsMedium = async () => {
     try {
-      const data = await getAllProductPageByGenderByModelAndProductType(0, 9, "NIÑO", "SANDALIAS", "MEDIANAS");
+      const data = await getAllProductPageByGenderByModelAndProductType(currentPageProductAvalable - 1, 8, "NIÑO", "SANDALIAS", "MEDIANAS");
       dataTableProductAvailable(data);
     } catch (error) {
       console.log(error);

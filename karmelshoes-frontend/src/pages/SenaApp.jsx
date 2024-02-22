@@ -189,6 +189,7 @@ export const SenaApp = () => {
               activeChild={state.activeChild}
               activeLady={state.activeLady}
               activeGentleman={state.activeGentleman}
+              currentPageProductAvalable={state.currentPageProductAvalable}
             />
             <DivShowProduct
               dataTableProductAvailable={state.dataTableProductAvailable}

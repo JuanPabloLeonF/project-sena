@@ -4,10 +4,10 @@ export const Footer = () => {
   return (
     <>
       <footer className="footer">
-        <a href="">
+        <a type="button">
           <img src="/src/assets/imgs/whatsapp.svg" alt="" />
         </a>
-        <a href="">
+        <a type="button" >
           <img src="/src/assets/imgs/instagram.svg" alt="" />
         </a>
       </footer>

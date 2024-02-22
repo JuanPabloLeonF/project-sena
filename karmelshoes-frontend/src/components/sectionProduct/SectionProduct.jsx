@@ -6,7 +6,7 @@ import "/src/css/styleLady.css";
 import "/src/css/styleGentleman.css";
 import "/src/css/styleChild.css";
 
-export const SectionProduct = ({activeLady, activeGentleman, activeChild, dataTableProductAvailable}) => {
+export const SectionProduct = ({ activeLady, activeGentleman, activeChild, dataTableProductAvailable, currentPageProductAvalable }) => {
 
   const sectionClassName = () => {
     if (activeLady || activeGentleman) {
@@ -20,11 +20,20 @@ export const SectionProduct = ({activeLady, activeGentleman, activeChild, dataTa
 
   const renderProductContainer = () => {
     if (activeLady) {
-      return <ContainerMenuProductLady dataTableProductAvailable={dataTableProductAvailable} />;
+      return <ContainerMenuProductLady
+        dataTableProductAvailable={dataTableProductAvailable}
+        currentPageProductAvalable={currentPageProductAvalable}
+      />;
     } else if (activeGentleman) {
-      return <ContainerMenuProductGentleman dataTableProductAvailable={dataTableProductAvailable} />;
+      return <ContainerMenuProductGentleman
+        dataTableProductAvailable={dataTableProductAvailable}
+        currentPageProductAvalable={currentPageProductAvalable}
+      />;
     } else if (activeChild) {
-      return <ContainerMenuProductChild dataTableProductAvailable={dataTableProductAvailable} />;
+      return <ContainerMenuProductChild
+        dataTableProductAvailable={dataTableProductAvailable}
+        currentPageProductAvalable={currentPageProductAvalable}
+      />;
     } else {
       return null;
     }

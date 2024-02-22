@@ -170,14 +170,14 @@ export const useStateSenaApp = () => {
 
   const setCurrentPageProductAvalable = (currentPageProduct) => {
     dispatch({
-      type: "SET_CURRENT_PAGE_TABLE_PRODUCT_AVAILABLE",
+      type: "SET_CURRENT_PAGE_PRODUCT_AVALABLE",
       payload: currentPageProduct,
     })
   }
 
   const setTotalPageProductAvalible = (totalPagesProduct) => {
     dispatch({
-      type: "SET_TOTAL_PAGE_TABLE_PRODUCT_AVAILABLE",
+      type: "SET_TOTAL_PAGE_PRODUCT_AVALABLE",
       payload: totalPagesProduct,
     })
   }

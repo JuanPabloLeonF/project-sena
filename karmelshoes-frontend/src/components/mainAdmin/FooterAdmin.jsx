@@ -12,8 +12,6 @@ export const FooterAdmin = ({
   totalPagesProduct,
   setCurrentPageProduct,
 }) => {
-
-  console.log("activeMainProductsSales: ", activeMainProductsSales)
   return (
     <>
       <footer className="section-pagination">
