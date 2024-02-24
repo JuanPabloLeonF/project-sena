@@ -5,6 +5,7 @@
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   grid-template-columns: auto 30%;
+  z-index: 100;
 }
 
 .div-showShoppingCart .div-ShoopingCart:nth-child(1) {

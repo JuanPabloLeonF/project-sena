@@ -6,6 +6,7 @@
   grid-template-columns: 35% auto 35%;
   grid-template-rows: 30% auto 20%;
   background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
 }
 
 .main-loging .div-loging {

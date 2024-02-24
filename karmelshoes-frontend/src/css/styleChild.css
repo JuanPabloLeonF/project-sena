@@ -8,6 +8,7 @@
   grid-template-columns: auto 30% 15% 15% 30% auto;
   grid-template-rows: 22% 40% 20% auto;
   pointer-events: none;
+  z-index: 10;
 }
 
 .container-girl {

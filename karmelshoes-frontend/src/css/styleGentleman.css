@@ -9,6 +9,7 @@
   align-items: stretch;
   justify-items: center;
   pointer-events: all;
+  z-index: 10;
 } 
 
 .container-menu-product-man h2 {

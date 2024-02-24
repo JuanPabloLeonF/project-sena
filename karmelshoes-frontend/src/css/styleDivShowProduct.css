@@ -4,9 +4,11 @@
   margin: 0;
   padding: 0;
   height: 450px;
+  margin-top: 50px;
   grid-template-columns: 1fr;
   grid-template-rows: 90% auto;
   background-color: rgb(255, 255, 255);
+  
 }
 
 .show-products-section {
@@ -44,7 +46,7 @@
 }
 
 .div-product {
-  position: relative; /* Agrega posición relativa al contenedor principal */
+  position: relative;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   width: 60%;
