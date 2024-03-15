@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 18% auto 18%;
   grid-template-rows: 15% auto 15%;
+  z-index: 99;
 }
 
 .section-main-payment-div {
