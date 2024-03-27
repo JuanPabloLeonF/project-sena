@@ -26,7 +26,7 @@ export const MainWhoWeAre = () => {
           y la contribución al desarrollo sostenible de las comunidades
           colombianas. Queremos dejar una huella positiva en la industria y en
           la sociedad, siendo un ejemplo de éxito y compromiso con nuestra
-          cultura y tradición.F
+          cultura y tradición.
         </p>
       </main>
     </>

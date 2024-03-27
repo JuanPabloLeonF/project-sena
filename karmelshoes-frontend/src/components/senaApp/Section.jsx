@@ -1,14 +1,28 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import "/src/css/styleSection.css"
+import "/src/css/styleSection.css";
 
-export const Section = () => {
-  return (
-    <>
+export const Section = ({login, showLoging, showRegistrer, handlerLogout, name}) => {
+
+  const renderSectionIfIsAuth = () => {
+    if (!login.isAuth) {
+      return (
+        <section className="section">
+          <h2>Calzado</h2>
+          <Link onClick={showRegistrer}>Registrarse</Link>
+          <Link onClick={showLoging}>Inicio</Link>
+        </section>
+      );
+    } else {
+      return (
       <section className="section">
-        <h2>Calzado</h2>
-        <Link to={"/registration"}>Registrarse</Link>
-          <a href="">Inicio</a>
+        <h2>Bienvenido</h2>
+        <Link onClick={handlerLogout}>Cerrar Sesion</Link>
+        <h2 className="h2-name">{name}</h2>
       </section>
-    </>
-  );
+      );
+    }
+  };
+
+  return <>{renderSectionIfIsAuth()}</>;
 };
